@@ -3,7 +3,47 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Morten Lundum-Nørgaard</title>
+  <title>Morten Lundum-Nørgaard — Data Engineer & Designer</title>
+  <meta name="description" content="Morten Lundum-Nørgaard — fra elektriker til data engineer. Jeg bygger ML-modeller, AI-agenter og interaktive datavisualiseringer hvor solid teknik og godt design mødes." />
+  <meta name="author" content="Morten Lundum-Nørgaard" />
+  <meta name="theme-color" content="#0D0D0D" />
+
+  <!-- Canonical & social -->
+  <link rel="canonical" href="https://mlnorgaard.com/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Morten Lundum-Nørgaard — Data Engineer & Designer" />
+  <meta property="og:description" content="ML-modeller, AI-agenter og interaktive datavisualiseringer hvor solid teknik og godt design mødes." />
+  <meta property="og:url" content="https://mlnorgaard.com/" />
+  <meta property="og:image" content="https://mlnorgaard.com/assets/projects/patterniseverything.png" />
+  <meta property="og:locale" content="da_DK" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Morten Lundum-Nørgaard — Data Engineer & Designer" />
+  <meta name="twitter:description" content="ML-modeller, AI-agenter og interaktive datavisualiseringer hvor solid teknik og godt design mødes." />
+  <meta name="twitter:image" content="https://mlnorgaard.com/assets/projects/patterniseverything.png" />
+
+  <!-- Favicon: lime M på mørk baggrund, inline SVG (ingen ekstra request) -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20100%20100'%3E%3Crect%20width='100'%20height='100'%20rx='20'%20fill='%230D0D0D'/%3E%3Ctext%20x='50'%20y='70'%20font-family='monospace'%20font-size='60'%20font-weight='700'%20fill='%23C8FF00'%20text-anchor='middle'%3EM%3C/text%3E%3C/svg%3E" />
+
+  <!-- Structured data: Person -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Morten Lundum-Nørgaard",
+    "jobTitle": "Data Engineer & Designer",
+    "address": { "@type": "PostalAddress", "addressLocality": "Aarhus", "addressCountry": "DK" },
+    "email": "m.lundum.andersen@gmail.com",
+    "url": "https://mlnorgaard.com/",
+    "sameAs": [
+      "https://www.linkedin.com/in/morten-lundum-n%C3%B8rgaard-420361222/",
+      "https://github.com/M-LN",
+      "https://patterniseverything.com"
+    ]
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -13,7 +53,7 @@
       --surface: #141414;
       --card:    #1A1A1A;
       --divider: #2A2A2A;
-      --muted:   #555;
+      --muted:   #7d7d7d;
       --white:   #F0F0F0;
       --dim:     #888;
       --lime:    #C8FF00;
@@ -782,6 +822,32 @@
       .modal-detail-grid { grid-template-columns: 1fr; }
       .modal-body { padding: 1.25rem; }
     }
+
+    /* ── FOCUS VISIBILITY (keyboard) ── */
+    a:focus-visible,
+    button:focus-visible,
+    .project-card:focus-visible,
+    .contact-link:focus-visible {
+      outline: 2px solid var(--lime);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+
+    /* ── REDUCED MOTION ── */
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+      }
+      /* Sørg for at elementer der starter usynlige bliver synlige uden animation */
+      .hero-eyebrow, .hero-name, .hero-tagline,
+      .terminal-block, .hero-cta, .hero-scroll { opacity: 1 !important; }
+      .skill-fill { transform: scaleX(1) !important; }
+      /* Stop uendelige SVG-animationer i preview-grafikken */
+      .preview-svg animate { display: none; }
+    }
   </style>
 </head>
 <body>
@@ -796,9 +862,9 @@
         <li><a href="#about" data-da="Om mig" data-en="About">Om mig</a></li>
         <li><a href="#contact" data-da="Kontakt" data-en="Contact">Kontakt</a></li>
       </ul>
-      <div class="lang-toggle">
-        <a class="lang-btn active" data-lang="da" href="#" onclick="return false;">DA</a>
-        <a class="lang-btn" data-lang="en" href="#" onclick="return false;">EN</a>
+      <div class="lang-toggle" role="group" aria-label="Sprog / Language">
+        <button type="button" class="lang-btn active" data-lang="da" aria-pressed="true">DA</button>
+        <button type="button" class="lang-btn" data-lang="en" aria-pressed="false">EN</button>
       </div>
     </div>
   </nav>
@@ -836,9 +902,9 @@
     <div class="projects-grid">
 
       <!-- FEATURED: patterniseverything.com -->
-      <div class="project-card featured" onclick="openModal('pie')" style="cursor:pointer;">
+      <div class="project-card featured" onclick="openModal('pie')" role="button" tabindex="0" aria-haspopup="dialog" style="cursor:pointer;">
         <div class="project-preview" style="background:#060a10;">
-          <img class="preview-img" src="assets/projects/patterniseverything.png" alt="patterniseverything.com preview">
+          <img class="preview-img" src="assets/projects/patterniseverything.png" alt="Skærmbillede af patterniseverything.com" width="680" height="240" decoding="async">
         </div>
         <div class="project-body">
           <p class="project-tag">Vanilla JS · CSS · D3 · Canvas</p>
@@ -849,9 +915,9 @@
       </div>
 
       <!-- In-Silico Dashboard -->
-      <div class="project-card" onclick="openModal('tr2')" style="cursor:pointer;">
+      <div class="project-card" onclick="openModal('tr2')" role="button" tabindex="0" aria-haspopup="dialog" style="cursor:pointer;">
         <div class="project-preview" style="background:#080f08;">
-          <img class="preview-img" src="assets/projects/genx-dashboard.png" alt="In-Silico Dashboard preview">
+          <img class="preview-img" src="assets/projects/genx-dashboard.png" alt="Skærmbillede af In-Silico Dashboard" width="340" height="200" loading="lazy" decoding="async">
         </div>
         <div class="project-body">
           <p class="project-tag">Python · Plotly · ML · Simulering</p>
@@ -861,9 +927,9 @@
       </div>
 
       <!-- TVDP Agent -->
-      <div class="project-card" onclick="openModal('tvdp')" style="cursor:pointer;">
+      <div class="project-card" onclick="openModal('tvdp')" role="button" tabindex="0" aria-haspopup="dialog" style="cursor:pointer;">
         <div class="project-preview" style="background:#0d0608;">
-          <img class="preview-img" src="assets/projects/tvdp-agent.png" alt="TVDP Agent preview">
+          <img class="preview-img" src="assets/projects/tvdp-agent.png" alt="Skærmbillede af TVDP Agent" width="340" height="200" loading="lazy" decoding="async">
         </div>
         <div class="project-body">
           <p class="project-tag">GitHub Copilot · Python · ADX</p>
@@ -873,9 +939,9 @@
       </div>
 
       <!-- AI Estimation Playground -->
-      <div class="project-card" onclick="openModal('gp')" style="cursor:pointer;">
+      <div class="project-card" onclick="openModal('gp')" role="button" tabindex="0" aria-haspopup="dialog" style="cursor:pointer;">
         <div class="project-preview" style="background:#08080f;">
-          <img class="preview-img" src="assets/projects/gp-lab.png" alt="AI Estimation Playground preview">
+          <img class="preview-img" src="assets/projects/gp-lab.png" alt="Skærmbillede af AI Estimation Playground" width="340" height="200" loading="lazy" decoding="async">
         </div>
         <div class="project-body">
           <p class="project-tag">HTML · Kalman · GP · RNN · LSTM</p>
@@ -1005,7 +1071,7 @@
           <div class="stat-label" data-da="År med Vestas — fra testhal til datapipeline" data-en="Years at Vestas — from test floor to data pipeline">År med Vestas — fra testhal til datapipeline</div>
         </div>
         <div class="stat-item">
-          <div class="stat-number">254</div>
+          <div class="stat-number">249</div>
           <div class="stat-label" data-da="Interaktive emner på patterniseverything.com" data-en="Interactive topics on patterniseverything.com">Interaktive emner på patterniseverything.com</div>
         </div>
         <div class="stat-item">
@@ -1025,29 +1091,29 @@
         <p class="contact-sub" data-da="Jeg er altid interesseret i spændende projekter, nye samarbejder eller bare en god snak om data og design." data-en="I'm always open to exciting projects, new collaborations or just a good conversation about data and design.">Jeg er altid interesseret i spændende projekter, nye samarbejder eller bare en god snak om data og design.</p>
       </div>
       <div class="contact-links">
-        <a href="mailto:m.lundum.andersen@gmail.com" class="contact-link">
-          <span class="contact-link-icon">✉</span>
+        <a href="mailto:m.lundum.andersen@gmail.com" class="contact-link" aria-label="Send email til m.lundum.andersen@gmail.com">
+          <span class="contact-link-icon" aria-hidden="true">✉</span>
           <div>
             <div>m.lundum.andersen@gmail.com</div>
             <div class="contact-link-label" data-da="Email" data-en="Email">Email</div>
           </div>
         </a>
-        <a href="https://www.linkedin.com/in/morten-lundum-n%C3%B8rgaard-420361222/" target="_blank" class="contact-link">
-          <span class="contact-link-icon">in</span>
+        <a href="https://www.linkedin.com/in/morten-lundum-n%C3%B8rgaard-420361222/" target="_blank" rel="noopener noreferrer" class="contact-link" aria-label="Morten Lundum-Nørgaard på LinkedIn">
+          <span class="contact-link-icon" aria-hidden="true">in</span>
           <div>
             <div>Morten Lundum-Nørgaard</div>
             <div class="contact-link-label">LinkedIn</div>
           </div>
         </a>
-        <a href="https://github.com/M-LN" target="_blank" class="contact-link">
-          <span class="contact-link-icon">⌥</span>
+        <a href="https://github.com/M-LN" target="_blank" rel="noopener noreferrer" class="contact-link" aria-label="github.com/M-LN — kode og projekter">
+          <span class="contact-link-icon" aria-hidden="true">⌥</span>
           <div>
             <div>github.com/M-LN</div>
             <div class="contact-link-label" data-da="Kode og projekter" data-en="Code and projects">Kode og projekter</div>
           </div>
         </a>
-        <a href="https://patterniseverything.com" target="_blank" class="contact-link">
-          <span class="contact-link-icon">◈</span>
+        <a href="https://patterniseverything.com" target="_blank" rel="noopener noreferrer" class="contact-link" aria-label="patterniseverything.com — mit ML-referencesite">
+          <span class="contact-link-icon" aria-hidden="true">◈</span>
           <div>
             <div>patterniseverything.com</div>
             <div class="contact-link-label" data-da="Mit ML-referencesite" data-en="My ML reference site">Mit ML-referencesite</div>
@@ -1068,19 +1134,39 @@
 
     // ── LANGUAGE TOGGLE ──
     var langBtns = document.querySelectorAll('.lang-btn');
+
+    function applyLang(lang) {
+      window.currentLang = lang;
+      langBtns.forEach(function(b) {
+        var on = b.getAttribute('data-lang') === lang;
+        b.classList.toggle('active', on);
+        b.setAttribute('aria-pressed', on ? 'true' : 'false');
+      });
+      document.documentElement.setAttribute('lang', lang);
+      document.querySelectorAll('[data-da][data-en]').forEach(function(node) {
+        var val = node.getAttribute('data-' + lang);
+        if (val !== null) node.innerHTML = val;
+      });
+      // Opdater modalens luk-knap label
+      var closeBtn = document.querySelector('.modal-close');
+      if (closeBtn) {
+        var lbl = closeBtn.getAttribute('data-' + lang + '-label');
+        if (lbl) closeBtn.setAttribute('aria-label', lbl);
+      }
+      try { localStorage.setItem('mln-lang', lang); } catch (err) {}
+    }
+
     langBtns.forEach(function(btn) {
-      btn.addEventListener('click', function(e) {
-        e.preventDefault();
-        var lang = this.getAttribute('data-lang');
-        langBtns.forEach(function(b) { b.classList.remove('active'); });
-        this.classList.add('active');
-        document.documentElement.setAttribute('lang', lang);
-        document.querySelectorAll('[data-da][data-en]').forEach(function(node) {
-          var val = node.getAttribute('data-' + lang);
-          if (val !== null) node.innerHTML = val;
-        });
+      btn.addEventListener('click', function() {
+        applyLang(this.getAttribute('data-lang'));
       });
     });
+
+    // Init: gem-valg → browsersprog → dansk default
+    var saved = null;
+    try { saved = localStorage.getItem('mln-lang'); } catch (err) {}
+    var initial = saved || ((navigator.language || 'da').slice(0, 2) === 'en' ? 'en' : 'da');
+    if (initial === 'en') applyLang('en'); // dansk er allerede aktiv i markup'en
 
     // ── TYPEWRITER ──
     var phrases = [
@@ -1118,9 +1204,8 @@
     setTimeout(type, 1200);
 
     // ── SKILL BARS on scroll ──
+    // Bredden sættes fra data-width; scaleX(0)→(1) i CSS står for selve animationen.
     var fills = document.querySelectorAll('.skill-fill');
-    fills.forEach(function(f) { f.style.width = '0%'; });
-
     var observer = new IntersectionObserver(function(entries) {
       entries.forEach(function(entry) {
         if (entry.isIntersecting) {
@@ -1135,13 +1220,23 @@
 
     fills.forEach(function(f) { observer.observe(f); });
 
+    // ── PROJECT CARDS: tastatur (Enter/Space åbner modal) ──
+    document.querySelectorAll('.project-card[role="button"]').forEach(function(card) {
+      card.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') {
+          e.preventDefault();
+          card.click();
+        }
+      });
+    });
+
   }); // end DOMContentLoaded
   </script>
 
   <!-- PROJECT MODAL -->
   <div class="modal-backdrop" id="projectModal" onclick="closeModal(event)">
-    <div class="modal" id="modalContent">
-      <button class="modal-close" onclick="closeModal(null, true)">✕</button>
+    <div class="modal" id="modalContent" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <button class="modal-close" onclick="closeModal(null, true)" aria-label="Luk / Close" data-da-label="Luk" data-en-label="Close">✕</button>
       <div class="modal-preview" id="modalPreview"></div>
       <div class="modal-body">
         <div class="modal-tag-row" id="modalTags"></div>
@@ -1277,19 +1372,48 @@
       ctaEl.innerHTML = '';
     }
 
-    document.getElementById('projectModal').classList.add('open');
+    lastFocused = document.activeElement;
+    var modal = document.getElementById('projectModal');
+    modal.classList.add('open');
     document.body.style.overflow = 'hidden';
+    // Flyt fokus ind i dialogen (efter den er synlig)
+    requestAnimationFrame(function() {
+      var closeBtn = modal.querySelector('.modal-close');
+      if (closeBtn) closeBtn.focus();
+    });
   }
 
+  var lastFocused = null;
+
   function closeModal(e, force) {
-    if (force || (e && e.target === document.getElementById('projectModal'))) {
-      document.getElementById('projectModal').classList.remove('open');
+    var modal = document.getElementById('projectModal');
+    if (force || (e && e.target === modal)) {
+      modal.classList.remove('open');
       document.body.style.overflow = '';
+      // Giv fokus tilbage til det kort der åbnede modalen
+      if (lastFocused && typeof lastFocused.focus === 'function') lastFocused.focus();
+      lastFocused = null;
     }
   }
 
   document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') closeModal(null, true);
+    var modal = document.getElementById('projectModal');
+    if (!modal.classList.contains('open')) return;
+
+    if (e.key === 'Escape') { closeModal(null, true); return; }
+
+    // ── FOCUS TRAP ── hold Tab inde i dialogen
+    if (e.key === 'Tab') {
+      var focusable = modal.querySelectorAll('a[href], button, [tabindex]:not([tabindex="-1"])');
+      if (!focusable.length) return;
+      var first = focusable[0];
+      var last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault(); last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault(); first.focus();
+      }
+    }
   });
   </script>
 
