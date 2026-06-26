@@ -561,13 +561,14 @@
       margin-bottom: 2.5rem;
     }
     .about-photo {
+      position: absolute;
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: center 35%;
+      object-position: center;
       display: block;
-      transform: rotate(-4deg) scale(1.12);
-      filter: brightness(0.62) contrast(1.12) saturate(0.78);
+      transform: rotate(90deg) scale(1.34);
+      filter: brightness(0.65) contrast(1.1) saturate(0.8);
     }
     /* scanlines texture */
     .about-photo-wrap::before {
@@ -590,33 +591,6 @@
       background: linear-gradient(to top, rgba(13,13,13,0.82) 0%, transparent 52%);
       z-index: 2;
       pointer-events: none;
-    }
-    /* corner brackets */
-    .photo-corner {
-      position: absolute;
-      width: 18px;
-      height: 18px;
-      z-index: 4;
-    }
-    .photo-corner.tl { top: 14px;  left: 14px;  border-top: 2px solid var(--lime); border-left: 2px solid var(--lime); }
-    .photo-corner.tr { top: 14px;  right: 14px; border-top: 2px solid var(--lime); border-right: 2px solid var(--lime); }
-    .photo-corner.bl { bottom: 40px; left: 14px;  border-bottom: 2px solid var(--lime); border-left: 2px solid var(--lime); }
-    .photo-corner.br { bottom: 40px; right: 14px; border-bottom: 2px solid var(--lime); border-right: 2px solid var(--lime); }
-    /* HUD label */
-    .photo-label {
-      position: absolute;
-      bottom: 14px;
-      left: 14px;
-      right: 14px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      z-index: 4;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 9px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--lime);
     }
 
     .about-text p {
@@ -1220,14 +1194,6 @@
       <div class="about-stats">
         <div class="about-photo-wrap">
           <img src="assets/morten.jpg" alt="Morten Lundum-Nørgaard" class="about-photo">
-          <div class="photo-corner tl"></div>
-          <div class="photo-corner tr"></div>
-          <div class="photo-corner bl"></div>
-          <div class="photo-corner br"></div>
-          <div class="photo-label">
-            <span>// MLN</span>
-            <span>56.16°N · 10.21°E</span>
-          </div>
         </div>
         <div class="stat-item">
           <div class="stat-number">14</div>
