@@ -556,7 +556,7 @@
       width: 100%;
       aspect-ratio: 3/4;
       overflow: hidden;
-      border-radius: 6px;
+      border-radius: 4px;
       background: var(--lime);
       margin-bottom: 2.5rem;
     }
@@ -566,16 +566,58 @@
       object-fit: cover;
       object-position: center 10%;
       image-orientation: from-image;
-      filter: grayscale(100%) contrast(1.1) brightness(0.9);
+      filter: grayscale(100%) contrast(1.18) brightness(0.82);
       mix-blend-mode: luminosity;
       display: block;
     }
+    /* scanlines texture */
+    .about-photo-wrap::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        to bottom,
+        transparent 0px, transparent 2px,
+        rgba(0,0,0,0.08) 2px, rgba(0,0,0,0.08) 3px
+      );
+      z-index: 1;
+      pointer-events: none;
+    }
+    /* bottom gradient */
     .about-photo-wrap::after {
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(to top, rgba(13,13,13,0.6) 0%, transparent 50%);
+      background: linear-gradient(to top, rgba(13,13,13,0.82) 0%, transparent 52%);
+      z-index: 2;
       pointer-events: none;
+    }
+    /* corner brackets */
+    .photo-corner {
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      z-index: 4;
+    }
+    .photo-corner.tl { top: 14px;  left: 14px;  border-top: 2px solid var(--lime); border-left: 2px solid var(--lime); }
+    .photo-corner.tr { top: 14px;  right: 14px; border-top: 2px solid var(--lime); border-right: 2px solid var(--lime); }
+    .photo-corner.bl { bottom: 40px; left: 14px;  border-bottom: 2px solid var(--lime); border-left: 2px solid var(--lime); }
+    .photo-corner.br { bottom: 40px; right: 14px; border-bottom: 2px solid var(--lime); border-right: 2px solid var(--lime); }
+    /* HUD label */
+    .photo-label {
+      position: absolute;
+      bottom: 14px;
+      left: 14px;
+      right: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 4;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--lime);
     }
 
     .about-text p {
@@ -1179,6 +1221,14 @@
       <div class="about-stats">
         <div class="about-photo-wrap">
           <img src="assets/morten.jpg" alt="Morten Lundum-Nørgaard" class="about-photo">
+          <div class="photo-corner tl"></div>
+          <div class="photo-corner tr"></div>
+          <div class="photo-corner bl"></div>
+          <div class="photo-corner br"></div>
+          <div class="photo-label">
+            <span>// MLN</span>
+            <span>56.16°N · 10.21°E</span>
+          </div>
         </div>
         <div class="stat-item">
           <div class="stat-number">14</div>
