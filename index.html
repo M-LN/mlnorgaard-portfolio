@@ -557,18 +557,17 @@
       aspect-ratio: 3/4;
       overflow: hidden;
       border-radius: 4px;
-      background: var(--lime);
+      background: #0d0d0d;
       margin-bottom: 2.5rem;
     }
     .about-photo {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: center 10%;
-      image-orientation: from-image;
-      filter: grayscale(100%) contrast(1.18) brightness(0.82);
-      mix-blend-mode: luminosity;
+      object-position: center 35%;
       display: block;
+      transform: rotate(-4deg) scale(1.12);
+      filter: brightness(0.62) contrast(1.12) saturate(0.78);
     }
     /* scanlines texture */
     .about-photo-wrap::before {
