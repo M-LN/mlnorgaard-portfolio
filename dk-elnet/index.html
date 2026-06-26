@@ -198,9 +198,8 @@
 <script>
 (() => {
   "use strict";
-  const API = "https://api.energidataservice.dk/dataset/";
+  const RAW = "https://raw.githubusercontent.com/M-LN/mlnorgaard-portfolio/main/data/";
   const REFRESH = 60_000;
-  const WINDOW_MIN = 180;
 
   const $ = id => document.getElementById(id);
   const fmt = (n, d=0) => n==null || isNaN(n) ? "–"
@@ -228,37 +227,19 @@
     if (c<200) return "Blandet";  return "Belastet";
   }
 
-  const PROXIES = [
-    u => u,
-    u => "https://corsproxy.io/?url="+encodeURIComponent(u),
-    u => "https://api.allorigins.win/raw?url="+encodeURIComponent(u)
-  ];
-  let activePath = 0;
-
-  async function fetchWithTimeout(url, ms=10000){
+  async function getJSON(dataset){
+    const file = dataset === "PowerSystemRightNow" ? "psrn.json" : "prices.json";
     const ctrl = new AbortController();
-    const t = setTimeout(() => ctrl.abort(), ms);
-    try { return await fetch(url,{signal:ctrl.signal,headers:{Accept:"application/json"}}); }
-    finally { clearTimeout(t); }
-  }
-
-  async function getJSON(dataset, params){
-    const qs = Object.entries(params)
-      .map(([k,v]) => encodeURIComponent(k)+"="+encodeURIComponent(v))
-      .join("&");
-    const target = API+dataset+"?"+qs;
-    let lastErr;
-    for (let i=0;i<PROXIES.length;i++){
-      try{
-        const res = await fetchWithTimeout(PROXIES[i](target));
-        if (!res.ok) throw new Error("HTTP "+res.status);
-        const j = await res.json();
-        if (!j || !j.records) throw new Error("uventet svar");
-        activePath = i;
-        return j.records;
-      }catch(e){ lastErr = e; }
+    const t = setTimeout(() => ctrl.abort(), 12000);
+    try {
+      const res = await fetch(RAW + file + "?_=" + Date.now(), {signal: ctrl.signal});
+      if (!res.ok) throw new Error("HTTP " + res.status);
+      const j = await res.json();
+      if (!j?.records?.length) throw new Error("data ikke klar endnu");
+      return j.records;
+    } finally {
+      clearTimeout(t);
     }
-    throw lastErr || new Error("ukendt fejl");
   }
 
   function renderNow(recs){
@@ -295,10 +276,9 @@
     const ts = r.Minutes1DK;
     const ageMin = (Date.now() - new Date(ts.replace(" ","T")).getTime())/60000;
     const u = $("updated");
-    const via = activePath>0 ? " · via proxy" : "";
     u.innerHTML = (ageMin>15)
-      ? `<span class="delayed">forsinket</span> seneste: ${hhmm(ts)}${via}`
-      : `opdateret ${hhmm(ts)}${via}`;
+      ? `<span class="delayed">forsinket</span> seneste: ${hhmm(ts)}`
+      : `opdateret ${hhmm(ts)}`;
   }
 
   function renderProd(recs){
@@ -415,10 +395,8 @@
   async function update(){
     try{
       const [psrn, prices] = await Promise.all([
-        getJSON("PowerSystemRightNow",
-          {start:`now-PT${WINDOW_MIN}M`, sort:"Minutes1UTC DESC", limit:200}),
-        getJSON("DayAheadPrices",
-          {filter:'{"PriceArea":["DK1","DK2"]}', sort:"TimeDK DESC", limit:120})
+        getJSON("PowerSystemRightNow"),
+        getJSON("DayAheadPrices")
       ]);
       if (!psrn.length) throw new Error("ingen produktionsdata");
 
@@ -436,10 +414,9 @@
       if (firstLoad){
         $("loading").classList.remove("skeleton");
         $("loading").innerHTML =
-          `<b>Kunne ikke hente live-data.</b><br>`+
-          `Forsøgte både direkte og via proxy — ${err.message}.<br>`+
-          `<span style="font-size:13px">Tjek din netforbindelse, eller hvis du er bag `+
-          `et firewall/VPN der blokerer api.energidataservice.dk.</span>`;
+          `<b>Kunne ikke hente data.</b><br>`+
+          `${err.message}<br>`+
+          `<span style="font-size:13px">Siden henter fra GitHub — tjek din netforbindelse.</span>`;
       }
     }
   }
