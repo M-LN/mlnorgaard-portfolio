@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Danmarks elnet · lige nu</title>
+<meta name="description" content="Live visning af det danske elnet — vind, sol, termisk produktion, CO₂-intensitet og spotpriser. Data fra Energinet (Energi Data Service).">
+<style>
+  /* ---------- tokens ---------- */
+  :root{
+    --ink:#0c1417;
+    --ink-2:#121e23;
+    --ink-3:#0a1013;
+    --line:#1f3138;
+    --haze:#7d949d;
+    --haze-2:#5a6f78;
+    --chalk:#e9f1f2;
+    --wind:#34b6c6;
+    --solar:#f2b441;
+    --thermal:#9a6f54;
+    --dk1:#34b6c6;
+    --dk2:#c4a3e8;
+    --live-accent:#43be8f;
+    --live-accent-soft:rgba(67,190,143,.14);
+    --r:14px;
+    --pad:clamp(16px,3.5vw,30px);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{
+    background:
+      radial-gradient(120% 80% at 80% -10%, #14242b 0%, rgba(20,36,43,0) 55%),
+      var(--ink);
+    color:var(--chalk);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+    line-height:1.5;
+    min-height:100vh;
+  }
+  .num{font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1;
+       font-family:ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace;}
+  .wrap{max-width:1060px;margin:0 auto;padding:var(--pad) var(--pad) 64px}
+
+  .eyebrow{display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+    font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--haze)}
+  .dot{width:8px;height:8px;border-radius:50%;background:var(--live-accent);
+    box-shadow:0 0 0 0 var(--live-accent);animation:pulse 2.6s ease-out infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 var(--live-accent-soft)}
+    70%{box-shadow:0 0 0 12px rgba(0,0,0,0)}100%{box-shadow:0 0 0 0 rgba(0,0,0,0)}}
+  h1{font-size:clamp(28px,5.4vw,46px);line-height:1.02;letter-spacing:-.02em;
+    margin:.32em 0 .15em;font-weight:680}
+  .sub{color:var(--haze);max-width:54ch;font-size:15px;margin:0}
+  .updated{margin-left:auto;font-size:12px;letter-spacing:.04em;color:var(--haze)}
+  .delayed{color:var(--solar);border:1px solid color-mix(in srgb,var(--solar) 50%,transparent);
+    padding:2px 8px;border-radius:999px;font-size:11px;letter-spacing:.08em;text-transform:uppercase}
+
+  .grid{display:grid;gap:14px;margin-top:26px}
+  @media(min-width:780px){.grid{grid-template-columns:1.45fr 1fr}}
+  .panel{background:var(--ink-2);border:1px solid var(--line);border-radius:var(--r);
+    padding:20px}
+  .panel h2{margin:0 0 2px;font-size:12px;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--haze);font-weight:600}
+
+  .hero{grid-column:1/-1;display:grid;gap:24px;align-items:center;
+    border-top:2px solid var(--live-accent)}
+  @media(min-width:780px){.hero{grid-template-columns:auto 1fr}}
+  .renew{display:flex;align-items:baseline;gap:8px}
+  .renew .big{font-size:clamp(56px,12vw,104px);font-weight:600;line-height:.86;
+    letter-spacing:-.03em}
+  .renew .pct{font-size:clamp(20px,4vw,30px);color:var(--haze)}
+  .renew-label{font-size:13px;color:var(--haze);margin-top:8px;max-width:24ch}
+  .renew-label b{color:var(--chalk);font-weight:600}
+
+  .mix{display:flex;height:30px;border-radius:7px;overflow:hidden;background:var(--ink-3)}
+  .mix span{display:block;transition:flex-grow .8s cubic-bezier(.4,0,.1,1)}
+  .legend{display:flex;flex-wrap:wrap;gap:14px 22px;margin-top:14px}
+  .leg{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--haze)}
+  .leg i{width:11px;height:11px;border-radius:3px;display:inline-block;flex:0 0 auto}
+  .leg b{color:var(--chalk);font-weight:600}
+  .leg small{color:var(--haze-2);font-size:11px}
+
+  .co2{display:flex;align-items:center;gap:16px;margin-top:18px;padding-top:18px;
+    border-top:1px solid var(--line)}
+  .co2 .v{font-size:34px;font-weight:600;letter-spacing:-.02em;color:var(--live-accent)}
+  .co2 .u{font-size:13px;color:var(--haze)}
+  .co2 .status{margin-left:auto;text-align:right}
+  .co2 .status b{display:block;font-size:15px;color:var(--live-accent)}
+  .co2 .status small{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--haze-2)}
+
+  figure{margin:0}
+  .chart-cap{display:flex;justify-content:space-between;align-items:baseline;
+    margin:0 0 12px;gap:10px}
+  .chart-cap .hint{font-size:11px;color:var(--haze-2);letter-spacing:.04em}
+  svg{display:block;width:100%;height:auto;overflow:visible}
+  .axis text{fill:var(--haze-2);font-size:10px;font-family:ui-monospace,monospace}
+  .axis line{stroke:var(--line)}
+  .price-now{display:flex;gap:26px;margin-bottom:16px;flex-wrap:wrap}
+  .price-now .cell .k{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--haze)}
+  .price-now .cell .val{font-size:30px;font-weight:600;letter-spacing:-.02em}
+  .price-now .cell .val small{font-size:13px;color:var(--haze);font-weight:400;letter-spacing:0}
+  .price-now .cell.dk1 .val{color:var(--dk1)}
+  .price-now .cell.dk2 .val{color:var(--dk2)}
+
+  .state{grid-column:1/-1;padding:40px 24px;text-align:center;color:var(--haze);
+    border:1px dashed var(--line);border-radius:var(--r)}
+  .state b{color:var(--chalk)}
+  .skeleton{color:var(--haze-2)}
+  .hidden{display:none}
+
+  footer{margin-top:34px;padding-top:18px;border-top:1px solid var(--line);
+    display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;
+    font-size:12px;color:var(--haze-2)}
+  footer a{color:var(--haze);text-decoration:none;border-bottom:1px solid var(--line)}
+  footer a:hover{color:var(--chalk)}
+
+  @media(prefers-reduced-motion:reduce){
+    *{animation:none!important;transition:none!important}
+  }
+</style>
+</head>
+<body>
+<main class="wrap">
+  <header>
+    <div class="eyebrow">
+      <span class="dot" aria-hidden="true"></span>
+      <span>Live · Energinet</span>
+      <span class="updated num" id="updated">forbinder…</span>
+    </div>
+    <h1>Danmarks elnet, lige nu</h1>
+    <p class="sub">Hvert minut læser denne side det danske transmissionsnet direkte fra Energinets åbne API — produktion fordelt på kilde, CO₂-intensitet og dagens spotpriser.</p>
+  </header>
+
+  <div class="grid" id="grid">
+    <div class="state skeleton" id="loading">Henter data fra Energi Data Service…</div>
+  </div>
+
+  <div class="grid hidden" id="content">
+
+    <section class="panel hero">
+      <div>
+        <h2>Vedvarende andel</h2>
+        <div class="renew"><span class="big num" id="renewPct">–</span><span class="pct">%</span></div>
+        <p class="renew-label">af <b id="prodTotal">–</b> dansk elproduktion kommer lige nu fra <b>vind&nbsp;+&nbsp;sol</b></p>
+      </div>
+      <div>
+        <div class="mix" id="mix" role="img" aria-label="Fordeling af elproduktion på kilder">
+          <span style="background:var(--wind)"  id="mWind"></span>
+          <span style="background:var(--solar)" id="mSolar"></span>
+          <span style="background:var(--thermal)" id="mTherm"></span>
+        </div>
+        <div class="legend">
+          <span class="leg"><i style="background:var(--wind)"></i><span><b class="num" id="lWind">–</b> MW vind <small id="lWindSub"></small></span></span>
+          <span class="leg"><i style="background:var(--solar)"></i><span><b class="num" id="lSolar">–</b> MW sol</span></span>
+          <span class="leg"><i style="background:var(--thermal)"></i><span><b class="num" id="lTherm">–</b> MW termisk</span></span>
+        </div>
+        <div class="co2">
+          <div>
+            <span class="v num" id="co2Val">–</span>
+            <span class="u">g CO₂/kWh</span>
+          </div>
+          <div class="status">
+            <b id="co2Word">–</b>
+            <small>klimaaftryk nu</small>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <figure>
+        <div class="chart-cap">
+          <h2>Produktion · seneste 3 timer</h2>
+          <span class="hint num" id="prodMax"></span>
+        </div>
+        <svg id="prodChart" viewBox="0 0 600 260" preserveAspectRatio="none" aria-label="Stablet areagraf over produktion fra vind, sol og termisk de seneste tre timer"></svg>
+      </figure>
+    </section>
+
+    <section class="panel">
+      <figure>
+        <div class="chart-cap"><h2>Spotpris i dag</h2><span class="hint">øre/kWh · ekskl. afgifter</span></div>
+        <div class="price-now">
+          <div class="cell dk1"><div class="k">DK1 vest</div><div class="val num" id="pNowDk1">–</div></div>
+          <div class="cell dk2"><div class="k">DK2 øst</div><div class="val num" id="pNowDk2">–</div></div>
+        </div>
+        <svg id="priceChart" viewBox="0 0 600 200" preserveAspectRatio="none" aria-label="Spotpris pr. time i dag for DK1 og DK2"></svg>
+      </figure>
+    </section>
+
+  </div>
+
+  <footer>
+    <span>Kilde: <a href="https://www.energidataservice.dk" target="_blank" rel="noopener">Energi Data Service</a> · Energinet. Datasæt: <span class="num">PowerSystemRightNow</span>, <span class="num">DayAheadPrices</span>.</span>
+    <span>Bygget af Morten Lundum-Nørgaard · vanilla JS, ingen afhængigheder</span>
+  </footer>
+</main>
+
+<script>
+(() => {
+  "use strict";
+  const API = "https://api.energidataservice.dk/dataset/";
+  const REFRESH = 60_000;
+  const WINDOW_MIN = 180;
+
+  const $ = id => document.getElementById(id);
+  const fmt = (n, d=0) => n==null || isNaN(n) ? "–"
+        : n.toLocaleString("da-DK",{minimumFractionDigits:d,maximumFractionDigits:d});
+  const hhmm = s => typeof s==="string" ? s.slice(11,16) : "";
+
+  const latest = (recs, key) => { for (const r of recs) if (r[key]!=null) return r[key]; return null; };
+
+  const STOPS = [[30,[67,190,143]],[130,[242,180,65]],[240,[224,102,75]]];
+  function co2Color(c){
+    if (c==null) return "rgb(67,190,143)";
+    if (c<=STOPS[0][0]) return rgb(STOPS[0][1]);
+    if (c>=STOPS[2][0]) return rgb(STOPS[2][1]);
+    for (let i=0;i<STOPS.length-1;i++){
+      const [a,ca]=STOPS[i],[b,cb]=STOPS[i+1];
+      if (c>=a && c<=b){const t=(c-a)/(b-a);
+        return rgb(ca.map((v,k)=>Math.round(v+(cb[k]-v)*t)));}
+    }
+    return rgb(STOPS[1][1]);
+  }
+  const rgb = a => `rgb(${a[0]},${a[1]},${a[2]})`;
+  function co2Word(c){
+    if (c==null) return "–";
+    if (c<60) return "Meget ren"; if (c<120) return "Ren";
+    if (c<200) return "Blandet";  return "Belastet";
+  }
+
+  const PROXIES = [
+    u => u,
+    u => "https://corsproxy.io/?url="+encodeURIComponent(u),
+    u => "https://api.allorigins.win/raw?url="+encodeURIComponent(u)
+  ];
+  let activePath = 0;
+
+  async function fetchWithTimeout(url, ms=10000){
+    const ctrl = new AbortController();
+    const t = setTimeout(() => ctrl.abort(), ms);
+    try { return await fetch(url,{signal:ctrl.signal,headers:{Accept:"application/json"}}); }
+    finally { clearTimeout(t); }
+  }
+
+  async function getJSON(dataset, params){
+    const qs = Object.entries(params)
+      .map(([k,v]) => encodeURIComponent(k)+"="+encodeURIComponent(v))
+      .join("&");
+    const target = API+dataset+"?"+qs;
+    let lastErr;
+    for (let i=0;i<PROXIES.length;i++){
+      try{
+        const res = await fetchWithTimeout(PROXIES[i](target));
+        if (!res.ok) throw new Error("HTTP "+res.status);
+        const j = await res.json();
+        if (!j || !j.records) throw new Error("uventet svar");
+        activePath = i;
+        return j.records;
+      }catch(e){ lastErr = e; }
+    }
+    throw lastErr || new Error("ukendt fejl");
+  }
+
+  function renderNow(recs){
+    const r = recs[0];
+    const wind  = (r.OffshoreWindPower||0)+(r.OnshoreWindPower||0);
+    const solar = r.SolarPower||0;
+    const therm = (r.ProductionGe100MW||0)+(r.ProductionLt100MW||0);
+    const renew = wind+solar;
+    const prod  = renew+therm;
+    const share = prod>0 ? renew/prod*100 : 0;
+    const co2   = latest(recs,"CO2Emission");
+
+    $("renewPct").textContent = fmt(share,0);
+    $("prodTotal").textContent = fmt(prod/1000,1)+" GW";
+    $("lWind").textContent  = fmt(wind);
+    $("lSolar").textContent = fmt(solar);
+    $("lTherm").textContent = fmt(therm);
+    $("lWindSub").textContent =
+      `(${fmt(r.OffshoreWindPower||0)} hav · ${fmt(r.OnshoreWindPower||0)} land)`;
+
+    const g = v => Math.max(v,prod*0.004);
+    $("mWind").style.flexGrow  = g(wind);
+    $("mSolar").style.flexGrow = g(solar);
+    $("mTherm").style.flexGrow = g(therm);
+
+    $("co2Val").textContent  = fmt(co2,0);
+    $("co2Word").textContent = co2Word(co2);
+
+    const accent = co2Color(co2);
+    document.documentElement.style.setProperty("--live-accent",accent);
+    document.documentElement.style.setProperty("--live-accent-soft",
+      accent.replace("rgb(","rgba(").replace(")",",.14)"));
+
+    const ts = r.Minutes1DK;
+    const ageMin = (Date.now() - new Date(ts.replace(" ","T")).getTime())/60000;
+    const u = $("updated");
+    const via = activePath>0 ? " · via proxy" : "";
+    u.innerHTML = (ageMin>15)
+      ? `<span class="delayed">forsinket</span> seneste: ${hhmm(ts)}${via}`
+      : `opdateret ${hhmm(ts)}${via}`;
+  }
+
+  function renderProd(recs){
+    const data = recs.slice().reverse();
+    const W=600,H=260,padL=34,padB=20,padT=10,padR=4;
+    const iw=W-padL-padR, ih=H-padT-padB;
+    const series = data.map(r=>({
+      t:r.Minutes1DK,
+      therm:(r.ProductionGe100MW||0)+(r.ProductionLt100MW||0),
+      wind:(r.OffshoreWindPower||0)+(r.OnshoreWindPower||0),
+      solar:r.SolarPower||0
+    }));
+    const totals = series.map(s=>s.therm+s.wind+s.solar);
+    const maxV = Math.max(1, ...totals);
+    const yMax = Math.ceil(maxV/1000)*1000;
+    const x = i => padL + iw*(i/(series.length-1||1));
+    const y = v => padT + ih*(1 - v/yMax);
+
+    const bands=[
+      {key:"therm",color:"var(--thermal)"},
+      {key:"wind", color:"var(--wind)"},
+      {key:"solar",color:"var(--solar)"}
+    ];
+    let base = series.map(()=>0);
+    let paths="";
+    for (const b of bands){
+      const top = series.map((s,i)=>base[i]+s[b.key]);
+      let d="M "+x(0)+" "+y(base[0]);
+      for (let i=0;i<series.length;i++) d+=" L "+x(i)+" "+y(top[i]);
+      for (let i=series.length-1;i>=0;i--) d+=" L "+x(i)+" "+y(base[i]);
+      d+=" Z";
+      paths+=`<path d="${d}" fill="${b.color}" fill-opacity="0.82"/>`;
+      let l="M "+x(0)+" "+y(top[0]);
+      for (let i=1;i<series.length;i++) l+=" L "+x(i)+" "+y(top[i]);
+      paths+=`<path d="${l}" fill="none" stroke="${b.color}" stroke-width="1.4"/>`;
+      base=top;
+    }
+    let axis="";
+    for (let g=0; g<=yMax; g+=Math.max(1000,yMax/4)){
+      const yy=y(g);
+      axis+=`<line x1="${padL}" y1="${yy}" x2="${W-padR}" y2="${yy}"/>`;
+      axis+=`<text x="${padL-6}" y="${yy+3}" text-anchor="end">${(g/1000)}</text>`;
+    }
+    let xlab="";
+    const ticks=4;
+    for (let k=0;k<=ticks;k++){
+      const i=Math.round((series.length-1)*k/ticks);
+      xlab+=`<text x="${x(i)}" y="${H-6}" text-anchor="middle">${hhmm(series[i].t)}</text>`;
+    }
+    $("prodMax").textContent = "y-akse i GW";
+    $("prodChart").innerHTML =
+      `<g class="axis">${axis}</g>${paths}<g class="axis">${xlab}</g>`;
+  }
+
+  function renderPrice(recs){
+    const byArea = {DK1:[],DK2:[]};
+    recs.forEach(r=>{ if (byArea[r.PriceArea]) byArea[r.PriceArea].push(r); });
+    for (const a in byArea)
+      byArea[a].sort((p,q)=>p.TimeDK<q.TimeDK?-1:1);
+
+    const trim = arr => arr.slice(-24);
+    const dk1 = trim(byArea.DK1), dk2 = trim(byArea.DK2);
+    const ore = v => v==null?null:v/10;
+
+    const nowH = new Date().getHours();
+    const curr = arr => {
+      let pick=arr[arr.length-1];
+      for (const r of arr){ if (+r.TimeDK.slice(11,13)===nowH){pick=r;break;} }
+      return pick;
+    };
+    const c1=curr(dk1), c2=curr(dk2);
+    $("pNowDk1").innerHTML = c1?`${fmt(ore(c1.DayAheadPriceDKK),0)} <small>øre</small>`:"–";
+    $("pNowDk2").innerHTML = c2?`${fmt(ore(c2.DayAheadPriceDKK),0)} <small>øre</small>`:"–";
+
+    const all=[...dk1,...dk2].map(r=>ore(r.DayAheadPriceDKK)).filter(v=>v!=null);
+    if (!all.length){ $("priceChart").innerHTML=""; return; }
+    const W=600,H=200,padL=30,padB=20,padT=10,padR=4;
+    const iw=W-padL-padR, ih=H-padT-padB;
+    const lo=Math.min(0,...all), hi=Math.max(...all);
+    const yMax=Math.ceil(hi/25)*25 || 25, yMin=Math.floor(lo/25)*25;
+    const n=Math.max(dk1.length,dk2.length,1);
+    const x=i=>padL+iw*(i/(n-1||1));
+    const y=v=>padT+ih*(1-(v-yMin)/((yMax-yMin)||1));
+    const line=(arr,color)=>{
+      if(!arr.length) return "";
+      let d="M "+x(0)+" "+y(ore(arr[0].DayAheadPriceDKK));
+      arr.forEach((r,i)=> d+=" L "+x(i)+" "+y(ore(r.DayAheadPriceDKK)));
+      return `<path d="${d}" fill="none" stroke="${color}" stroke-width="2"
+              stroke-linejoin="round" stroke-linecap="round"/>`;
+    };
+    let axis="";
+    const step=Math.max(25,Math.round((yMax-yMin)/4/25)*25);
+    for (let g=yMin; g<=yMax; g+=step){
+      const yy=y(g);
+      axis+=`<line x1="${padL}" y1="${yy}" x2="${W-padR}" y2="${yy}"/>`;
+      axis+=`<text x="${padL-6}" y="${yy+3}" text-anchor="end">${g}</text>`;
+    }
+    let xlab="";
+    for (let k=0;k<=4;k++){
+      const i=Math.round((n-1)*k/4);
+      const r=dk1[i]||dk2[i];
+      if(r) xlab+=`<text x="${x(i)}" y="${H-6}" text-anchor="middle">${hhmm(r.TimeDK)}</text>`;
+    }
+    let marker="";
+    const idxNow=dk1.findIndex(r=>+r.TimeDK.slice(11,13)===nowH);
+    if(idxNow>=0){const xx=x(idxNow);
+      marker=`<line x1="${xx}" y1="${padT}" x2="${xx}" y2="${H-padB}"
+              stroke="var(--haze-2)" stroke-dasharray="3 3"/>`;}
+    $("priceChart").innerHTML =
+      `<g class="axis">${axis}</g>${marker}${line(dk2,"var(--dk2)")}${line(dk1,"var(--dk1)")}<g class="axis">${xlab}</g>`;
+  }
+
+  let firstLoad=true;
+  async function update(){
+    try{
+      const [psrn, prices] = await Promise.all([
+        getJSON("PowerSystemRightNow",
+          {start:`now-PT${WINDOW_MIN}M`, sort:"Minutes1UTC DESC", limit:200}),
+        getJSON("DayAheadPrices",
+          {filter:'{"PriceArea":["DK1","DK2"]}', sort:"TimeDK DESC", limit:120})
+      ]);
+      if (!psrn.length) throw new Error("ingen produktionsdata");
+
+      renderNow(psrn);
+      renderProd(psrn);
+      renderPrice(prices);
+
+      if (firstLoad){
+        $("loading").classList.add("hidden");
+        $("content").classList.remove("hidden");
+        firstLoad=false;
+      }
+    }catch(err){
+      console.error(err);
+      if (firstLoad){
+        $("loading").classList.remove("skeleton");
+        $("loading").innerHTML =
+          `<b>Kunne ikke hente live-data.</b><br>`+
+          `Forsøgte både direkte og via proxy — ${err.message}.<br>`+
+          `<span style="font-size:13px">Tjek din netforbindelse, eller hvis du er bag `+
+          `et firewall/VPN der blokerer api.energidataservice.dk.</span>`;
+      }
+    }
+  }
+
+  update();
+  setInterval(update, REFRESH);
+})();
+</script>
+</body>
+</html>
