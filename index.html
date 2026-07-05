@@ -896,6 +896,108 @@
       border-radius: 4px;
     }
 
+    /* ── VISUAL POLISH ── */
+    ::selection { background: var(--lime); color: #0d0d0d; }
+
+    /* Scroll-fremdrift */
+    #scrollProgress {
+      position: fixed;
+      top: 0; left: 0;
+      height: 2px;
+      width: 0;
+      background: var(--lime);
+      z-index: 250;
+      pointer-events: none;
+    }
+
+    /* Filmkorn over hele siden */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 300;
+      pointer-events: none;
+      opacity: 0.03;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    /* Cursor-glød på projektkort */
+    .project-card { position: relative; }
+    .project-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 0.35s;
+      pointer-events: none;
+      background: radial-gradient(480px circle at var(--mx, 50%) var(--my, 50%),
+        rgba(200,255,0,0.08), transparent 65%);
+    }
+    .project-card:hover::after { opacity: 1; }
+
+    /* Farve-reveal på portrættet */
+    .about-photo { transition: filter 0.6s ease; }
+    .about-photo-wrap::before,
+    .about-photo-wrap::after { transition: opacity 0.6s ease; }
+    .about-photo-wrap:hover .about-photo {
+      filter: brightness(0.88) contrast(1.05) saturate(1.05);
+    }
+    .about-photo-wrap:hover::before { opacity: 0.35; }
+    .about-photo-wrap:hover::after { opacity: 0.45; }
+
+    /* Nav underline-sweep */
+    .nav-links a { position: relative; }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      left: 0; bottom: -5px;
+      height: 1px;
+      width: 100%;
+      background: var(--lime);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.25s ease;
+    }
+    .nav-links a:hover::after { transform: scaleX(1); }
+
+    /* Fade-up reveal (klassen sættes af JS — uden JS vises alt normalt) */
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* Live-ticker */
+    .ticker-wrap {
+      border-top: 1px solid var(--divider);
+      border-bottom: 1px solid var(--divider);
+      background: rgba(200,255,0,0.02);
+      overflow: hidden;
+    }
+    .ticker {
+      display: flex;
+      width: max-content;
+      animation: tickerScroll 45s linear infinite;
+    }
+    .ticker-wrap:hover .ticker { animation-play-state: paused; }
+    .ticker span {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding: 0.6rem 0;
+      white-space: pre;
+    }
+    .ticker b { color: var(--lime); font-weight: 600; }
+    @keyframes tickerScroll {
+      to { transform: translateX(-50%); }
+    }
+
     /* ── REDUCED MOTION ── */
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
@@ -908,12 +1010,16 @@
       .hero-eyebrow, .hero-name, .hero-tagline,
       .terminal-block, .hero-cta, .hero-scroll { opacity: 1 !important; }
       .skill-fill { transform: scaleX(1) !important; }
+      .reveal { opacity: 1 !important; transform: none !important; }
+      .ticker { animation: none !important; }
       /* Stop uendelige SVG-animationer i preview-grafikken */
       .preview-svg animate { display: none; }
     }
   </style>
 </head>
 <body>
+
+  <div id="scrollProgress"></div>
 
   <!-- NAV -->
   <nav>
@@ -952,6 +1058,14 @@
     <div class="hero-scroll">
       <span class="scroll-line"></span>
       <span data-da="scroll" data-en="scroll">scroll</span>
+    </div>
+  </div>
+
+  <!-- LIVE TICKER — tallene opdateres fra samme pipeline som /dk-elnet/ -->
+  <div class="ticker-wrap" aria-hidden="true">
+    <div class="ticker" id="ticker">
+      <span id="tickerA">DK elnet lige nu&#160;&#160;//&#160;&#160;Vedvarende <b>90%</b>&#160;&#160;·&#160;&#160;CO₂ <b>21 g/kWh</b>&#160;&#160;·&#160;&#160;Spot DK1 <b>3 øre/kWh</b>&#160;&#160;·&#160;&#160;DK2 <b>6 øre/kWh</b>&#160;&#160;·&#160;&#160;Kilde: Energinet&#160;&#160;·&#160;&#160;</span>
+      <span id="tickerB">DK elnet lige nu&#160;&#160;//&#160;&#160;Vedvarende <b>90%</b>&#160;&#160;·&#160;&#160;CO₂ <b>21 g/kWh</b>&#160;&#160;·&#160;&#160;Spot DK1 <b>3 øre/kWh</b>&#160;&#160;·&#160;&#160;DK2 <b>6 øre/kWh</b>&#160;&#160;·&#160;&#160;Kilde: Energinet&#160;&#160;·&#160;&#160;</span>
     </div>
   </div>
 
@@ -1715,6 +1829,52 @@
   });
   </script>
 
+  <!-- Visuel polish: scroll-fremdrift, cursor-glød, fade-up reveals -->
+  <script>
+  (function () {
+    // scroll-fremdrift
+    var bar = document.getElementById('scrollProgress');
+    var ticking = false;
+    function updateBar() {
+      var h = document.documentElement;
+      var max = h.scrollHeight - h.clientHeight;
+      bar.style.width = (max > 0 ? (h.scrollTop / max * 100) : 0) + '%';
+      ticking = false;
+    }
+    window.addEventListener('scroll', function () {
+      if (!ticking) { ticking = true; requestAnimationFrame(updateBar); }
+    }, { passive: true });
+    updateBar();
+
+    // cursor-glød på projektkort
+    document.querySelectorAll('.project-card').forEach(function (card) {
+      card.addEventListener('mousemove', function (e) {
+        var rect = card.getBoundingClientRect();
+        card.style.setProperty('--mx', (e.clientX - rect.left) + 'px');
+        card.style.setProperty('--my', (e.clientY - rect.top) + 'px');
+      });
+    });
+
+    // fade-up reveal — klassen sættes kun her, så alt vises uden JS
+    if ('IntersectionObserver' in window) {
+      var obs = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          if (en.isIntersecting) {
+            en.target.classList.add('visible');
+            obs.unobserve(en.target);
+          }
+        });
+      }, { threshold: 0.12 });
+      document.querySelectorAll('.project-card, .stat-item, .contact-link').forEach(function (el) {
+        if (el.getBoundingClientRect().top > window.innerHeight * 0.9) {
+          el.classList.add('reveal');
+          obs.observe(el);
+        }
+      });
+    }
+  })();
+  </script>
+
   <!-- Live tal på elnet-kortet — samme datakilde som /dk-elnet/ -->
   <script>
   (function () {
@@ -1765,6 +1925,18 @@
         });
         if (latest.DK1) setText('cardDk1', Math.round(latest.DK1.DayAheadPriceDKK / 10));
         if (latest.DK2) setText('cardDk2', Math.round(latest.DK2.DayAheadPriceDKK / 10));
+        // live-ticker under hero
+        if (total > 0 && r.CO2Emission != null) {
+          var sep = '  ·  ';
+          var t = 'DK elnet lige nu  //  Vedvarende <b>' +
+            Math.round((wind + solar) / total * 100) + '%</b>' + sep +
+            'CO₂ <b>' + Math.round(r.CO2Emission) + ' g/kWh</b> (' + co2Word(r.CO2Emission) + ')';
+          if (latest.DK1) t += sep + 'Spot DK1 <b>' + Math.round(latest.DK1.DayAheadPriceDKK / 10) + ' øre/kWh</b>';
+          if (latest.DK2) t += sep + 'DK2 <b>' + Math.round(latest.DK2.DayAheadPriceDKK / 10) + ' øre/kWh</b>';
+          t += sep + 'Vind <b>' + Math.round(wind) + ' MW</b>' + sep + 'Sol <b>' + Math.round(solar) + ' MW</b>' + sep + 'Kilde: Energinet' + sep;
+          var ta = document.getElementById('tickerA'), tb = document.getElementById('tickerB');
+          if (ta && tb) { ta.innerHTML = t; tb.innerHTML = t; }
+        }
       }).catch(function () { /* behold de statiske tal */ });
     }
 

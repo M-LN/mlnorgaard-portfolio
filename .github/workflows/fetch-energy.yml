@@ -21,9 +21,11 @@ jobs:
             -o data/psrn.json
 
       - name: Fetch DayAheadPrices
+        # 15-min opløsning: start 3 timer tilbage så "nu"-prisen altid findes;
+        # limit 400 dækker ca. -3h til +36h for begge prisområder
         run: |
           curl -sf \
-            "https://api.energidataservice.dk/dataset/DayAheadPrices?filter=%7B%22PriceArea%22%3A%5B%22DK1%22%2C%22DK2%22%5D%7D&sort=TimeDK%20DESC&limit=120" \
+            "https://api.energidataservice.dk/dataset/DayAheadPrices?start=now-PT3H&filter=%7B%22PriceArea%22%3A%5B%22DK1%22%2C%22DK2%22%5D%7D&sort=TimeDK%20DESC&limit=400" \
             -o data/prices.json
 
       - name: Commit hvis data er ændret
