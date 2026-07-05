@@ -1061,11 +1061,11 @@
     </div>
   </div>
 
-  <!-- LIVE TICKER — tallene opdateres fra samme pipeline som /dk-elnet/ -->
+  <!-- LIVE TICKER — hentes fra GitHubs offentlige API -->
   <div class="ticker-wrap" aria-hidden="true">
     <div class="ticker" id="ticker">
-      <span id="tickerA">DK elnet lige nu&#160;&#160;//&#160;&#160;Vedvarende <b>90%</b>&#160;&#160;·&#160;&#160;CO₂ <b>21 g/kWh</b>&#160;&#160;·&#160;&#160;Spot DK1 <b>3 øre/kWh</b>&#160;&#160;·&#160;&#160;DK2 <b>6 øre/kWh</b>&#160;&#160;·&#160;&#160;Kilde: Energinet&#160;&#160;·&#160;&#160;</span>
-      <span id="tickerB">DK elnet lige nu&#160;&#160;//&#160;&#160;Vedvarende <b>90%</b>&#160;&#160;·&#160;&#160;CO₂ <b>21 g/kWh</b>&#160;&#160;·&#160;&#160;Spot DK1 <b>3 øre/kWh</b>&#160;&#160;·&#160;&#160;DK2 <b>6 øre/kWh</b>&#160;&#160;·&#160;&#160;Kilde: Energinet&#160;&#160;·&#160;&#160;</span>
+      <span id="tickerA">github.com/M-LN&#160;&#160;//&#160;&#160;bygger konstant&#160;&#160;·&#160;&#160;<b>6</b> offentlige repos&#160;&#160;·&#160;&#160;frameworks brugt: <b>0</b>&#160;&#160;·&#160;&#160;</span>
+      <span id="tickerB">github.com/M-LN&#160;&#160;//&#160;&#160;bygger konstant&#160;&#160;·&#160;&#160;<b>6</b> offentlige repos&#160;&#160;·&#160;&#160;frameworks brugt: <b>0</b>&#160;&#160;·&#160;&#160;</span>
     </div>
   </div>
 
@@ -1925,23 +1925,59 @@
         });
         if (latest.DK1) setText('cardDk1', Math.round(latest.DK1.DayAheadPriceDKK / 10));
         if (latest.DK2) setText('cardDk2', Math.round(latest.DK2.DayAheadPriceDKK / 10));
-        // live-ticker under hero
-        if (total > 0 && r.CO2Emission != null) {
-          var sep = '  ·  ';
-          var t = 'DK elnet lige nu  //  Vedvarende <b>' +
-            Math.round((wind + solar) / total * 100) + '%</b>' + sep +
-            'CO₂ <b>' + Math.round(r.CO2Emission) + ' g/kWh</b> (' + co2Word(r.CO2Emission) + ')';
-          if (latest.DK1) t += sep + 'Spot DK1 <b>' + Math.round(latest.DK1.DayAheadPriceDKK / 10) + ' øre/kWh</b>';
-          if (latest.DK2) t += sep + 'DK2 <b>' + Math.round(latest.DK2.DayAheadPriceDKK / 10) + ' øre/kWh</b>';
-          t += sep + 'Vind <b>' + Math.round(wind) + ' MW</b>' + sep + 'Sol <b>' + Math.round(solar) + ' MW</b>' + sep + 'Kilde: Energinet' + sep;
-          var ta = document.getElementById('tickerA'), tb = document.getElementById('tickerB');
-          if (ta && tb) { ta.innerHTML = t; tb.innerHTML = t; }
-        }
       }).catch(function () { /* behold de statiske tal */ });
     }
 
     refreshCard();
     setInterval(refreshCard, 5 * 60 * 1000);
+  })();
+  </script>
+
+  <!-- GitHub-ticker: seneste aktivitet fra det offentlige API (ingen nøgle) -->
+  <script>
+  (function () {
+    function since(iso) {
+      var s = (Date.now() - new Date(iso).getTime()) / 1000;
+      if (s < 3600) return 'for ' + Math.max(1, Math.round(s / 60)) + ' min siden';
+      if (s < 86400) return 'for ' + Math.round(s / 3600) + ' timer siden';
+      var d = Math.round(s / 86400);
+      return d === 1 ? 'i går' : 'for ' + d + ' dage siden';
+    }
+
+    Promise.all([
+      fetch('https://api.github.com/users/M-LN').then(function (r) { return r.json(); }),
+      fetch('https://api.github.com/users/M-LN/events/public?per_page=100').then(function (r) { return r.json(); })
+    ]).then(function (res) {
+      var user = res[0], events = res[1];
+      if (!Array.isArray(events)) return; // rate limit el.lign. — behold statisk tekst
+
+      var lastPush = null;
+      var monthCommits = 0;
+      var nowD = new Date();
+      events.forEach(function (e) {
+        if (e.type !== 'PushEvent') return;
+        if (!lastPush) lastPush = e;
+        var d = new Date(e.created_at);
+        if (d.getMonth() === nowD.getMonth() && d.getFullYear() === nowD.getFullYear()) {
+          // API'et udelader ofte payload.size — tæl mindst 1 pr. push
+          monthCommits += (e.payload && (e.payload.size ||
+            (e.payload.commits && e.payload.commits.length))) || 1;
+        }
+      });
+
+      var sep = '  ·  ';
+      var t = 'github.com/M-LN  //  ';
+      if (lastPush) {
+        t += 'Seneste commit <b>' + since(lastPush.created_at) + '</b>' + sep +
+             '<b>' + lastPush.repo.name.replace('M-LN/', '') + '</b>' + sep;
+      }
+      if (monthCommits > 0) t += '<b>' + monthCommits + '</b> commits denne måned' + sep;
+      if (user && user.public_repos) t += '<b>' + user.public_repos + '</b> offentlige repos' + sep;
+      t += 'frameworks brugt: <b>0</b>' + sep;
+
+      var ta = document.getElementById('tickerA'), tb = document.getElementById('tickerB');
+      if (ta && tb) { ta.innerHTML = t; tb.innerHTML = t; }
+    }).catch(function () { /* behold den statiske tekst */ });
   })();
   </script>
 
