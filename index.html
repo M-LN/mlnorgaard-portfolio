@@ -14,8 +14,8 @@
   <meta property="og:title" content="Morten Lundum-Nørgaard — Data Engineer & Designer" />
   <meta property="og:description" content="Morten Lundum-Nørgaard — fra elektriker til data engineer. Jeg bygger ML-modeller, AI-agenter og interaktive datavisualiseringer hvor solid teknik og godt design mødes." />
   <meta property="og:url" content="https://mlnorgaard.com/" />
-  <meta property="og:image" content="https://mlnorgaard.com/assets/og-card.png?v=3" />
-  <meta property="og:image:secure_url" content="https://mlnorgaard.com/assets/og-card.png?v=3" />
+  <meta property="og:image" content="https://mlnorgaard.com/assets/og-card.png?v=4" />
+  <meta property="og:image:secure_url" content="https://mlnorgaard.com/assets/og-card.png?v=4" />
   <meta property="og:image:type" content="image/png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
@@ -24,7 +24,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Morten Lundum-Nørgaard — Data Engineer & Designer" />
   <meta name="twitter:description" content="Morten Lundum-Nørgaard — fra elektriker til data engineer. Jeg bygger ML-modeller, AI-agenter og interaktive datavisualiseringer hvor solid teknik og godt design mødes." />
-  <meta name="twitter:image" content="https://mlnorgaard.com/assets/og-card.png?v=3" />
+  <meta name="twitter:image" content="https://mlnorgaard.com/assets/og-card.png?v=4" />
 
   <!-- Favicon: lime M på mørk baggrund, inline SVG (ingen ekstra request) -->
   <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20100%20100'%3E%3Crect%20width='100'%20height='100'%20rx='20'%20fill='%230D0D0D'/%3E%3Ctext%20x='50'%20y='70'%20font-family='monospace'%20font-size='60'%20font-weight='700'%20fill='%23C8FF00'%20text-anchor='middle'%3EM%3C/text%3E%3C/svg%3E" />
@@ -896,6 +896,16 @@
       border-radius: 4px;
     }
 
+    /* Manifest-linje under sektionstitel */
+    .section-manifest {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+      margin: -1rem 0 3rem;
+      max-width: 62ch;
+    }
+
     /* ── VISUAL POLISH ── */
     ::selection { background: var(--lime); color: #0d0d0d; }
 
@@ -1042,7 +1052,7 @@
   <div id="hero">
     <p class="hero-eyebrow" data-da="// Aarhus, Danmark" data-en="// Aarhus, Denmark">// Aarhus, Danmark</p>
     <h1 class="hero-name">Morten<br>Lundum<span>-</span>Nørgaard</h1>
-    <p class="hero-tagline" data-da="Data. Design. De to burde altid følges ad." data-en="Data. Design. The two should always go together.">Data. Design. De to burde altid følges ad.</p>
+    <p class="hero-tagline" data-da="Jeg tager det komplekse og gør det til noget man kan se." data-en="I take the complex and turn it into something you can see.">Jeg tager det komplekse og gør det til noget man kan se.</p>
 
     <div class="terminal-block">
       <span class="terminal-prompt">$</span>
@@ -1075,6 +1085,7 @@
   <section id="projects">
     <p class="section-label">// <span data-da="Udvalgte projekter" data-en="Selected projects">Udvalgte projekter</span></p>
     <h2 class="section-title" data-da="Ting jeg har bygget" data-en="Things I have built">Ting jeg har bygget</h2>
+    <p class="section-manifest" data-da="// Mønsteret i det hele: tag noget teknisk uigennemskueligt — byg et vindue man kan se det igennem" data-en="// The pattern in all of it: take something technically opaque — build a window to see it through">// Mønsteret i det hele: tag noget teknisk uigennemskueligt — byg et vindue man kan se det igennem</p>
 
     <div class="projects-grid">
 
@@ -1297,8 +1308,8 @@
 
         <div class="skill-item">
           <div class="skill-row">
-            <span class="skill-name">Data Visualisering</span>
-            <span class="skill-level">Plotly · D3 · Canvas</span>
+            <span class="skill-name" data-da="Datavisualisering &amp; forklaring" data-en="Data visualisation &amp; explanation">Datavisualisering &amp; forklaring</span>
+            <span class="skill-level" data-da="Plotly · D3 · Canvas · interaktive modeller" data-en="Plotly · D3 · Canvas · interactive models">Plotly · D3 · Canvas · interaktive modeller</span>
           </div>
           <div class="skill-bar"><div class="skill-fill" data-width="0.90"></div></div>
         </div>
@@ -1309,14 +1320,6 @@
             <span class="skill-level">Pixel art · Brand</span>
           </div>
           <div class="skill-bar"><div class="skill-fill" data-width="0.78"></div></div>
-        </div>
-
-        <div class="skill-item">
-          <div class="skill-row">
-            <span class="skill-name">UI / UX</span>
-            <span class="skill-level" data-da="Selvlært" data-en="Self-taught">Selvlært</span>
-          </div>
-          <div class="skill-bar"><div class="skill-fill" data-width="0.72"></div></div>
         </div>
 
         <div class="skill-item">
@@ -1341,6 +1344,7 @@
       <div class="about-text">
         <p data-da="Jeg startede som elektriker og endte med at bygge ML-modeller og AI-agenter. Ikke fordi jeg fulgte en plan — men fordi jeg altid har haft behov for at forstå <strong>hvordan ting virker</strong>, og så bygge dem bedre." data-en="I started as an electrician and ended up building ML models and AI agents. Not because I followed a plan — but because I've always needed to understand <strong>how things work</strong>, and then build them better.">Jeg startede som elektriker og endte med at bygge ML-modeller og AI-agenter. Ikke fordi jeg fulgte en plan — men fordi jeg altid har haft behov for at forstå <strong>hvordan ting virker</strong>, og så bygge dem bedre.</p>
         <p data-da="14 år hos Vestas lærte mig at fysisk virkelighed og data aldrig er så langt fra hinanden som man tror. I dag bygger jeg systemer der binder de to verdener sammen — og sørger for at de <strong>ser godt ud mens de gør det</strong>." data-en="14 years at Vestas taught me that physical reality and data are never as far apart as you'd think. Today I build systems that bridge those two worlds — and make sure they <strong>look good while doing it</strong>.">14 år hos Vestas lærte mig at fysisk virkelighed og data aldrig er så langt fra hinanden som man tror. I dag bygger jeg systemer der binder de to verdener sammen — og sørger for at de <strong>ser godt ud mens de gør det</strong>.</p>
+        <p data-da="Jeg forstår selv bedst ved at se det. Så det jeg bygger, bygger jeg <strong>først og fremmest til mig selv</strong> — og det er nok derfor, det ender med at være brugbart for andre også." data-en="I understand things best when I can see them. So what I build, I build <strong>first and foremost for myself</strong> — which is probably why it ends up being useful to others too.">Jeg forstår selv bedst ved at se det. Så det jeg bygger, bygger jeg <strong>først og fremmest til mig selv</strong> — og det er nok derfor, det ender med at være brugbart for andre også.</p>
         <p data-da="Jeg tror på at godt design og solid teknik ikke er modsætninger. Det er det samme mål set fra to sider." data-en="I believe good design and solid engineering aren't opposites. They're the same goal seen from two sides.">Jeg tror på at godt design og solid teknik ikke er modsætninger. Det er det samme mål set fra to sider.</p>
       </div>
 
