@@ -663,6 +663,15 @@
       line-height: 1.7;
     }
 
+    .contact-open {
+      margin-top: 1.25rem;
+      padding-left: 1rem;
+      border-left: 2px solid var(--lime);
+      color: var(--white);
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+
     .contact-links {
       display: flex;
       flex-direction: column;
@@ -968,42 +977,6 @@
         </div>
       </div>
 
-      <!-- In-Silico Dashboard -->
-      <div class="project-card" onclick="openModal('tr2')" role="button" tabindex="0" aria-haspopup="dialog" style="cursor:pointer;">
-        <div class="project-preview" style="background:#080f08;">
-          <img class="preview-img" src="assets/projects/genx-dashboard.png" alt="Skærmbillede af In-Silico Dashboard" width="340" height="200" loading="lazy" decoding="async">
-        </div>
-        <div class="project-body">
-          <p class="project-tag">Python · Plotly · ML · Simulering</p>
-          <h3 class="project-title">In-Silico Dashboard</h3>
-          <p class="project-desc" data-da="Et virtuelt testbænk der kører hele driftsrummet igennem før det første fysiske testpunkt bookes — "Testing Before Testing". Tre motorer: fysiksimulering, ML-surrogatmodel (p50/p95) og et sammenligningslag der finder uenighed. Fra 2.500 kandidater → 400 virtuelle testpunkter → 10 forslag → 5 gennemførlige → 1 næste handling." data-en="A virtual test bench that runs the entire operating space before the first physical test point is booked — "Testing Before Testing". Three engines: physics simulation, ML surrogate model (p50/p95) and a comparison layer that maps disagreement. From 2,500 candidates → 400 virtual test points → 10 suggestions → 5 feasible → 1 next action.">Et virtuelt testbænk der kører hele driftsrummet igennem før det første fysiske testpunkt bookes — "Testing Before Testing". Tre motorer: fysiksimulering, ML-surrogatmodel (p50/p95) og et sammenligningslag der finder uenighed. Fra 2.500 kandidater → 400 virtuelle testpunkter → 10 forslag → 5 gennemførlige → 1 næste handling.</p>
-        </div>
-      </div>
-
-      <!-- TVDP Agent -->
-      <div class="project-card" onclick="openModal('tvdp')" role="button" tabindex="0" aria-haspopup="dialog" style="cursor:pointer;">
-        <div class="project-preview" style="background:#0d0608;">
-          <img class="preview-img" src="assets/projects/tvdp-agent.png" alt="Skærmbillede af TVDP Agent" width="340" height="200" loading="lazy" decoding="async">
-        </div>
-        <div class="project-body">
-          <p class="project-tag">GitHub Copilot · Python · ADX</p>
-          <h3 class="project-title">TVDP Agent</h3>
-          <p class="project-desc" data-da="Multi-agent AI-system med tool-calling koblet til Azure Data Explorer og Dataiku — bygget som installérbar Python-pakke." data-en="Multi-agent AI system with tool-calling connected to Azure Data Explorer and Dataiku — built as an installable Python package.">Multi-agent AI-system med tool-calling koblet til Azure Data Explorer og Dataiku — bygget som installérbar Python-pakke.</p>
-        </div>
-      </div>
-
-      <!-- AI Estimation Playground -->
-      <div class="project-card" onclick="openModal('gp')" role="button" tabindex="0" aria-haspopup="dialog" style="cursor:pointer;">
-        <div class="project-preview" style="background:#08080f;">
-          <img class="preview-img" src="assets/projects/gp-lab.png" alt="Skærmbillede af AI Estimation Playground" width="340" height="200" loading="lazy" decoding="async">
-        </div>
-        <div class="project-body">
-          <p class="project-tag">HTML · Kalman · GP · RNN · LSTM</p>
-          <h3 class="project-title">AI Estimation Playground</h3>
-          <p class="project-desc" data-da="Interaktive visuelle labs der lærer Kalman-filtre og Gaussian Processes gennem simulation — standalone HTML uden dependencies." data-en="Interactive visual labs teaching Kalman filters and Gaussian Processes through simulation — standalone HTML with zero dependencies.">Interaktive visuelle labs der lærer Kalman-filtre og Gaussian Processes gennem simulation — standalone HTML uden dependencies.</p>
-        </div>
-      </div>
-
       <!-- Danmarks elnet · live -->
       <div class="project-card" onclick="openModal('dkelnet')" role="button" tabindex="0" aria-haspopup="dialog" style="cursor:pointer;">
         <div class="project-preview" style="background:#0c1417;">
@@ -1073,6 +1046,42 @@
           <h3 class="project-title">Danmarks elnet, live</h3>
           <p class="project-desc" data-da="Standalone dashboard der henter ægte live-data fra Energi Data Service hvert minut — vindandel, CO₂-intensitet og DK1/DK2-spotpriser. Accentfarven skifter med CO₂-intensiteten i realtid." data-en="Standalone dashboard fetching real live data from Energi Data Service every minute — renewable share, CO₂ intensity and DK1/DK2 spot prices. Accent colour shifts with CO₂ intensity in real time.">Standalone dashboard der henter ægte live-data fra Energi Data Service hvert minut — vindandel, CO₂-intensitet og DK1/DK2-spotpriser. Accentfarven skifter med CO₂-intensiteten i realtid.</p>
           <span class="project-link">Se dashboard ↗</span>
+        </div>
+      </div>
+
+      <!-- In-Silico Dashboard -->
+      <div class="project-card" onclick="openModal('tr2')" role="button" tabindex="0" aria-haspopup="dialog" style="cursor:pointer;">
+        <div class="project-preview" style="background:#080f08;">
+          <img class="preview-img" src="assets/projects/genx-dashboard.png" alt="Skærmbillede af In-Silico Dashboard" width="340" height="200" loading="lazy" decoding="async">
+        </div>
+        <div class="project-body">
+          <p class="project-tag">Python · Plotly · ML · Simulering</p>
+          <h3 class="project-title">In-Silico Dashboard</h3>
+          <p class="project-desc" data-da="Et virtuelt testbænk der kører hele driftsrummet igennem før det første fysiske testpunkt bookes — "Testing Before Testing". Tre motorer: fysiksimulering, ML-surrogatmodel (p50/p95) og et sammenligningslag der finder uenighed. Fra 2.500 kandidater → 400 virtuelle testpunkter → 10 forslag → 5 gennemførlige → 1 næste handling." data-en="A virtual test bench that runs the entire operating space before the first physical test point is booked — "Testing Before Testing". Three engines: physics simulation, ML surrogate model (p50/p95) and a comparison layer that maps disagreement. From 2,500 candidates → 400 virtual test points → 10 suggestions → 5 feasible → 1 next action.">Et virtuelt testbænk der kører hele driftsrummet igennem før det første fysiske testpunkt bookes — "Testing Before Testing". Tre motorer: fysiksimulering, ML-surrogatmodel (p50/p95) og et sammenligningslag der finder uenighed. Fra 2.500 kandidater → 400 virtuelle testpunkter → 10 forslag → 5 gennemførlige → 1 næste handling.</p>
+        </div>
+      </div>
+
+      <!-- TVDP Agent -->
+      <div class="project-card" onclick="openModal('tvdp')" role="button" tabindex="0" aria-haspopup="dialog" style="cursor:pointer;">
+        <div class="project-preview" style="background:#0d0608;">
+          <img class="preview-img" src="assets/projects/tvdp-agent.png" alt="Skærmbillede af TVDP Agent" width="340" height="200" loading="lazy" decoding="async">
+        </div>
+        <div class="project-body">
+          <p class="project-tag">GitHub Copilot · Python · ADX</p>
+          <h3 class="project-title">TVDP Agent</h3>
+          <p class="project-desc" data-da="Multi-agent AI-system med tool-calling koblet til Azure Data Explorer og Dataiku — bygget som installérbar Python-pakke." data-en="Multi-agent AI system with tool-calling connected to Azure Data Explorer and Dataiku — built as an installable Python package.">Multi-agent AI-system med tool-calling koblet til Azure Data Explorer og Dataiku — bygget som installérbar Python-pakke.</p>
+        </div>
+      </div>
+
+      <!-- AI Estimation Playground -->
+      <div class="project-card" onclick="openModal('gp')" role="button" tabindex="0" aria-haspopup="dialog" style="cursor:pointer;">
+        <div class="project-preview" style="background:#08080f;">
+          <img class="preview-img" src="assets/projects/gp-lab.png" alt="Skærmbillede af AI Estimation Playground" width="340" height="200" loading="lazy" decoding="async">
+        </div>
+        <div class="project-body">
+          <p class="project-tag">HTML · Kalman · GP · RNN · LSTM</p>
+          <h3 class="project-title">AI Estimation Playground</h3>
+          <p class="project-desc" data-da="Interaktive visuelle labs der lærer Kalman-filtre og Gaussian Processes gennem simulation — standalone HTML uden dependencies." data-en="Interactive visual labs teaching Kalman filters and Gaussian Processes through simulation — standalone HTML with zero dependencies.">Interaktive visuelle labs der lærer Kalman-filtre og Gaussian Processes gennem simulation — standalone HTML uden dependencies.</p>
         </div>
       </div>
 
@@ -1248,6 +1257,7 @@
         <p class="section-label">// <span data-da="Kontakt" data-en="Contact">Kontakt</span></p>
         <h2 class="contact-heading" data-da="Lad os<br>tale<span>.</span>" data-en="Let's<br>talk<span>.</span>">Lad os<br>tale<span>.</span></h2>
         <p class="contact-sub" data-da="Jeg er altid interesseret i spændende projekter, nye samarbejder eller bare en god snak om data og design." data-en="I'm always open to exciting projects, new collaborations or just a good conversation about data and design.">Jeg er altid interesseret i spændende projekter, nye samarbejder eller bare en god snak om data og design.</p>
+        <p class="contact-open" data-da="Åben for spændende muligheder inden for data engineering, ML og design — ræk ud, hvis du har noget på hjerte." data-en="Open to interesting opportunities in data engineering, ML and design — reach out if something's on your mind.">Åben for spændende muligheder inden for data engineering, ML og design — ræk ud, hvis du har noget på hjerte.</p>
       </div>
       <div class="contact-links">
         <a href="mailto:m.lundum.andersen@gmail.com" class="contact-link" aria-label="Send email til m.lundum.andersen@gmail.com">
