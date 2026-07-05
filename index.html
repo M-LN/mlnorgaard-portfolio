@@ -989,11 +989,11 @@
             <!-- production panel -->
             <rect x="8" y="32" width="190" height="94" rx="3" fill="#121e23"/>
             <text x="18" y="47" font-family="system-ui,sans-serif" font-size="6.5" fill="#5a6f78" letter-spacing="1.2">VEDVARENDE</text>
-            <text x="18" y="76" font-family="system-ui,sans-serif" font-size="31" font-weight="700" fill="#43be8f" letter-spacing="-1">90<tspan font-size="14" fill="#5a6f78" letter-spacing="0">%</tspan></text>
+            <text x="18" y="76" font-family="system-ui,sans-serif" font-size="31" font-weight="700" fill="#43be8f" letter-spacing="-1"><tspan id="cardRePct">90</tspan><tspan font-size="14" fill="#5a6f78" letter-spacing="0">%</tspan></text>
             <rect x="18" y="83" width="172" height="11" rx="3" fill="#0a1013"/>
-            <rect x="18" y="83" width="24"  height="11" rx="3" fill="#34b6c6" fill-opacity="0.9"/>
-            <rect x="42" y="83" width="136" height="11"       fill="#f2b441" fill-opacity="0.85"/>
-            <rect x="178" y="83" width="12" height="11" rx="3" fill="#9a6f54" fill-opacity="0.8"/>
+            <rect id="cardMixWind" x="18" y="83" width="24"  height="11" rx="3" fill="#34b6c6" fill-opacity="0.9"/>
+            <rect id="cardMixSolar" x="42" y="83" width="136" height="11"       fill="#f2b441" fill-opacity="0.85"/>
+            <rect id="cardMixThermal" x="178" y="83" width="12" height="11" rx="3" fill="#9a6f54" fill-opacity="0.8"/>
             <rect x="18" y="103" width="6" height="6" rx="1.5" fill="#34b6c6"/>
             <text x="27" y="109" font-family="system-ui,sans-serif" font-size="6.5" fill="#7d949d">Vind</text>
             <rect x="60" y="103" width="6" height="6" rx="1.5" fill="#f2b441"/>
@@ -1003,17 +1003,17 @@
             <!-- CO2 panel -->
             <rect x="202" y="32" width="130" height="94" rx="3" fill="#121e23"/>
             <text x="212" y="47" font-family="system-ui,sans-serif" font-size="6.5" fill="#5a6f78" letter-spacing="1">CO₂ INTENSITET</text>
-            <text x="212" y="76" font-family="system-ui,sans-serif" font-size="31" font-weight="700" fill="#43be8f" letter-spacing="-1">21</text>
+            <text id="cardCo2" x="212" y="76" font-family="system-ui,sans-serif" font-size="31" font-weight="700" fill="#43be8f" letter-spacing="-1">21</text>
             <text x="212" y="89" font-family="system-ui,sans-serif" font-size="8" fill="#5a6f78">g CO₂/kWh</text>
             <rect x="212" y="98" width="64" height="16" rx="8" fill="rgba(67,190,143,0.12)" stroke="rgba(67,190,143,0.25)" stroke-width="0.8"/>
-            <text x="244" y="110" font-family="system-ui,sans-serif" font-size="7.5" fill="#43be8f" text-anchor="middle">Meget ren</text>
+            <text id="cardCo2Word" x="244" y="110" font-family="system-ui,sans-serif" font-size="7.5" fill="#43be8f" text-anchor="middle">Meget ren</text>
             <!-- price panel -->
             <rect x="8" y="130" width="324" height="62" rx="3" fill="#121e23"/>
             <text x="18" y="144" font-family="system-ui,sans-serif" font-size="6.5" fill="#5a6f78" letter-spacing="1.2">SPOTPRIS</text>
             <text x="18"  y="158" font-family="system-ui,sans-serif" font-size="8"  fill="#7d949d">DK1</text>
-            <text x="33"  y="158" font-family="system-ui,sans-serif" font-size="10" font-weight="600" fill="#34b6c6">3<tspan font-size="6.5" fill="#5a6f78"> øre/kWh</tspan></text>
+            <text x="33"  y="158" font-family="system-ui,sans-serif" font-size="10" font-weight="600" fill="#34b6c6"><tspan id="cardDk1">3</tspan><tspan font-size="6.5" fill="#5a6f78"> øre/kWh</tspan></text>
             <text x="116" y="158" font-family="system-ui,sans-serif" font-size="8"  fill="#7d949d">DK2</text>
-            <text x="131" y="158" font-family="system-ui,sans-serif" font-size="10" font-weight="600" fill="#c4a3e8">6<tspan font-size="6.5" fill="#5a6f78"> øre/kWh</tspan></text>
+            <text x="131" y="158" font-family="system-ui,sans-serif" font-size="10" font-weight="600" fill="#c4a3e8"><tspan id="cardDk2">6</tspan><tspan font-size="6.5" fill="#5a6f78"> øre/kWh</tspan></text>
             <!-- price bars: 12 two-hour slots, bottom y=187, DK1 teal / DK2 purple -->
             <rect x="18"  y="177" width="9" height="10" rx="1" fill="#34b6c6" fill-opacity="0.7"/>
             <rect x="28"  y="176" width="9" height="11" rx="1" fill="#c4a3e8" fill-opacity="0.6"/>
@@ -1260,6 +1260,13 @@
         <p class="contact-open" data-da="Åben for spændende muligheder inden for data engineering, ML og design — ræk ud, hvis du har noget på hjerte." data-en="Open to interesting opportunities in data engineering, ML and design — reach out if something's on your mind.">Åben for spændende muligheder inden for data engineering, ML og design — ræk ud, hvis du har noget på hjerte.</p>
       </div>
       <div class="contact-links">
+        <a href="assets/cv-morten-lundum-noergaard.pdf" download class="contact-link" aria-label="Download CV som PDF">
+          <span class="contact-link-icon" aria-hidden="true">↓</span>
+          <div>
+            <div data-da="Download CV" data-en="Download CV">Download CV</div>
+            <div class="contact-link-label">PDF</div>
+          </div>
+        </a>
         <a href="mailto:m.lundum.andersen@gmail.com" class="contact-link" aria-label="Send email til m.lundum.andersen@gmail.com">
           <span class="contact-link-icon" aria-hidden="true">✉</span>
           <div>
@@ -1295,7 +1302,7 @@
   <!-- FOOTER -->
   <footer>
     <p>© 2026 Morten Lundum-Nørgaard</p>
-    <p data-da="Bygget i vanilla HTML · CSS · JS" data-en="Built in vanilla HTML · CSS · JS">Bygget i vanilla HTML · CSS · JS</p>
+    <p data-da="Bygget i vanilla HTML · CSS · JS — ingen frameworks. Åbn DevTools og se selv." data-en="Built in vanilla HTML · CSS · JS — no frameworks. Open DevTools and see for yourself.">Bygget i vanilla HTML · CSS · JS — ingen frameworks. Åbn DevTools og se selv.</p>
   </footer>
 
   <script>
@@ -1334,7 +1341,7 @@
     // Init: gem-valg → browsersprog → dansk default
     var saved = null;
     try { saved = localStorage.getItem('mln-lang'); } catch (err) {}
-    var initial = saved || ((navigator.language || 'da').slice(0, 2) === 'en' ? 'en' : 'da');
+    var initial = saved || ((navigator.language || 'da').slice(0, 2) === 'da' ? 'da' : 'en');
     if (initial === 'en') applyLang('en'); // dansk er allerede aktiv i markup'en
 
     // ── TYPEWRITER ──
@@ -1707,6 +1714,67 @@
     }
   });
   </script>
+
+  <!-- Live tal på elnet-kortet — samme datakilde som /dk-elnet/ -->
+  <script>
+  (function () {
+    var RAW = 'https://raw.githubusercontent.com/M-LN/mlnorgaard-portfolio/main/data/';
+
+    function co2Word(v) {
+      return v < 60 ? 'Meget ren' : v < 120 ? 'Ren' : v < 200 ? 'Blandet' : 'Belastet';
+    }
+    function setText(id, txt) {
+      var el = document.getElementById(id);
+      if (el) el.textContent = txt;
+    }
+
+    function refreshCard() {
+      Promise.all([
+        fetch(RAW + 'psrn.json?_=' + Date.now()).then(function (r) { return r.json(); }),
+        fetch(RAW + 'prices.json?_=' + Date.now()).then(function (r) { return r.json(); })
+      ]).then(function (res) {
+        var r = res[0].records[0];
+        var wind = (r.OffshoreWindPower || 0) + (r.OnshoreWindPower || 0);
+        var solar = r.SolarPower || 0;
+        var thermal = (r.ProductionGe100MW || 0) + (r.ProductionLt100MW || 0);
+        var total = wind + solar + thermal;
+        if (total > 0) {
+          setText('cardRePct', Math.round((wind + solar) / total * 100));
+          // mix-bar: 172px bred, starter ved x=18
+          var wW = 172 * wind / total, wS = 172 * solar / total;
+          var mw = document.getElementById('cardMixWind');
+          var ms = document.getElementById('cardMixSolar');
+          var mt = document.getElementById('cardMixThermal');
+          if (mw && ms && mt) {
+            mw.setAttribute('width', wW.toFixed(1));
+            ms.setAttribute('x', (18 + wW).toFixed(1));
+            ms.setAttribute('width', wS.toFixed(1));
+            mt.setAttribute('x', (18 + wW + wS).toFixed(1));
+            mt.setAttribute('width', (172 - wW - wS).toFixed(1));
+          }
+        }
+        if (r.CO2Emission != null) {
+          setText('cardCo2', Math.round(r.CO2Emission));
+          setText('cardCo2Word', co2Word(r.CO2Emission));
+        }
+        // seneste time der er begyndt, pr. prisområde (DKK/MWh -> øre/kWh)
+        var now = Date.now();
+        var latest = {};
+        res[1].records.forEach(function (p) {
+          if (!latest[p.PriceArea] && new Date(p.TimeDK).getTime() <= now) latest[p.PriceArea] = p;
+        });
+        if (latest.DK1) setText('cardDk1', Math.round(latest.DK1.DayAheadPriceDKK / 10));
+        if (latest.DK2) setText('cardDk2', Math.round(latest.DK2.DayAheadPriceDKK / 10));
+      }).catch(function () { /* behold de statiske tal */ });
+    }
+
+    refreshCard();
+    setInterval(refreshCard, 5 * 60 * 1000);
+  })();
+  </script>
+
+  <!-- Privatlivsvenlig analytics (ingen cookies) -->
+  <script data-goatcounter="https://mlnorgaard.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 
 </body>
 </html>
