@@ -971,29 +971,29 @@
       transform: none;
     }
 
-    /* Live-ticker */
+    /* Live-ticker — dæmpet: ingen baggrund, langsom, neutrale grå toner */
     .ticker-wrap {
       border-top: 1px solid var(--divider);
       border-bottom: 1px solid var(--divider);
-      background: rgba(200,255,0,0.02);
       overflow: hidden;
+      opacity: 0.75;
     }
     .ticker {
       display: flex;
       width: max-content;
-      animation: tickerScroll 45s linear infinite;
+      animation: tickerScroll 75s linear infinite;
     }
     .ticker-wrap:hover .ticker { animation-play-state: paused; }
     .ticker span {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 0.68rem;
+      font-size: 0.62rem;
       letter-spacing: 0.14em;
       text-transform: uppercase;
       color: var(--muted);
-      padding: 0.6rem 0;
+      padding: 0.55rem 0;
       white-space: pre;
     }
-    .ticker b { color: var(--lime); font-weight: 600; }
+    .ticker b { color: var(--dim); font-weight: 500; }
     @keyframes tickerScroll {
       to { transform: translateX(-50%); }
     }
