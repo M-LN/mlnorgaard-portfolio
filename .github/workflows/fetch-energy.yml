@@ -17,6 +17,9 @@ jobs:
       - name: Fetch PowerSystemRightNow
         run: |
           curl -sf \
+            --retry 5 \
+            --retry-delay 5 \
+            --retry-all-errors \
             "https://api.energidataservice.dk/dataset/PowerSystemRightNow?start=now-PT3H&sort=Minutes1UTC%20DESC&limit=200" \
             -o data/psrn.json
 
@@ -25,6 +28,9 @@ jobs:
         # limit 400 dækker ca. -3h til +36h for begge prisområder
         run: |
           curl -sf \
+            --retry 5 \
+            --retry-delay 5 \
+            --retry-all-errors \
             "https://api.energidataservice.dk/dataset/DayAheadPrices?start=now-PT3H&filter=%7B%22PriceArea%22%3A%5B%22DK1%22%2C%22DK2%22%5D%7D&sort=TimeDK%20DESC&limit=400" \
             -o data/prices.json
 
