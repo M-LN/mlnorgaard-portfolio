@@ -722,7 +722,7 @@
         <a class="contact-pill" href="https://www.linkedin.com/in/morten-lundum-n%C3%B8rgaard-420361222/" target="_blank" rel="noopener noreferrer" aria-label="Morten Lundum-Nørgaard på LinkedIn">LinkedIn</a>
         <a class="contact-pill" href="https://github.com/M-LN" target="_blank" rel="noopener noreferrer" aria-label="github.com/M-LN — kode og projekter">GitHub</a>
         <a class="contact-pill" href="https://patterniseverything.com" target="_blank" rel="noopener noreferrer" aria-label="patterniseverything.com — mit ML-referencesite">patterniseverything.com</a>
-        <a class="contact-pill" href="assets/cv-morten-lundum-noergaard.pdf" download aria-label="Download CV som PDF">CV <span class="k">PDF</span></a>
+        <a class="contact-pill" id="cvLink" href="assets/cv-morten-lundum-noergaard-da.pdf" download aria-label="Download CV som PDF">CV <span class="k">PDF</span></a>
       </div>
     </section>
 
@@ -772,6 +772,14 @@
       if (closeBtn) {
         var lbl = closeBtn.getAttribute('data-' + lang + '-label');
         if (lbl) closeBtn.setAttribute('aria-label', lbl);
+      }
+      // CV-download følger sproget (DA/EN-udgave af PDF'en)
+      var cvLink = document.getElementById('cvLink');
+      if (cvLink) {
+        cvLink.setAttribute('href', lang === 'en'
+          ? 'assets/cv-morten-lundum-noergaard.pdf'
+          : 'assets/cv-morten-lundum-noergaard-da.pdf');
+        cvLink.setAttribute('aria-label', lang === 'en' ? 'Download CV as PDF' : 'Download CV som PDF');
       }
       try { localStorage.setItem('mln-lang', lang); } catch (err) {}
     }
