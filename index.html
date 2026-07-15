@@ -222,21 +222,6 @@
     @keyframes rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
     @keyframes riseIn { to { transform: translateY(0); } }
 
-    /* ── MARQUEE / TICKER ── */
-    .marquee {
-      border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
-      overflow: hidden; white-space: nowrap; position: relative; z-index: 2;
-      background: rgba(5,8,13,0.6);
-    }
-    .marquee-track {
-      display: inline-block; padding: .85rem 0;
-      animation: tickerScroll 32s linear infinite;
-      font-family: var(--font-mono); font-size: .75rem; letter-spacing: .1em;
-      color: var(--muted); text-transform: uppercase;
-    }
-    .marquee-track b { color: var(--lime); font-weight: 500; }
-    @keyframes tickerScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-
     /* ── SEKTIONER ── */
     main { position: relative; z-index: 2; }
     section { max-width: 1280px; margin: 0 auto; padding: 7rem 2.2rem; }
@@ -488,7 +473,6 @@
       .hero-name .row span { transform: none; }
       .hero-eyebrow, .hero-bottom, .hero-hint { opacity: 1; }
       .rv { opacity: 1 !important; transform: none !important; }
-      .marquee-track { animation: none; }
       html { scroll-behavior: auto; }
     }
   </style>
@@ -532,14 +516,6 @@
           <a href="#contact" class="btn btn-ghost" data-da="Kontakt" data-en="Contact">Kontakt</a>
         </div>
       </div>
-    </div>
-  </div>
-
-  <!-- LIVE TICKER — hentes fra GitHubs offentlige API -->
-  <div class="marquee" aria-hidden="true">
-    <div class="marquee-track" id="ticker">
-      <span id="tickerA">github.com/M-LN&#160;&#160;//&#160;&#160;bygger konstant&#160;&#160;·&#160;&#160;<b>249</b> interaktive ML-emner&#160;&#160;·&#160;&#160;live elnet-data hvert minut&#160;&#160;·&#160;&#160;frameworks brugt: <b>0</b>&#160;&#160;·&#160;&#160;</span>
-      <span id="tickerB">github.com/M-LN&#160;&#160;//&#160;&#160;bygger konstant&#160;&#160;·&#160;&#160;<b>249</b> interaktive ML-emner&#160;&#160;·&#160;&#160;live elnet-data hvert minut&#160;&#160;·&#160;&#160;frameworks brugt: <b>0</b>&#160;&#160;·&#160;&#160;</span>
     </div>
   </div>
 
@@ -1331,54 +1307,6 @@
 
     refreshCard();
     setInterval(refreshCard, 5 * 60 * 1000);
-  })();
-  </script>
-
-  <!-- GitHub-ticker: seneste aktivitet fra det offentlige API (ingen nøgle) -->
-  <script>
-  (function () {
-    function since(iso) {
-      var s = (Date.now() - new Date(iso).getTime()) / 1000;
-      if (s < 3600) return 'for ' + Math.max(1, Math.round(s / 60)) + ' min siden';
-      if (s < 86400) return 'for ' + Math.round(s / 3600) + ' timer siden';
-      var d = Math.round(s / 86400);
-      return d === 1 ? 'i går' : 'for ' + d + ' dage siden';
-    }
-
-    Promise.all([
-      fetch('https://api.github.com/users/M-LN').then(function (r) { return r.json(); }),
-      fetch('https://api.github.com/users/M-LN/events/public?per_page=100').then(function (r) { return r.json(); })
-    ]).then(function (res) {
-      var user = res[0], events = res[1];
-      if (!Array.isArray(events)) return; // rate limit el.lign. — behold statisk tekst
-
-      var lastPush = null;
-      var monthCommits = 0;
-      var nowD = new Date();
-      events.forEach(function (e) {
-        if (e.type !== 'PushEvent') return;
-        if (!lastPush) lastPush = e;
-        var d = new Date(e.created_at);
-        if (d.getMonth() === nowD.getMonth() && d.getFullYear() === nowD.getFullYear()) {
-          // API'et udelader ofte payload.size — tæl mindst 1 pr. push
-          monthCommits += (e.payload && (e.payload.size ||
-            (e.payload.commits && e.payload.commits.length))) || 1;
-        }
-      });
-
-      var sep = '  ·  ';
-      var t = 'github.com/M-LN  //  ';
-      if (lastPush) {
-        t += 'Seneste commit <b>' + since(lastPush.created_at) + '</b>' + sep +
-             '<b>' + lastPush.repo.name.replace('M-LN/', '') + '</b>' + sep;
-      }
-      if (monthCommits > 0) t += '<b>' + monthCommits + '</b> commits denne måned' + sep;
-      if (user && user.public_repos) t += '<b>' + user.public_repos + '</b> offentlige repos' + sep;
-      t += 'frameworks brugt: <b>0</b>' + sep;
-
-      var ta = document.getElementById('tickerA'), tb = document.getElementById('tickerB');
-      if (ta && tb) { ta.innerHTML = t; tb.innerHTML = t; }
-    }).catch(function () { /* behold den statiske tekst */ });
   })();
   </script>
 
