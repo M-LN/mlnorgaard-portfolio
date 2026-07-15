@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="UTF-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<title>CV — Morten Lundum-Nørgaard (DA)</title>
+<style>
+
+
+  :root {
+    --ink: #05080D;
+    --ink-soft: #2A3540;
+    --muted: #5C6B78;
+    --lime: #C8FF00;
+    --cyan: #0E8A7E;
+    --cyan-bright: #3FE0D0;
+    --line: #E2E6E4;
+    --paper: #FFFFFF;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  @page { size: A4; margin: 0; }
+
+  html, body {
+    width: 210mm;
+    background: var(--paper);
+    font-family: 'Inter', sans-serif;
+    color: var(--ink-soft);
+    font-size: 8.5pt;
+    line-height: 1.38;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  header {
+    background: var(--ink);
+    color: #F2F6F4;
+    padding: 8mm 14mm 7mm;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute; inset: -40%;
+    background:
+      radial-gradient(42% 38% at 88% 8%, rgba(63,224,208,0.16), transparent 70%),
+      radial-gradient(40% 36% at 8% 90%, rgba(200,255,0,0.12), transparent 70%);
+    pointer-events: none;
+  }
+  header > * { position: relative; }
+
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 6.4pt;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: #8C99A3;
+    display: flex; align-items: center; gap: 3mm;
+    margin-bottom: 3mm;
+  }
+  .eyebrow::before { content: ''; width: 9mm; height: .4mm; background: var(--lime); display: inline-block; }
+
+  h1 {
+    font-family: 'Archivo', sans-serif;
+    font-weight: 800;
+    font-size: 22.5pt;
+    line-height: .95;
+    letter-spacing: -.02em;
+    text-transform: uppercase;
+    margin-bottom: 2.5mm;
+  }
+  h1 .accent { color: transparent; -webkit-text-stroke: 0.45mm var(--lime); }
+
+  .role {
+    font-family: 'Archivo', sans-serif;
+    font-weight: 700;
+    font-size: 9.8pt;
+    color: var(--cyan-bright);
+    letter-spacing: .02em;
+    margin-bottom: 3.5mm;
+  }
+
+  .contact {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 6.6pt;
+    color: #8C99A3;
+    letter-spacing: .03em;
+  }
+  .contact b { color: #F2F6F4; font-weight: 500; }
+
+  .body { padding: 5.5mm 14mm 4mm; }
+  section { margin-bottom: 3.6mm; }
+
+  .sec-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 6.6pt;
+    font-weight: 500;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--cyan);
+    display: flex; align-items: center; gap: 3mm;
+    margin-bottom: 2mm;
+  }
+  .sec-label::after { content: ''; flex: 1; height: .25mm; background: var(--line); }
+
+  .profil p { max-width: 172mm; }
+  .profil b { color: var(--ink); font-weight: 600; }
+
+  .job { margin-bottom: 2.4mm; }
+  .job-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: .6mm; }
+  .job-title {
+    font-family: 'Archivo', sans-serif;
+    font-weight: 700;
+    font-size: 10pt;
+    color: var(--ink);
+    letter-spacing: -.01em;
+  }
+  .job-title small { font-weight: 700; color: var(--muted); font-size: 8.4pt; }
+  .job-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 6.6pt;
+    color: var(--muted);
+    letter-spacing: .05em;
+  }
+  .job ul { list-style: none; }
+  .job li { padding-left: 5mm; position: relative; margin-bottom: .5mm; }
+  .job li::before {
+    content: '';
+    position: absolute; left: 0; top: 1.6mm;
+    width: 2.2mm; height: .5mm;
+    background: var(--lime);
+    outline: .2mm solid rgba(5,8,13,0.18);
+  }
+  .job-line { padding-left: 5mm; position: relative; color: var(--ink-soft); }
+  .job-line::before {
+    content: '';
+    position: absolute; left: 0; top: 1.6mm;
+    width: 2.2mm; height: .5mm;
+    background: var(--lime);
+    outline: .2mm solid rgba(5,8,13,0.18);
+  }
+
+  .proj { margin-bottom: .9mm; padding-left: 5mm; position: relative; }
+  .proj::before {
+    content: '';
+    position: absolute; left: 0; top: 1.4mm;
+    width: 1.8mm; height: 1.8mm; border-radius: 50%;
+    border: .45mm solid var(--cyan);
+  }
+  .proj b { font-family: 'Archivo', sans-serif; font-weight: 700; font-size: 9.2pt; color: var(--ink); }
+
+  .chip-group { display: flex; gap: 4mm; margin-bottom: 1.2mm; align-items: baseline; }
+  .chip-group-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 6.4pt;
+    color: var(--muted);
+    letter-spacing: .05em;
+    text-transform: uppercase;
+    width: 36mm;
+    flex-shrink: 0;
+    padding-top: 1.1mm;
+    line-height: 1.35;
+  }
+  .chips { display: flex; flex-wrap: wrap; gap: 1.4mm; }
+  .chip {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 6.6pt;
+    padding: .9mm 2.6mm;
+    border: .3mm solid var(--line);
+    border-radius: 5mm;
+    color: var(--ink-soft);
+    white-space: nowrap;
+  }
+  .chip.hot {
+    border-color: rgba(5,8,13,0.55);
+    background: var(--lime);
+    color: var(--ink);
+    font-weight: 500;
+  }
+
+  .edu-row { display: flex; gap: 4mm; margin-bottom: .6mm; }
+  .edu-label {
+    font-family: 'Archivo', sans-serif;
+    font-weight: 700;
+    font-size: 8.6pt;
+    color: var(--ink);
+    width: 36mm;
+    flex-shrink: 0;
+  }
+  .edu-row p { flex: 1; }
+
+  .foot {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0 14mm; margin-top: 1mm;
+  }
+  .foot-line { flex: 1; height: .25mm; background: var(--line); margin-right: 4mm; }
+  .foot p {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 6.4pt;
+    color: var(--muted);
+    letter-spacing: .1em;
+  }
+  .foot p b { color: var(--cyan); font-weight: 500; }
+</style>
+</head>
+<body>
+
+<header>
+  <p class="eyebrow">Data Engineer &amp; Designer — Aarhus, Danmark</p>
+  <h1>Morten Lundum-<span class="accent">Nørgaard</span></h1>
+  <p class="role">Jeg tager det komplekse og gør det til noget man kan se.</p>
+  <p class="contact"><b>m.lundum.andersen@gmail.com</b> &nbsp;·&nbsp; mlnorgaard.com &nbsp;·&nbsp; github.com/M-LN &nbsp;·&nbsp; linkedin.com/in/morten-lundum-nørgaard</p>
+</header>
+
+<div class="body">
+
+  <section class="profil">
+    <p class="sec-label">Profil</p>
+    <p>Jeg har 14+ års hands-on erfaring fra komplekse tekniske miljøer — først som elektriker, siden inden for data og ML-udvikling. Sideløbende har jeg i årevis bygget frontend- og visuelle projekter på egen hånd, simpelthen fordi jeg holder af håndværket. Jeg trives i strukturerede teams hvor kvalitet betyder noget, og hvor beslutninger træffes af dem der kender emnet bedst — og jeg har allerede bevist over for mig selv, at jeg kan <b>lære en ny disciplin ordentligt</b>, når retningen betyder noget for mig.</p>
+  </section>
+
+  <section>
+    <p class="sec-label">Erfaring</p>
+    <div class="job">
+      <div class="job-head">
+        <span class="job-title">Vestas <small>— Lead Test Supervisor</small></span>
+        <span class="job-meta">2023 – nu &nbsp;·&nbsp; Aarhus</span>
+      </div>
+      <ul>
+        <li>Udviklede ML-modelpipeline i Dataiku — feature engineering, evaluering og performanceanalyse.</li>
+        <li>Byggede Python-automatisering til dataanalyse og rapportering.</li>
+        <li>Implementerede monitorerings- og observability-løsninger; driftede og stabiliserede testudstyr og tekniske platforme.</li>
+        <li>Fejlfandt komplekse systemer på tværs af hardware/software ud fra logs, målinger og systemadfærd.</li>
+        <li>Samarbejdede med udviklere, ingeniører, testteams og data scientists — inkl. tæt mentoring fra en senior data scientist.</li>
+      </ul>
+    </div>
+    <div class="job">
+      <div class="job-head">
+        <span class="job-title">Vestas <small>— Elektriker</small></span>
+        <span class="job-meta">2011 – 2023 &nbsp;·&nbsp; Aarhus</span>
+      </div>
+      <p class="job-line">Fejlfinding, systemstabilitet og teknisk test · kvalitetssikring og dokumentation · tavlebyg, rework og systemintegration.</p>
+    </div>
+    <div class="job">
+      <div class="job-head">
+        <span class="job-title">Intego A/S <small>— Elektriker</small></span>
+        <span class="job-meta">2010 – 2011</span>
+      </div>
+      <p class="job-line">Installation og service af industrielle tekniske anlæg · fejlfinding og kvalitetssikring.</p>
+    </div>
+  </section>
+
+  <section>
+    <p class="sec-label">Udvalgte projekter — live demos på mlnorgaard.com</p>
+    <div class="proj"><b>patterniseverything.com</b> — 249 interaktive emner om ML og finansmarkeder, bygget fra bunden i vanilla JS, D3 og Canvas.</div>
+    <div class="proj"><b>Danmarks Elnet, Live</b> — Standalone dashboard der henter realtidsdata fra Energi Data Service hvert minut — vindandel, CO₂ og spotpriser.</div>
+    <div class="proj"><b>Østjylland Ro-index</b> — Udtrækker hændelser fra politiets døgnrapporter med en LLM og viser en ro-score pr. kommune; daglig GitHub Action.</div>
+    <div class="proj"><b>AI Estimation Playground</b> — Dependency-frie HTML-labs der lærer Kalman-filtre og Gaussian Processes gennem live simulation.</div>
+  </section>
+
+  <section>
+    <p class="sec-label">Kompetencer</p>
+    <div class="chip-group">
+      <span class="chip-group-label">Frontend &amp; Visuel</span>
+      <span class="chips">
+        <span class="chip hot">Vanilla JS · HTML5 · CSS3</span>
+        <span class="chip hot">D3 · Canvas</span>
+        <span class="chip">Typografi · farve · motion</span>
+        <span class="chip">UI &amp; informationsarkitektur</span>
+      </span>
+    </div>
+    <div class="chip-group">
+      <span class="chip-group-label">AI &amp; Machine Learning</span>
+      <span class="chips">
+        <span class="chip hot">Dataiku ML-pipelines</span>
+        <span class="chip hot">LLM-agenter · RAG · Copilot</span>
+        <span class="chip">EDA &amp; datakvalitet</span>
+        <span class="chip">ML · DL · GenAI · Agentic AI</span>
+      </span>
+    </div>
+    <div class="chip-group">
+      <span class="chip-group-label">Data Eng. &amp; Automatisering</span>
+      <span class="chips">
+        <span class="chip hot">Python</span>
+        <span class="chip">Dataflows &amp; pipelines</span>
+        <span class="chip">Azure Data Explorer (KQL)</span>
+        <span class="chip">Azure DevOps</span>
+        <span class="chip">Grafana · InfluxDB</span>
+      </span>
+    </div>
+    <div class="chip-group">
+      <span class="chip-group-label">System Engineering</span>
+      <span class="chips">
+        <span class="chip">Hardware/software-fejlfinding</span>
+        <span class="chip">Linux · virtualisering · containere</span>
+        <span class="chip">Dokumentation &amp; standarder</span>
+      </span>
+    </div>
+  </section>
+
+  <section>
+    <p class="sec-label">Uddannelse &amp; certificeringer</p>
+    <div class="edu-row">
+      <span class="edu-label">Uddannet elektriker</span>
+      <p>Installationsteknik — Aarhus Tech. Efterfølgende selvlært: JavaScript/HTML/CSS, Python, ML, cloud, Linux, automatisering, monitorering.</p>
+    </div>
+    <div class="edu-row">
+      <span class="edu-label">Certificeringer</span>
+      <p><b style="color:var(--ink);">IBM:</b> Supervised ML (Classification · Regression) · Exploratory Data Analysis for ML · Machine Learning with Python · Data Analysis with Python · Python for Data Science, AI &amp; Development &nbsp;&nbsp;<b style="color:var(--ink);">Meta:</b> Programming in Python &nbsp;&nbsp;<b style="color:var(--ink);">Dataiku:</b> Designer</p>
+    </div>
+    <div class="edu-row">
+      <span class="edu-label">Sprog</span>
+      <p>Dansk (modersmål) &nbsp;·&nbsp; Engelsk (flydende)</p>
+    </div>
+  </section>
+
+</div>
+
+<div class="foot">
+  <div class="foot-line"></div>
+  <p><b>mlnorgaard.com</b></p>
+</div>
+
+</body>
+</html>
