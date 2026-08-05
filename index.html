@@ -237,53 +237,75 @@
       letter-spacing: .04em; max-width: 62ch; margin-bottom: 4rem;
     }
 
-    /* ── CASES ── */
-    .case {
-      display: grid; grid-template-columns: 1.25fr .75fr; gap: 3rem; align-items: center;
-      padding: 3.2rem 0; border-top: 1px solid var(--line);
-      text-decoration: none; color: inherit; cursor: pointer;
-    }
-    .case:last-of-type { border-bottom: 1px solid var(--line); }
-    .case.flip { grid-template-columns: .75fr 1.25fr; }
-    .case.flip .case-media { order: 2; }
-    .case.flip .case-text { order: 1; }
+    /* ── AGENT-KONSOL ── */
+    .console { border: 1px solid var(--line); border-radius: 16px; overflow: hidden; background: var(--surface);
+      box-shadow: 0 30px 90px rgba(0,0,0,0.45); }
+    .con-bar { display: flex; align-items: center; gap: .7rem; padding: .75rem 1.1rem; border-bottom: 1px solid var(--line);
+      background: linear-gradient(to bottom, rgba(255,255,255,0.02), transparent); }
+    .con-dots { display: flex; gap: .4rem; }
+    .con-dots i { width: .62rem; height: .62rem; border-radius: 50%; background: #20303f; display: block; }
+    .con-title { font-family: var(--font-mono); font-size: .72rem; letter-spacing: .06em; color: var(--muted); }
+    .con-status { margin-left: auto; font-family: var(--font-mono); font-size: .66rem; letter-spacing: .1em; color: var(--lime);
+      display: flex; align-items: center; gap: .4rem; text-transform: uppercase; }
+    .con-status .pip { width: .5rem; height: .5rem; border-radius: 50%; background: var(--lime); box-shadow: 0 0 8px var(--lime);
+      animation: agpip 2.2s ease-in-out infinite; }
+    @keyframes agpip { 0%,100% { opacity: 1 } 50% { opacity: .35 } }
 
-    .case-media {
-      position: relative; border-radius: 18px; overflow: hidden;
-      aspect-ratio: 16/9.5; background: var(--surface);
-      transition: box-shadow .5s cubic-bezier(.16,1,.3,1);
-    }
-    .case-media img, .case-media > svg {
-      position: absolute; inset: 0;
-      width: 100%; height: 100%; object-fit: cover; display: block;
-      transition: transform .7s cubic-bezier(.16,1,.3,1);
-    }
-    .case-media::after {
-      content: ''; position: absolute; inset: 0; border-radius: 18px;
-      border: 1px solid rgba(242,246,244,0.09);
-      pointer-events: none;
-    }
-    .case:hover .case-media img { transform: scale(1.045); }
-    .case:hover .case-media { box-shadow: 0 24px 80px rgba(63,224,208,0.10), 0 8px 30px rgba(0,0,0,0.5); }
+    .con-grid { display: grid; grid-template-columns: 1fr 300px; min-height: 430px; }
+    .stream { padding: 1.4rem 1.5rem; display: flex; flex-direction: column; gap: 1.2rem; overflow-y: auto; max-height: 560px; }
+    .msg { display: flex; flex-direction: column; gap: .4rem; max-width: 100%; }
+    .msg .who { font-family: var(--font-mono); font-size: .62rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+    .msg.user { align-items: flex-end; }
+    .msg.user .bubble { background: var(--glass); border: 1px solid var(--line); border-radius: 12px 12px 3px 12px;
+      padding: .6rem .95rem; font-size: .92rem; color: var(--ink); }
+    .msg.agent .who { color: var(--cyan); display: flex; align-items: center; gap: .45rem; }
+    .msg.agent .who::before { content: '◆'; color: var(--cyan); font-size: .7rem; }
+    .msg.agent .bubble { font-size: .96rem; line-height: 1.65; color: var(--ink); }
+    .msg.agent .bubble .num { font-family: var(--font-mono); color: var(--lime); font-weight: 500; }
+    .caret { display: inline-block; width: .55ch; height: 1.05em; background: var(--lime); vertical-align: -2px; margin-left: 1px;
+      animation: agblink 1s steps(1) infinite; }
+    @keyframes agblink { 50% { opacity: 0 } }
 
-    .case-tag {
-      font-family: var(--font-mono); font-size: .68rem; letter-spacing: .16em;
-      color: var(--cyan); text-transform: uppercase; margin-bottom: .9rem;
-    }
-    .case-title {
-      font-family: var(--font-display); font-weight: 800; letter-spacing: -.015em;
-      font-size: clamp(1.5rem, 2.6vw, 2.2rem); line-height: 1.05; margin-bottom: 1rem;
-      transition: color .25s;
-      overflow-wrap: anywhere;
-    }
-    .case:hover .case-title { color: var(--lime); }
-    .case-desc { color: var(--muted); font-size: .95rem; line-height: 1.7; max-width: 46ch; margin-bottom: 1.4rem; }
-    .case-cta {
-      font-family: var(--font-mono); font-size: .72rem; letter-spacing: .1em; color: var(--ink);
-      display: inline-flex; align-items: center; gap: .6rem; text-transform: uppercase;
-    }
-    .case-cta::after { content: '→'; color: var(--lime); transition: transform .25s; }
-    .case:hover .case-cta::after { transform: translateX(6px); }
+    .results { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: .5rem; }
+    .result { display: flex; flex-direction: column; gap: .15rem; text-align: left; cursor: pointer;
+      border: 1px solid var(--line); border-radius: 10px; padding: .55rem .8rem; background: var(--card);
+      transition: border-color .18s, transform .18s; min-width: 0; font-family: inherit; }
+    .result:hover { border-color: var(--lime); transform: translateY(-2px); }
+    .result .rt { font-family: var(--font-display); font-weight: 800; font-size: .86rem; letter-spacing: -.01em; color: var(--ink); }
+    .result .rtag { font-family: var(--font-mono); font-size: .6rem; letter-spacing: .08em; color: var(--cyan); text-transform: uppercase; }
+
+    .rail { border-left: 1px solid var(--line); padding: 1.1rem; background: rgba(0,0,0,0.18);
+      display: flex; flex-direction: column; overflow-y: auto; max-height: 560px; }
+    .rail-h { font-family: var(--font-mono); font-size: .6rem; letter-spacing: .18em; text-transform: uppercase; color: var(--muted);
+      margin-bottom: .8rem; display: flex; justify-content: space-between; }
+    .tool { font-family: var(--font-mono); font-size: .7rem; line-height: 1.5; padding: .5rem 0; border-bottom: 1px dashed var(--line);
+      opacity: 0; transform: translateY(6px); transition: opacity .3s, transform .3s; }
+    .tool.in { opacity: 1; transform: none; }
+    .tool .fn { color: var(--lime); }
+    .tool .arg { color: var(--muted); }
+    .tool .res { color: var(--cyan); display: flex; align-items: center; gap: .4rem; margin-top: .25rem; }
+    .tool .res .sp { width: .7rem; height: .7rem; border: 1.5px solid var(--cyan); border-top-color: transparent; border-radius: 50%;
+      display: inline-block; animation: agspin .6s linear infinite; }
+    @keyframes agspin { to { transform: rotate(360deg) } }
+    .tool .res .ok { color: var(--lime); }
+    .rail-empty { color: #3a4753; font-family: var(--font-mono); font-size: .68rem; line-height: 1.6; }
+
+    .con-foot { border-top: 1px solid var(--line); padding: 1rem 1.1rem; background: linear-gradient(to top, rgba(255,255,255,0.02), transparent); }
+    .sg-chips { display: flex; flex-wrap: wrap; gap: .45rem; margin-bottom: .8rem; }
+    .sg-chip { font-family: var(--font-mono); font-size: .7rem; letter-spacing: .02em; padding: .42rem .8rem; border: 1px solid var(--line);
+      border-radius: 999px; color: var(--muted); background: var(--glass); cursor: pointer; transition: all .18s; white-space: nowrap; }
+    .sg-chip:hover { border-color: var(--lime); color: var(--ink); transform: translateY(-1px); }
+    .sg-chip::before { content: '↳ '; color: var(--lime); }
+    .inrow { display: flex; gap: .6rem; align-items: center; }
+    .inrow input { flex: 1; background: var(--ground); border: 1px solid var(--line); border-radius: 10px; color: var(--ink);
+      font-family: var(--font-body); font-size: .92rem; padding: .7rem .9rem; outline: none; transition: border-color .18s; }
+    .inrow input:focus { border-color: var(--cyan); }
+    .inrow input::placeholder { color: #465562; }
+    .send { background: var(--lime); color: var(--ground); border: none; border-radius: 10px; padding: .7rem 1.1rem; cursor: pointer;
+      font-family: var(--font-mono); font-size: .72rem; font-weight: 500; letter-spacing: .06em; text-transform: uppercase;
+      transition: transform .15s, box-shadow .15s; }
+    .send:hover { transform: translateY(-1px); box-shadow: 0 6px 22px rgba(200,255,0,0.28); }
+    .con-hint { font-family: var(--font-mono); font-size: .62rem; color: #3a4753; margin-top: .7rem; letter-spacing: .03em; }
 
     /* ── ABOUT ── */
     #about { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
@@ -370,7 +392,7 @@
     .rv { opacity: 0; transform: translateY(26px); transition: opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1); }
     .rv.in { opacity: 1; transform: none; }
 
-    a:focus-visible, button:focus-visible, .case:focus-visible {
+    a:focus-visible, button:focus-visible, .result:focus-visible, .sg-chip:focus-visible {
       outline: 2px solid var(--lime); outline-offset: 3px; border-radius: 4px;
     }
 
@@ -453,8 +475,9 @@
     /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
       #about { grid-template-columns: 1fr; gap: 2.6rem; }
-      .case, .case.flip { grid-template-columns: 1fr; gap: 1.4rem; }
-      .case.flip .case-media { order: 1; } .case.flip .case-text { order: 2; }
+      .con-grid { grid-template-columns: 1fr; }
+      .rail { border-left: none; border-top: 1px solid var(--line); max-height: none; }
+      .stream { max-height: none; }
       section { padding: 4.5rem 1.3rem; }
       .stack { padding: 0 1.3rem 3.5rem; }
       nav { padding: 1rem 1.3rem; }
@@ -524,154 +547,32 @@
     <!-- PROJECTS -->
     <section id="projects">
       <div class="sec-head">
-        <h2 class="sec-title" data-da="Udvalgte<br>projekter" data-en="Selected<br>projects">Udvalgte<br>projekter</h2>
-        <span class="sec-count">/ 6 builds</span>
+        <h2 class="sec-title" data-da="Spørg mit<br>arbejde" data-en="Ask my<br>work">Spørg mit<br>arbejde</h2>
+        <span class="sec-count" data-da="/ 6 projekter · agent" data-en="/ 6 projects · agent">/ 6 projekter · agent</span>
       </div>
-      <p class="sec-manifest" data-da="// Mønsteret i det hele: tag noget teknisk uigennemskueligt — byg et vindue man kan se det igennem" data-en="// The pattern in all of it: take something technically opaque — build a window to see it through">// Mønsteret i det hele: tag noget teknisk uigennemskueligt — byg et vindue man kan se det igennem</p>
+      <p class="sec-manifest" data-da="// I stedet for en liste af kort: stil et spørgsmål, så finder en agent svaret i mine projekter og mine live-data — og viser sit arbejde undervejs." data-en="// Instead of a grid of cards: ask a question and an agent finds the answer in my projects and live data — showing its work as it goes.">// I stedet for en liste af kort: stil et spørgsmål, så finder en agent svaret i mine projekter og mine live-data — og viser sit arbejde undervejs.</p>
 
-      <!-- patterniseverything.com -->
-      <div class="case" onclick="openModal('pie')" role="button" tabindex="0" aria-haspopup="dialog">
-        <div class="case-media"><img src="assets/projects/patterniseverything.jpg" alt="Skærmbillede af patterniseverything.com" loading="lazy" decoding="async"></div>
-        <div class="case-text">
-          <p class="case-tag">Vanilla JS · CSS · D3 · Canvas</p>
-          <h3 class="case-title">patterniseverything.com</h3>
-          <p class="case-desc" data-da="249 interaktive emner om ML og finansmarkeder — bygget fra bunden i vanilla JS uden et eneste framework. Cosmos-visning, quizspil, realtidsnotebooks og 5 sandkassemiljøer." data-en="249 interactive topics on ML and financial markets — built from scratch in vanilla JS with zero frameworks. Cosmos view, quiz game, live notebooks and 5 sandbox environments.">249 interaktive emner om ML og finansmarkeder — bygget fra bunden i vanilla JS uden et eneste framework. Cosmos-visning, quizspil, realtidsnotebooks og 5 sandkassemiljøer.</p>
-          <span class="case-cta" data-da="Se detaljer" data-en="View details">Se detaljer</span>
+      <div class="console">
+        <div class="con-bar">
+          <span class="con-dots"><i></i><i></i><i></i></span>
+          <span class="con-title">agent://mlnorgaard — portfolio</span>
+          <span class="con-status"><span class="pip"></span><span data-da="online" data-en="online">online</span></span>
         </div>
-      </div>
-
-      <!-- Danmarks elnet · live -->
-      <div class="case flip" onclick="openModal('dkelnet')" role="button" tabindex="0" aria-haspopup="dialog">
-        <div class="case-media" style="background:#0c1417;">
-          <svg class="preview-svg" viewBox="0 0 340 200" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-            <!-- header bar -->
-            <rect x="8" y="8" width="324" height="20" rx="3" fill="#121e23"/>
-            <circle cx="19" cy="18" r="4" fill="#43be8f"><animate attributeName="opacity" values="1;0.3;1" dur="2.4s" repeatCount="indefinite"/></circle>
-            <text x="29" y="22" font-family="system-ui,sans-serif" font-size="7" fill="#7d949d" letter-spacing="1.5">DANMARKS ELNET</text>
-            <text x="326" y="22" font-family="system-ui,sans-serif" font-size="7" fill="#5a6f78" text-anchor="end" letter-spacing="1">LIVE</text>
-            <!-- production panel -->
-            <rect x="8" y="32" width="190" height="94" rx="3" fill="#121e23"/>
-            <text x="18" y="47" font-family="system-ui,sans-serif" font-size="6.5" fill="#5a6f78" letter-spacing="1.2">VEDVARENDE</text>
-            <text x="18" y="76" font-family="system-ui,sans-serif" font-size="31" font-weight="700" fill="#43be8f" letter-spacing="-1"><tspan id="cardRePct">90</tspan><tspan font-size="14" fill="#5a6f78" letter-spacing="0">%</tspan></text>
-            <rect x="18" y="83" width="172" height="11" rx="3" fill="#0a1013"/>
-            <rect id="cardMixWind" x="18" y="83" width="24"  height="11" rx="3" fill="#34b6c6" fill-opacity="0.9"/>
-            <rect id="cardMixSolar" x="42" y="83" width="136" height="11"       fill="#f2b441" fill-opacity="0.85"/>
-            <rect id="cardMixThermal" x="178" y="83" width="12" height="11" rx="3" fill="#9a6f54" fill-opacity="0.8"/>
-            <rect x="18" y="103" width="6" height="6" rx="1.5" fill="#34b6c6"/>
-            <text x="27" y="109" font-family="system-ui,sans-serif" font-size="6.5" fill="#7d949d">Vind</text>
-            <rect x="60" y="103" width="6" height="6" rx="1.5" fill="#f2b441"/>
-            <text x="69" y="109" font-family="system-ui,sans-serif" font-size="6.5" fill="#7d949d">Sol</text>
-            <rect x="97" y="103" width="6" height="6" rx="1.5" fill="#9a6f54"/>
-            <text x="106" y="109" font-family="system-ui,sans-serif" font-size="6.5" fill="#7d949d">Termisk</text>
-            <!-- CO2 panel -->
-            <rect x="202" y="32" width="130" height="94" rx="3" fill="#121e23"/>
-            <text x="212" y="47" font-family="system-ui,sans-serif" font-size="6.5" fill="#5a6f78" letter-spacing="1">CO₂ INTENSITET</text>
-            <text id="cardCo2" x="212" y="76" font-family="system-ui,sans-serif" font-size="31" font-weight="700" fill="#43be8f" letter-spacing="-1">21</text>
-            <text x="212" y="89" font-family="system-ui,sans-serif" font-size="8" fill="#5a6f78">g CO₂/kWh</text>
-            <rect x="212" y="98" width="64" height="16" rx="8" fill="rgba(67,190,143,0.12)" stroke="rgba(67,190,143,0.25)" stroke-width="0.8"/>
-            <text id="cardCo2Word" x="244" y="110" font-family="system-ui,sans-serif" font-size="7.5" fill="#43be8f" text-anchor="middle">Meget ren</text>
-            <!-- price panel -->
-            <rect x="8" y="130" width="324" height="62" rx="3" fill="#121e23"/>
-            <text x="18" y="144" font-family="system-ui,sans-serif" font-size="6.5" fill="#5a6f78" letter-spacing="1.2">SPOTPRIS</text>
-            <text x="18"  y="158" font-family="system-ui,sans-serif" font-size="8"  fill="#7d949d">DK1</text>
-            <text x="33"  y="158" font-family="system-ui,sans-serif" font-size="10" font-weight="600" fill="#34b6c6"><tspan id="cardDk1">3</tspan><tspan font-size="6.5" fill="#5a6f78"> øre/kWh</tspan></text>
-            <text x="116" y="158" font-family="system-ui,sans-serif" font-size="8"  fill="#7d949d">DK2</text>
-            <text x="131" y="158" font-family="system-ui,sans-serif" font-size="10" font-weight="600" fill="#c4a3e8"><tspan id="cardDk2">6</tspan><tspan font-size="6.5" fill="#5a6f78"> øre/kWh</tspan></text>
-            <!-- price bars: 12 two-hour slots, bottom y=187, DK1 teal / DK2 purple -->
-            <rect x="18"  y="177" width="9" height="10" rx="1" fill="#34b6c6" fill-opacity="0.7"/>
-            <rect x="28"  y="176" width="9" height="11" rx="1" fill="#c4a3e8" fill-opacity="0.6"/>
-            <rect x="43"  y="178" width="9" height="9"  rx="1" fill="#34b6c6" fill-opacity="0.7"/>
-            <rect x="53"  y="177" width="9" height="10" rx="1" fill="#c4a3e8" fill-opacity="0.6"/>
-            <rect x="68"  y="178" width="9" height="9"  rx="1" fill="#34b6c6" fill-opacity="0.7"/>
-            <rect x="78"  y="178" width="9" height="9"  rx="1" fill="#c4a3e8" fill-opacity="0.6"/>
-            <rect x="93"  y="177" width="9" height="10" rx="1" fill="#34b6c6" fill-opacity="0.7"/>
-            <rect x="103" y="176" width="9" height="11" rx="1" fill="#c4a3e8" fill-opacity="0.6"/>
-            <rect x="118" y="184" width="9" height="3"  rx="1" fill="#34b6c6" fill-opacity="0.7"/>
-            <rect x="128" y="183" width="9" height="4"  rx="1" fill="#c4a3e8" fill-opacity="0.6"/>
-            <rect x="143" y="185" width="9" height="2"  rx="1" fill="#34b6c6" fill-opacity="0.7"/>
-            <rect x="153" y="185" width="9" height="2"  rx="1" fill="#c4a3e8" fill-opacity="0.6"/>
-            <rect x="168" y="185" width="9" height="2"  rx="1" fill="#34b6c6" fill-opacity="1"/>
-            <rect x="178" y="185" width="9" height="2"  rx="1" fill="#c4a3e8" fill-opacity="0.9"/>
-            <rect x="193" y="185" width="9" height="2"  rx="1" fill="#34b6c6" fill-opacity="0.6"/>
-            <rect x="203" y="185" width="9" height="2"  rx="1" fill="#c4a3e8" fill-opacity="0.5"/>
-            <rect x="218" y="178" width="9" height="9"  rx="1" fill="#34b6c6" fill-opacity="0.6"/>
-            <rect x="228" y="177" width="9" height="10" rx="1" fill="#c4a3e8" fill-opacity="0.5"/>
-            <rect x="243" y="165" width="9" height="22" rx="1" fill="#34b6c6" fill-opacity="0.6"/>
-            <rect x="253" y="165" width="9" height="22" rx="1" fill="#c4a3e8" fill-opacity="0.5"/>
-            <rect x="268" y="167" width="9" height="20" rx="1" fill="#34b6c6" fill-opacity="0.6"/>
-            <rect x="278" y="166" width="9" height="21" rx="1" fill="#c4a3e8" fill-opacity="0.5"/>
-            <rect x="293" y="169" width="9" height="18" rx="1" fill="#34b6c6" fill-opacity="0.6"/>
-            <rect x="303" y="168" width="9" height="19" rx="1" fill="#c4a3e8" fill-opacity="0.5"/>
-          </svg>
+        <div class="con-grid">
+          <div class="stream" id="agStream" aria-live="polite"></div>
+          <div class="rail">
+            <div class="rail-h"><span data-da="Tool calls" data-en="Tool calls">Tool calls</span><span id="agRailCount">0</span></div>
+            <div id="agRail"></div>
+            <div class="rail-empty" id="agRailEmpty" data-da="Ingen kald endnu.<br>Stil et spørgsmål for at se<br>agenten arbejde →" data-en="No calls yet.<br>Ask a question to watch<br>the agent work →">Ingen kald endnu.<br>Stil et spørgsmål for at se<br>agenten arbejde →</div>
+          </div>
         </div>
-        <div class="case-text">
-          <p class="case-tag">HTML · Vanilla JS · Live API</p>
-          <h3 class="case-title" data-da="Danmarks elnet, live" data-en="Danish grid, live">Danmarks elnet, live</h3>
-          <p class="case-desc" data-da="Standalone dashboard der henter ægte live-data fra Energi Data Service hvert minut — vindandel, CO₂-intensitet og DK1/DK2-spotpriser. Accentfarven skifter med CO₂-intensiteten i realtid." data-en="Standalone dashboard fetching real live data from Energi Data Service every minute — renewable share, CO₂ intensity and DK1/DK2 spot prices. Accent colour shifts with CO₂ intensity in real time.">Standalone dashboard der henter ægte live-data fra Energi Data Service hvert minut — vindandel, CO₂-intensitet og DK1/DK2-spotpriser. Accentfarven skifter med CO₂-intensiteten i realtid.</p>
-          <span class="case-cta" data-da="Se detaljer" data-en="View details">Se detaljer</span>
-        </div>
-      </div>
-
-      <!-- In-Silico Dashboard -->
-      <div class="case" onclick="openModal('tr2')" role="button" tabindex="0" aria-haspopup="dialog">
-        <div class="case-media"><img src="assets/projects/genx-dashboard.jpg" alt="Skærmbillede af In-Silico Dashboard" loading="lazy" decoding="async"></div>
-        <div class="case-text">
-          <p class="case-tag">Python · Plotly · ML · Simulering</p>
-          <h3 class="case-title">In-Silico Dashboard</h3>
-          <p class="case-desc" data-da="Et virtuelt testbænk der kører hele driftsrummet igennem før det første fysiske testpunkt bookes — &quot;Testing Before Testing&quot;. Fysiksimulering, ML-surrogatmodel (p50/p95) og et sammenligningslag der finder uenighed." data-en="A virtual test bench that runs the entire operating space before the first physical test point is booked — &quot;Testing Before Testing&quot;. Physics simulation, ML surrogate model (p50/p95) and a comparison layer that maps disagreement.">Et virtuelt testbænk der kører hele driftsrummet igennem før det første fysiske testpunkt bookes — "Testing Before Testing". Fysiksimulering, ML-surrogatmodel (p50/p95) og et sammenligningslag der finder uenighed.</p>
-          <span class="case-cta" data-da="Se detaljer" data-en="View details">Se detaljer</span>
-        </div>
-      </div>
-
-      <!-- TVDP Agent -->
-      <div class="case flip" onclick="openModal('tvdp')" role="button" tabindex="0" aria-haspopup="dialog">
-        <div class="case-media"><img src="assets/projects/tvdp-agent.jpg" alt="Skærmbillede af TVDP Agent" loading="lazy" decoding="async"></div>
-        <div class="case-text">
-          <p class="case-tag">GitHub Copilot · Python · ADX</p>
-          <h3 class="case-title">TVDP Agent</h3>
-          <p class="case-desc" data-da="Multi-agent AI-system med tool-calling koblet til Azure Data Explorer og Dataiku — bygget som installérbar Python-pakke." data-en="Multi-agent AI system with tool-calling connected to Azure Data Explorer and Dataiku — built as an installable Python package.">Multi-agent AI-system med tool-calling koblet til Azure Data Explorer og Dataiku — bygget som installérbar Python-pakke.</p>
-          <span class="case-cta" data-da="Se detaljer" data-en="View details">Se detaljer</span>
-        </div>
-      </div>
-
-      <!-- AI Estimation Playground -->
-      <div class="case" onclick="openModal('gp')" role="button" tabindex="0" aria-haspopup="dialog">
-        <div class="case-media"><img src="assets/projects/gp-lab.jpg" alt="Skærmbillede af AI Estimation Playground" loading="lazy" decoding="async"></div>
-        <div class="case-text">
-          <p class="case-tag">HTML · Kalman · GP · RNN · LSTM</p>
-          <h3 class="case-title">AI Estimation Playground</h3>
-          <p class="case-desc" data-da="Interaktive visuelle labs der lærer Kalman-filtre og Gaussian Processes gennem simulation — standalone HTML uden dependencies." data-en="Interactive visual labs teaching Kalman filters and Gaussian Processes through simulation — standalone HTML with zero dependencies.">Interaktive visuelle labs der lærer Kalman-filtre og Gaussian Processes gennem simulation — standalone HTML uden dependencies.</p>
-          <span class="case-cta" data-da="Se detaljer" data-en="View details">Se detaljer</span>
-        </div>
-      </div>
-
-      <!-- Østjylland Ro-index -->
-      <div class="case flip" onclick="openModal('roindex')" role="button" tabindex="0" aria-haspopup="dialog">
-        <div class="case-media" style="background:#0c0e0c;">
-          <svg class="preview-svg" viewBox="0 0 340 200" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-            <rect x="8" y="8" width="324" height="20" rx="3" fill="#14180f"/>
-            <circle cx="19" cy="18" r="4" fill="#c2f53f"><animate attributeName="opacity" values="1;0.3;1" dur="2.4s" repeatCount="indefinite"/></circle>
-            <text x="29" y="22" font-family="system-ui,sans-serif" font-size="7" fill="#8a948a" letter-spacing="1.5">ØSTJYLLAND · RO-INDEX</text>
-            <text x="326" y="22" font-family="system-ui,sans-serif" font-size="7" fill="#5d665a" text-anchor="end" letter-spacing="1">I DAG</text>
-            <g font-family="monospace" font-size="11" font-weight="700" text-anchor="middle">
-              <rect x="120" y="40" width="44" height="32" rx="6" fill="#e0573c" fill-opacity="0.85"/><text x="142" y="60" fill="#0c0e0c">29</text>
-              <rect x="238" y="44" width="42" height="30" rx="6" fill="#b5c24a" fill-opacity="0.85"/><text x="259" y="63" fill="#0c0e0c">61</text>
-              <rect x="206" y="80" width="46" height="34" rx="6" fill="#c2f53f" fill-opacity="0.9"/><text x="229" y="101" fill="#0c0e0c">84</text>
-              <rect x="72" y="84" width="42" height="30" rx="6" fill="#96a64a" fill-opacity="0.8"/><text x="93" y="103" fill="#0c0e0c">44</text>
-              <rect x="124" y="84" width="58" height="46" rx="7" fill="#c2f53f"><animate attributeName="fill-opacity" values="0.95;0.68;0.95" dur="3s" repeatCount="indefinite"/></rect><text x="153" y="112" fill="#0c0e0c" font-size="15">84</text>
-              <rect x="122" y="140" width="40" height="28" rx="6" fill="#d68c46" fill-opacity="0.8"/><text x="142" y="158" fill="#0c0e0c">34</text>
-              <rect x="244" y="138" width="34" height="26" rx="6" fill="#a9c24a" fill-opacity="0.8"/><text x="261" y="155" fill="#0c0e0c">68</text>
-            </g>
-            <circle cx="44" cy="152" r="20" fill="none" stroke="#1f261a" stroke-width="5"/>
-            <circle cx="44" cy="152" r="20" fill="none" stroke="#c2f53f" stroke-width="5" stroke-linecap="round" stroke-dasharray="125.6" stroke-dashoffset="34" transform="rotate(-90 44 152)"/>
-            <text x="44" y="157" font-family="monospace" font-size="15" font-weight="700" fill="#c2f53f" text-anchor="middle">73</text>
-          </svg>
-        </div>
-        <div class="case-text">
-          <p class="case-tag">Leaflet · Vanilla JS · LLM-ekstraktion</p>
-          <h3 class="case-title" data-da="Østjylland Ro-index" data-en="Østjylland Calm Index">Østjylland Ro-index</h3>
-          <p class="case-desc" data-da="Koncept-dashboard der scraper Østjyllands Politis døgnrapporter, udtrækker hændelser med en LLM og viser en baseline-relativ ro-score pr. kommune på et kort. Pipelinen kører som daglig GitHub Action." data-en="Concept dashboard that scrapes the East Jutland police daily reports, extracts incidents with an LLM and shows a baseline-relative calm score per municipality on a map. The pipeline runs as a daily GitHub Action.">Koncept-dashboard der scraper Østjyllands Politis døgnrapporter, udtrækker hændelser med en LLM og viser en baseline-relativ ro-score pr. kommune på et kort. Pipelinen kører som daglig GitHub Action.</p>
-          <span class="case-cta" data-da="Se detaljer" data-en="View details">Se detaljer</span>
+        <div class="con-foot">
+          <div class="sg-chips" id="agChips"></div>
+          <div class="inrow">
+            <input id="agQ" type="text" autocomplete="off" data-da-ph="Spørg om mit arbejde…" data-en-ph="Ask about my work…" placeholder="Spørg om mit arbejde…" aria-label="Spørg agenten">
+            <button class="send" id="agSend" data-da="Send" data-en="Send">Send</button>
+          </div>
+          <p class="con-hint" data-da="Guided demo-agent · scriptet, kører i din browser · elnet-tallet er live" data-en="Guided demo agent · scripted, runs in your browser · grid figure is live">Guided demo-agent · scriptet, kører i din browser · elnet-tallet er live</p>
         </div>
       </div>
 
@@ -781,6 +682,13 @@
           : 'assets/cv-morten-lundum-noergaard-da.pdf');
         cvLink.setAttribute('aria-label', lang === 'en' ? 'Download CV as PDF' : 'Download CV som PDF');
       }
+      // Placeholder-tekst (data-*-ph) følger sproget
+      document.querySelectorAll('[data-da-ph][data-en-ph]').forEach(function(node) {
+        var ph = node.getAttribute('data-' + lang + '-ph');
+        if (ph !== null) node.setAttribute('placeholder', ph);
+      });
+      // Fortæl agent-konsollen at sproget skiftede
+      document.dispatchEvent(new CustomEvent('mln:lang', { detail: lang }));
       try { localStorage.setItem('mln-lang', lang); } catch (err) {}
     }
 
@@ -795,16 +703,6 @@
     try { saved = localStorage.getItem('mln-lang'); } catch (err) {}
     var initial = saved || ((navigator.language || 'da').slice(0, 2) === 'da' ? 'da' : 'en');
     if (initial === 'en') applyLang('en'); // dansk er allerede aktiv i markup'en
-
-    // ── CASES: tastatur (Enter/Space åbner modal) ──
-    document.querySelectorAll('.case[role="button"]').forEach(function(card) {
-      card.addEventListener('keydown', function(e) {
-        if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') {
-          e.preventDefault();
-          card.click();
-        }
-      });
-    });
 
     // ── SCROLL-FREMDRIFT ──
     var bar = document.getElementById('scrollProgress');
@@ -830,7 +728,7 @@
           }
         });
       }, { threshold: 0.12 });
-      document.querySelectorAll('.case, .sec-head, .sec-manifest, .about-media, .about-copy, .stack, .contact-kicker, .contact-mega, .contact-row').forEach(function (el) {
+      document.querySelectorAll('.sec-head, .sec-manifest, .console, .about-media, .about-copy, .stack, .contact-kicker, .contact-mega, .contact-row').forEach(function (el) {
         if (el.getBoundingClientRect().top > window.innerHeight * 0.9) {
           el.classList.add('rv');
           obs.observe(el);
@@ -1260,8 +1158,9 @@
   });
   </script>
 
-  <!-- Live tal på elnet-kortet — samme datakilde som /dk-elnet/ -->
+  <!-- Live elnet-data — samme kilde som /dk-elnet/ — fodrer agent-konsollen -->
   <script>
+  window.MLN_GRID = { re: 90, co2: 21, dk1: null, dk2: null, live: false };
   (function () {
     var RAW = 'https://raw.githubusercontent.com/M-LN/mlnorgaard-portfolio/main/data/';
 
@@ -1284,6 +1183,8 @@
         var thermal = (r.ProductionGe100MW || 0) + (r.ProductionLt100MW || 0);
         var total = wind + solar + thermal;
         if (total > 0) {
+          window.MLN_GRID.re = Math.round((wind + solar) / total * 100);
+          window.MLN_GRID.live = true;
           setText('cardRePct', Math.round((wind + solar) / total * 100));
           // mix-bar: 172px bred, starter ved x=18
           var wW = 172 * wind / total, wS = 172 * solar / total;
@@ -1299,6 +1200,7 @@
           }
         }
         if (r.CO2Emission != null) {
+          window.MLN_GRID.co2 = Math.round(r.CO2Emission);
           setText('cardCo2', Math.round(r.CO2Emission));
           setText('cardCo2Word', co2Word(r.CO2Emission));
         }
@@ -1308,13 +1210,216 @@
         res[1].records.forEach(function (p) {
           if (!latest[p.PriceArea] && new Date(p.TimeDK).getTime() <= now) latest[p.PriceArea] = p;
         });
-        if (latest.DK1) setText('cardDk1', Math.round(latest.DK1.DayAheadPriceDKK / 10));
-        if (latest.DK2) setText('cardDk2', Math.round(latest.DK2.DayAheadPriceDKK / 10));
+        if (latest.DK1) { window.MLN_GRID.dk1 = Math.round(latest.DK1.DayAheadPriceDKK / 10); setText('cardDk1', window.MLN_GRID.dk1); }
+        if (latest.DK2) { window.MLN_GRID.dk2 = Math.round(latest.DK2.DayAheadPriceDKK / 10); setText('cardDk2', window.MLN_GRID.dk2); }
       }).catch(function () { /* behold de statiske tal */ });
     }
 
     refreshCard();
     setInterval(refreshCard, 5 * 60 * 1000);
+  })();
+  </script>
+
+  <!-- AGENT-KONSOL — scriptet demo-agent der erstatter projekt-kortene -->
+  <script>
+  (function () {
+    var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function lang() { var b = document.querySelector('.lang-btn.active'); return (b && b.getAttribute('data-lang')) || 'da'; }
+    function L(da, en) { return lang() === 'en' ? en : da; }
+
+    // Kort-labels til resultat-chips (genbruger den fulde 'projects'-modal)
+    var META = {
+      pie:     { tag: 'Vanilla JS', title: 'patterniseverything.com' },
+      dkelnet: { tag: 'Live API',   title: L('Danmarks elnet, live', 'Danish grid, live') },
+      tr2:     { tag: 'Python · ML', title: 'In-Silico Dashboard' },
+      tvdp:    { tag: 'AI-agent',    title: 'TVDP Agent' },
+      gp:      { tag: 'Kalman · GP', title: 'AI Estimation Playground' },
+      roindex: { tag: 'LLM',         title: L('Østjylland Ro-index', 'Østjylland Calm Index') }
+    };
+
+    var INTENTS = [
+      { keys:['ml','machine','model','forudsig','predict','neural','kunstig'],
+        tools:[['search_projects','{ tag: "ML" }', L('4 træf','4 hits')],['rank_by_relevance','{}', L('sorteret','sorted')]],
+        text: L(
+          'Machine learning går igen i det meste jeg bygger. De fire der viser det bedst: <span class="num">patterniseverything</span> (249 interaktive ML-emner), In-Silico Dashboard (ML-surrogatmodel mod fysik), AI Estimation Playground (Kalman/GP/LSTM) og TVDP Agent. Klik for detaljer:',
+          'Machine learning runs through most of what I build. The four that show it best: <span class="num">patterniseverything</span> (249 interactive ML topics), In-Silico Dashboard (ML surrogate vs. physics), AI Estimation Playground (Kalman/GP/LSTM) and TVDP Agent. Click for detail:'),
+        projects:['pie','tr2','gp','tvdp'] },
+      { keys:['agent','llm','copilot','rag','tool-call','toolcall','tool call'],
+        tools:[['search_projects','{ tag: "AI-agent" }', L('2 træf','2 hits')],['inspect','{ id: "tvdp" }','ok']],
+        text: L(
+          'Jeg bygger agentiske systemer med tool-calling — præcis som den her konsol. <span class="num">TVDP Agent</span> er et multi-agent-system koblet til Azure Data Explorer; <span class="num">Østjylland Ro-index</span> bruger en LLM til at udtrække hændelser fra fritekst. To eksempler:',
+          'I build agentic systems with tool-calling — exactly like this console. <span class="num">TVDP Agent</span> is a multi-agent system wired to Azure Data Explorer; <span class="num">Østjylland Ro-index</span> uses an LLM to extract incidents from free text. Two examples:'),
+        projects:['tvdp','roindex'] },
+      { keys:['elnet','grid','energi','energy','co2','strøm','strom','vind','sol','pris','power'],
+        grid:true,
+        tools:[['fetch_grid_data','{ source: "Energi Data Service" }', L('live','live')],['format_readout','{}','ok']],
+        text: L(
+          'Lige nu er det danske elnet <span class="num">__RE__% vedvarende</span> med en CO₂-intensitet på <span class="num">__CO2__ g/kWh</span>. Det tal henter jeg live fra Energi Data Service hvert minut i dette projekt:',
+          'Right now the Danish grid is <span class="num">__RE__% renewable</span> with a CO₂ intensity of <span class="num">__CO2__ g/kWh</span>. I pull that live from Energi Data Service every minute in this project:'),
+        projects:['dkelnet'] },
+      { keys:['vestas','erfaring','experience','job','arbejde','work','testhal','test'],
+        tools:[['load_profile','{ employer: "Vestas" }','ok'],['search_projects','{ context: "vestas" }', L('2 træf','2 hits')]],
+        text: L(
+          '14 år hos Vestas — fra elektriker i testhallen til Lead Test Supervisor med data og ML. Der byggede jeg bl.a. <span class="num">In-Silico Dashboard</span> og <span class="num">TVDP Agent</span>. Fysisk virkelighed + data er aldrig så langt fra hinanden som man tror:',
+          '14 years at Vestas — from electrician on the test floor to Lead Test Supervisor working with data and ML. There I built <span class="num">In-Silico Dashboard</span> and <span class="num">TVDP Agent</span>, among others. Physical reality + data are never as far apart as you\'d think:'),
+        projects:['tr2','tvdp'] },
+      { keys:['framework','vanilla','uden','stack','teknologi','tech','dependenc','without'],
+        tools:[['filter_projects','{ frameworks: 0 }', L('4 træf','4 hits')]],
+        text: L(
+          'Næsten alt er bygget i <span class="num">ren vanilla HTML/CSS/JS</span> — nul frameworks, nul dependencies. Åbn DevTools og se selv. De reneste eksempler:',
+          'Almost everything is built in <span class="num">plain vanilla HTML/CSS/JS</span> — zero frameworks, zero dependencies. Open DevTools and see for yourself. The cleanest examples:'),
+        projects:['pie','dkelnet','gp','roindex'] },
+      { keys:['design','visuel','visual','dataviz','visualiser','visualis','d3','grafik','graphic'],
+        tools:[['search_projects','{ tag: "dataviz" }', L('3 træf','3 hits')]],
+        text: L(
+          'Design og data er samme disciplin for mig — det handler om at gøre det komplekse synligt. De mest visuelle:',
+          'Design and data are the same discipline to me — it\'s about making the complex visible. The most visual ones:'),
+        projects:['pie','gp','dkelnet'] },
+      { keys:['kontakt','contact','hire','ansæt','ansaet','email','cv','ledig','samarbejd','available'],
+        tools:[['open_contact','{}','ok']],
+        text: L(
+          'Jeg er åben for muligheder inden for data engineering, ML og design. Skriv til <span class="num">m.lundum.andersen@gmail.com</span>, find mig på LinkedIn/GitHub, eller hent mit CV nederst på siden.',
+          'I\'m open to opportunities in data engineering, ML and design. Write to <span class="num">m.lundum.andersen@gmail.com</span>, find me on LinkedIn/GitHub, or grab my CV at the bottom of the page.'),
+        projects:[] },
+      { keys:['hvem','who','morten','om dig','about','baggrund','background'],
+        tools:[['load_profile','{}','ok']],
+        text: L(
+          'Morten Lundum-Nørgaard — data engineer & designer i Aarhus. Startede som elektriker, endte med at bygge ML-modeller og AI-agenter. Jeg tager det komplekse og gør det til noget man kan se. Spørg til et konkret område:',
+          'Morten Lundum-Nørgaard — data engineer & designer in Aarhus. Started as an electrician, ended up building ML models and AI agents. I take the complex and turn it into something you can see. Ask about a specific area:'),
+        projects:[] },
+      { keys:['alt','all','projekt','project','portfolio','vis mig','everything','liste','list','show'],
+        tools:[['search_projects','{}', L('6 træf','6 hits')]],
+        text: L('Her er alle seks. Klik et for detaljer:', 'Here are all six. Click one for detail:'),
+        projects:['pie','dkelnet','tr2','tvdp','gp','roindex'] }
+    ];
+
+    var SUGGEST = {
+      da: ['Vis mit ML-arbejde','Er elnettet rent lige nu?','Hvad byggede du hos Vestas?','Vis alt uden frameworks','Hvad med AI-agenter?','Vis alle projekter'],
+      en: ['Show my ML work','Is the grid clean right now?','What did you build at Vestas?','Show everything without frameworks','What about AI agents?','Show all projects']
+    };
+
+    var stream=document.getElementById('agStream'), rail=document.getElementById('agRail'),
+        railEmpty=document.getElementById('agRailEmpty'), railCount=document.getElementById('agRailCount'),
+        chipsEl=document.getElementById('agChips'), input=document.getElementById('agQ'), send=document.getElementById('agSend');
+    if(!stream) return;
+    var busy=false, totalCalls=0, started=false;
+
+    function renderChips(){
+      chipsEl.innerHTML='';
+      (SUGGEST[lang()]||SUGGEST.da).forEach(function(s){
+        var c=document.createElement('button'); c.type='button'; c.className='sg-chip'; c.textContent=s;
+        c.onclick=function(){ if(!busy){ input.value=s; run(s); } };
+        chipsEl.appendChild(c);
+      });
+    }
+
+    function scrollDown(){ stream.scrollTop=stream.scrollHeight; }
+    function wait(ms){ return new Promise(function(r){ setTimeout(r, reduced?0:ms); }); }
+
+    function match(q){
+      var s=q.toLowerCase();
+      for(var i=0;i<INTENTS.length;i++){ var it=INTENTS[i];
+        for(var k=0;k<it.keys.length;k++){ if(s.indexOf(it.keys[k])>-1) return it; } }
+      return null;
+    }
+
+    function addUser(text){
+      var m=document.createElement('div'); m.className='msg user';
+      m.innerHTML='<span class="who">'+L('Dig','You')+'</span><span class="bubble"></span>';
+      m.querySelector('.bubble').textContent=text; stream.appendChild(m); scrollDown();
+    }
+    function addTool(t){
+      railEmpty.style.display='none';
+      var el=document.createElement('div'); el.className='tool';
+      el.innerHTML='<span class="call"><span class="fn">'+t[0]+'</span><span class="arg">('+t[1]+')</span></span>'+
+                   '<span class="res"><span class="sp"></span>'+L('kører…','running…')+'</span>';
+      rail.appendChild(el); rail.scrollTop=rail.scrollHeight;
+      requestAnimationFrame(function(){ el.classList.add('in'); });
+      return el;
+    }
+    function resolveTool(el,result){
+      el.querySelector('.res').innerHTML='<span class="ok">✓</span> '+result;
+      totalCalls++; railCount.textContent=totalCalls;
+    }
+    function agentBubble(){
+      var m=document.createElement('div'); m.className='msg agent';
+      m.innerHTML='<span class="who">agent</span><span class="bubble"><span class="caret"></span></span>';
+      stream.appendChild(m); scrollDown(); return m.querySelector('.bubble');
+    }
+    async function typeInto(bubble,html){
+      if(reduced){ bubble.innerHTML=html; return; }
+      var i=0, out='';
+      while(i<html.length){
+        if(html[i]==='<'){ var j=html.indexOf('>',i); out+=html.slice(i,j+1); i=j+1; }
+        else { out+=html[i]; i++; }
+        bubble.innerHTML=out+'<span class="caret"></span>'; scrollDown();
+        if(i%2===0) await wait(9);
+      }
+      bubble.innerHTML=out;
+    }
+    function renderResults(bubble,keys){
+      if(!keys.length) return;
+      var box=document.createElement('div'); box.className='results';
+      keys.forEach(function(k){
+        var meta=META[k]||{tag:'',title:k};
+        var r=document.createElement('button'); r.type='button'; r.className='result';
+        r.setAttribute('aria-haspopup','dialog');
+        r.innerHTML='<span class="rtag">'+meta.tag+'</span><span class="rt">'+meta.title+'</span>';
+        r.onclick=function(){ if(typeof openModal==='function') openModal(k); };
+        box.appendChild(r);
+      });
+      bubble.appendChild(box); scrollDown();
+    }
+
+    async function run(q){
+      if(busy) return; busy=true; send.disabled=true; started=true;
+      addUser(q);
+      var it=match(q);
+      await wait(260);
+      var bubble=agentBubble();
+      if(!it){
+        await wait(280);
+        await typeInto(bubble, L(
+          'Jeg er en scriptet demo-agent, så jeg svarer på et kurateret sæt spørgsmål endnu. Prøv et forslag herunder — eller spørg om <span class="num">ML</span>, <span class="num">AI-agenter</span>, <span class="num">elnettet</span>, <span class="num">Vestas</span> eller <span class="num">frameworks</span>.',
+          'I\'m a scripted demo agent, so I answer a curated set of questions for now. Try a suggestion below — or ask about <span class="num">ML</span>, <span class="num">AI agents</span>, <span class="num">the grid</span>, <span class="num">Vestas</span> or <span class="num">frameworks</span>.'));
+        busy=false; send.disabled=false; input.focus(); return;
+      }
+      for(var i=0;i<it.tools.length;i++){
+        var t=it.tools[i]; await wait(230);
+        var el=addTool(t); await wait(560);
+        var res=t[2];
+        if(it.grid && t[0]==='fetch_grid_data'){ var g=window.MLN_GRID||{re:90,co2:21}; res='re='+g.re+'% · co2='+g.co2; }
+        resolveTool(el,res);
+      }
+      await wait(200);
+      var text=it.text;
+      if(it.grid){ var g2=window.MLN_GRID||{re:90,co2:21}; text=text.replace('__RE__',g2.re).replace('__CO2__',g2.co2); }
+      await typeInto(bubble,text);
+      renderResults(bubble,it.projects);
+      busy=false; send.disabled=false; input.focus();
+    }
+
+    function intro(){
+      stream.innerHTML='';
+      var m=document.createElement('div'); m.className='msg agent';
+      m.innerHTML='<span class="who">agent</span><span class="bubble">'+
+        L('Hej 👋 Jeg kender Mortens seks projekter, hans baggrund og hans live elnet-data. Hvad vil du vide?',
+          'Hi 👋 I know Morten\'s six projects, his background and his live grid data. What would you like to know?')+
+        '</span>';
+      stream.appendChild(m);
+    }
+
+    send.onclick=function(){ var v=input.value.trim(); if(v&&!busy) run(v); };
+    input.onkeydown=function(e){ if(e.key==='Enter'){ var v=input.value.trim(); if(v&&!busy) run(v); } };
+
+    // Sprogskifte: gen-render forslag + intro (kun hvis samtalen ikke er i gang)
+    document.addEventListener('mln:lang', function(){
+      renderChips();
+      if(!started && !busy) intro();
+    });
+
+    renderChips();
+    intro();
   })();
   </script>
 
