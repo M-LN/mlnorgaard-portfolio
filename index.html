@@ -3,27 +3,27 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Morten Lundum-Nørgaard — Data Engineer & Designer</title>
-  <meta name="description" content="Morten Lundum-Nørgaard — fra elektriker til data engineer. Jeg bygger ML-modeller, AI-agenter og interaktive datavisualiseringer hvor solid teknik og godt design mødes." />
+  <title>Morten Lundum-Nørgaard — Data · ML · Design</title>
+  <meta name="description" content="Morten Lundum-Nørgaard — fra elektriker på vej ind i data &amp; ML. Jeg bygger ML-modeller, AI-agenter og interaktive datavisualiseringer, hvor solid teknik og godt design mødes." />
   <meta name="author" content="Morten Lundum-Nørgaard" />
   <meta name="theme-color" content="#05080D" />
 
   <!-- Canonical & social -->
   <link rel="canonical" href="https://mlnorgaard.com/" />
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Morten Lundum-Nørgaard — Data Engineer & Designer" />
-  <meta property="og:description" content="Morten Lundum-Nørgaard — fra elektriker til data engineer. Jeg bygger ML-modeller, AI-agenter og interaktive datavisualiseringer hvor solid teknik og godt design mødes." />
+  <meta property="og:title" content="Morten Lundum-Nørgaard — Data · ML · Design" />
+  <meta property="og:description" content="Morten Lundum-Nørgaard — fra elektriker på vej ind i data &amp; ML. Jeg bygger ML-modeller, AI-agenter og interaktive datavisualiseringer, hvor solid teknik og godt design mødes." />
   <meta property="og:url" content="https://mlnorgaard.com/" />
   <meta property="og:image" content="https://mlnorgaard.com/assets/og-card.png?v=4" />
   <meta property="og:image:secure_url" content="https://mlnorgaard.com/assets/og-card.png?v=4" />
   <meta property="og:image:type" content="image/png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="Morten Lundum-Nørgaard — Data Engineer & Designer, Aarhus" />
+  <meta property="og:image:alt" content="Morten Lundum-Nørgaard — Data · ML · Design, Aarhus" />
   <meta property="og:locale" content="da_DK" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Morten Lundum-Nørgaard — Data Engineer & Designer" />
-  <meta name="twitter:description" content="Morten Lundum-Nørgaard — fra elektriker til data engineer. Jeg bygger ML-modeller, AI-agenter og interaktive datavisualiseringer hvor solid teknik og godt design mødes." />
+  <meta name="twitter:title" content="Morten Lundum-Nørgaard — Data · ML · Design" />
+  <meta name="twitter:description" content="Morten Lundum-Nørgaard — fra elektriker på vej ind i data &amp; ML. Jeg bygger ML-modeller, AI-agenter og interaktive datavisualiseringer, hvor solid teknik og godt design mødes." />
   <meta name="twitter:image" content="https://mlnorgaard.com/assets/og-card.png?v=4" />
 
   <!-- Favicon: lime M på mørk baggrund, inline SVG (ingen ekstra request) -->
@@ -35,7 +35,7 @@
     "@context": "https://schema.org",
     "@type": "Person",
     "name": "Morten Lundum-Nørgaard",
-    "jobTitle": "Data Engineer & Designer",
+    "jobTitle": "Lead Test Supervisor",
     "address": { "@type": "PostalAddress", "addressLocality": "Aarhus", "addressCountry": "DK" },
     "email": "m.lundum.andersen@gmail.com",
     "url": "https://mlnorgaard.com/",
@@ -237,53 +237,82 @@
       letter-spacing: .04em; max-width: 62ch; margin-bottom: 4rem;
     }
 
-    /* ── CASES ── */
-    .case {
-      display: grid; grid-template-columns: 1.25fr .75fr; gap: 3rem; align-items: center;
-      padding: 3.2rem 0; border-top: 1px solid var(--line);
-      text-decoration: none; color: inherit; cursor: pointer;
-    }
-    .case:last-of-type { border-bottom: 1px solid var(--line); }
-    .case.flip { grid-template-columns: .75fr 1.25fr; }
-    .case.flip .case-media { order: 2; }
-    .case.flip .case-text { order: 1; }
+    /* ── AGENT-KONSOL ── */
+    .console { border: 1px solid var(--line); border-radius: 16px; overflow: hidden; background: var(--surface);
+      box-shadow: 0 30px 90px rgba(0,0,0,0.45); }
+    .con-bar { display: flex; align-items: center; gap: .7rem; padding: .75rem 1.1rem; border-bottom: 1px solid var(--line);
+      background: linear-gradient(to bottom, rgba(255,255,255,0.02), transparent); }
+    .con-dots { display: flex; gap: .4rem; }
+    .con-dots i { width: .62rem; height: .62rem; border-radius: 50%; background: #20303f; display: block; }
+    .con-title { font-family: var(--font-mono); font-size: .72rem; letter-spacing: .06em; color: var(--muted); }
+    .con-status { margin-left: auto; font-family: var(--font-mono); font-size: .66rem; letter-spacing: .1em; color: var(--lime);
+      display: flex; align-items: center; gap: .4rem; text-transform: uppercase; }
+    .con-status .pip { width: .5rem; height: .5rem; border-radius: 50%; background: var(--lime); box-shadow: 0 0 8px var(--lime);
+      animation: agpip 2.2s ease-in-out infinite; }
+    @keyframes agpip { 0%,100% { opacity: 1 } 50% { opacity: .35 } }
 
-    .case-media {
-      position: relative; border-radius: 18px; overflow: hidden;
-      aspect-ratio: 16/9.5; background: var(--surface);
-      transition: box-shadow .5s cubic-bezier(.16,1,.3,1);
-    }
-    .case-media img, .case-media > svg {
-      position: absolute; inset: 0;
-      width: 100%; height: 100%; object-fit: cover; display: block;
-      transition: transform .7s cubic-bezier(.16,1,.3,1);
-    }
-    .case-media::after {
-      content: ''; position: absolute; inset: 0; border-radius: 18px;
-      border: 1px solid rgba(242,246,244,0.09);
-      pointer-events: none;
-    }
-    .case:hover .case-media img { transform: scale(1.045); }
-    .case:hover .case-media { box-shadow: 0 24px 80px rgba(63,224,208,0.10), 0 8px 30px rgba(0,0,0,0.5); }
+    .con-grid { display: grid; grid-template-columns: 1fr 300px; min-height: 430px; }
+    .stream { padding: 1.4rem 1.5rem; display: flex; flex-direction: column; gap: 1.2rem; overflow-y: auto; max-height: 560px; }
+    .msg { display: flex; flex-direction: column; gap: .4rem; max-width: 100%; }
+    .msg .who { font-family: var(--font-mono); font-size: .62rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+    .msg.user { align-items: flex-end; }
+    .msg.user .bubble { background: var(--glass); border: 1px solid var(--line); border-radius: 12px 12px 3px 12px;
+      padding: .6rem .95rem; font-size: .92rem; color: var(--ink); }
+    .msg.agent .who { color: var(--cyan); display: flex; align-items: center; gap: .45rem; }
+    .msg.agent .who::before { content: '◆'; color: var(--cyan); font-size: .7rem; }
+    .msg.agent .bubble { font-size: .96rem; line-height: 1.65; color: var(--ink); }
+    .msg.agent .bubble .num { font-family: var(--font-mono); color: var(--lime); font-weight: 500; }
+    .caret { display: inline-block; width: .55ch; height: 1.05em; background: var(--lime); vertical-align: -2px; margin-left: 1px;
+      animation: agblink 1s steps(1) infinite; }
+    @keyframes agblink { 50% { opacity: 0 } }
 
-    .case-tag {
-      font-family: var(--font-mono); font-size: .68rem; letter-spacing: .16em;
-      color: var(--cyan); text-transform: uppercase; margin-bottom: .9rem;
-    }
-    .case-title {
-      font-family: var(--font-display); font-weight: 800; letter-spacing: -.015em;
-      font-size: clamp(1.5rem, 2.6vw, 2.2rem); line-height: 1.05; margin-bottom: 1rem;
-      transition: color .25s;
-      overflow-wrap: anywhere;
-    }
-    .case:hover .case-title { color: var(--lime); }
-    .case-desc { color: var(--muted); font-size: .95rem; line-height: 1.7; max-width: 46ch; margin-bottom: 1.4rem; }
-    .case-cta {
-      font-family: var(--font-mono); font-size: .72rem; letter-spacing: .1em; color: var(--ink);
-      display: inline-flex; align-items: center; gap: .6rem; text-transform: uppercase;
-    }
-    .case-cta::after { content: '→'; color: var(--lime); transition: transform .25s; }
-    .case:hover .case-cta::after { transform: translateX(6px); }
+    .results { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: .5rem; }
+    .result { display: flex; flex-direction: column; gap: .15rem; text-align: left; cursor: pointer;
+      border: 1px solid var(--line); border-radius: 10px; padding: .55rem .8rem; background: var(--card);
+      transition: border-color .18s, transform .18s; min-width: 0; font-family: inherit; }
+    .result:hover { border-color: var(--lime); transform: translateY(-2px); }
+    .result .rt { font-family: var(--font-display); font-weight: 800; font-size: .86rem; letter-spacing: -.01em; color: var(--ink); }
+    .result .rtag { font-family: var(--font-mono); font-size: .6rem; letter-spacing: .08em; color: var(--cyan); text-transform: uppercase; }
+
+    .rail { border-left: 1px solid var(--line); padding: 1.1rem; background: rgba(0,0,0,0.18);
+      display: flex; flex-direction: column; overflow-y: auto; max-height: 560px; }
+    .rail-h { font-family: var(--font-mono); font-size: .6rem; letter-spacing: .18em; text-transform: uppercase; color: var(--muted);
+      margin-bottom: .8rem; display: flex; justify-content: space-between; }
+    .tool { font-family: var(--font-mono); font-size: .7rem; line-height: 1.5; padding: .5rem 0; border-bottom: 1px dashed var(--line);
+      opacity: 0; transform: translateY(6px); transition: opacity .3s, transform .3s; }
+    .tool.in { opacity: 1; transform: none; }
+    .tool .fn { color: var(--lime); }
+    .tool .arg { color: var(--muted); }
+    .tool .res { color: var(--cyan); display: flex; align-items: center; gap: .4rem; margin-top: .25rem; }
+    .tool .res .sp { width: .7rem; height: .7rem; border: 1.5px solid var(--cyan); border-top-color: transparent; border-radius: 50%;
+      display: inline-block; animation: agspin .6s linear infinite; }
+    @keyframes agspin { to { transform: rotate(360deg) } }
+    .tool .res .ok { color: var(--lime); }
+    .rail-empty { color: #3a4753; font-family: var(--font-mono); font-size: .68rem; line-height: 1.6; }
+
+    .con-foot { border-top: 1px solid var(--line); padding: 1rem 1.1rem; background: linear-gradient(to top, rgba(255,255,255,0.02), transparent); }
+    .sg-chips { display: flex; flex-wrap: wrap; gap: .45rem; margin-bottom: .8rem; }
+    .sg-chip { font-family: var(--font-mono); font-size: .7rem; letter-spacing: .02em; padding: .42rem .8rem; border: 1px solid var(--line);
+      border-radius: 999px; color: var(--muted); background: var(--glass); cursor: pointer; transition: all .18s; white-space: nowrap; }
+    .sg-chip:hover { border-color: var(--lime); color: var(--ink); transform: translateY(-1px); }
+    .sg-chip::before { content: '↳ '; color: var(--lime); }
+    .inrow { display: flex; gap: .6rem; align-items: center; }
+    .inrow input { flex: 1; background: var(--ground); border: 1px solid var(--line); border-radius: 10px; color: var(--ink);
+      font-family: var(--font-body); font-size: .92rem; padding: .7rem .9rem; outline: none; transition: border-color .18s; }
+    .inrow input:focus { border-color: var(--cyan); }
+    .inrow input::placeholder { color: #465562; }
+    .send { background: var(--lime); color: var(--ground); border: none; border-radius: 10px; padding: .7rem 1.1rem; cursor: pointer;
+      font-family: var(--font-mono); font-size: .72rem; font-weight: 500; letter-spacing: .06em; text-transform: uppercase;
+      transition: transform .15s, box-shadow .15s; }
+    .send:hover { transform: translateY(-1px); box-shadow: 0 6px 22px rgba(200,255,0,0.28); }
+    .con-hint { font-family: var(--font-mono); font-size: .62rem; color: #3a4753; margin-top: .7rem; letter-spacing: .03em; }
+    .followups { margin-top: .8rem; }
+    .followups .fu-label { font-family: var(--font-mono); font-size: .58rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: .45rem; }
+    .followups .fu-row { display: flex; flex-wrap: wrap; gap: .4rem; }
+    .fu-chip { font-family: var(--font-body); font-size: .82rem; padding: .4rem .8rem; border: 1px solid var(--line); border-radius: 999px;
+      color: var(--cyan); background: transparent; cursor: pointer; transition: all .18s; text-align: left; }
+    .fu-chip:hover { border-color: var(--cyan); background: rgba(63,224,208,0.08); transform: translateY(-1px); }
+    .fu-chip::before { content: '→ '; color: var(--cyan); }
 
     /* ── ABOUT ── */
     #about { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
@@ -370,7 +399,7 @@
     .rv { opacity: 0; transform: translateY(26px); transition: opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1); }
     .rv.in { opacity: 1; transform: none; }
 
-    a:focus-visible, button:focus-visible, .case:focus-visible {
+    a:focus-visible, button:focus-visible, .result:focus-visible, .sg-chip:focus-visible {
       outline: 2px solid var(--lime); outline-offset: 3px; border-radius: 4px;
     }
 
@@ -453,8 +482,9 @@
     /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
       #about { grid-template-columns: 1fr; gap: 2.6rem; }
-      .case, .case.flip { grid-template-columns: 1fr; gap: 1.4rem; }
-      .case.flip .case-media { order: 1; } .case.flip .case-text { order: 2; }
+      .con-grid { grid-template-columns: 1fr; }
+      .rail { border-left: none; border-top: 1px solid var(--line); max-height: none; }
+      .stream { max-height: none; }
       section { padding: 4.5rem 1.3rem; }
       .stack { padding: 0 1.3rem 3.5rem; }
       nav { padding: 1rem 1.3rem; }
@@ -503,7 +533,7 @@
     <canvas id="flow" aria-hidden="true"></canvas>
     <p class="hero-hint" data-da="Bevæg musen — data følger" data-en="Move the mouse — data follows">Bevæg musen — data følger</p>
     <div class="hero-content">
-      <p class="hero-eyebrow" data-da="Data Engineer &amp; Designer — Aarhus" data-en="Data Engineer &amp; Designer — Aarhus, Denmark">Data Engineer &amp; Designer — Aarhus</p>
+      <p class="hero-eyebrow" data-da="Data · ML · Design — Aarhus" data-en="Data · ML · Design — Aarhus, Denmark">Data · ML · Design — Aarhus</p>
       <h1 class="hero-name">
         <span class="row"><span>Morten</span></span>
         <span class="row"><span>Lundum-</span></span>
@@ -524,154 +554,32 @@
     <!-- PROJECTS -->
     <section id="projects">
       <div class="sec-head">
-        <h2 class="sec-title" data-da="Udvalgte<br>projekter" data-en="Selected<br>projects">Udvalgte<br>projekter</h2>
-        <span class="sec-count">/ 6 builds</span>
+        <h2 class="sec-title" data-da="Snak<br>med mig" data-en="Talk<br>to me">Snak<br>med mig</h2>
+        <span class="sec-count" data-da="/ digital udgave af Morten" data-en="/ digital version of Morten">/ digital udgave af Morten</span>
       </div>
-      <p class="sec-manifest" data-da="// Mønsteret i det hele: tag noget teknisk uigennemskueligt — byg et vindue man kan se det igennem" data-en="// The pattern in all of it: take something technically opaque — build a window to see it through">// Mønsteret i det hele: tag noget teknisk uigennemskueligt — byg et vindue man kan se det igennem</p>
+      <p class="sec-manifest" data-da="// I stedet for en liste af kort har jeg bygget en lille digital udgave af mig selv. Spørg løs om mit arbejde, min baggrund, eller hvad du sidder og tænker — så svarer jeg, og viser hvor jeg finder det." data-en="// Instead of a grid of cards I've built a little digital version of myself. Ask me about my work, my background, or whatever's on your mind — I'll answer, and show you where I find it.">// I stedet for en liste af kort har jeg bygget en lille digital udgave af mig selv. Spørg løs om mit arbejde, min baggrund, eller hvad du sidder og tænker — så svarer jeg, og viser hvor jeg finder det.</p>
 
-      <!-- patterniseverything.com -->
-      <div class="case" onclick="openModal('pie')" role="button" tabindex="0" aria-haspopup="dialog">
-        <div class="case-media"><img src="assets/projects/patterniseverything.jpg" alt="Skærmbillede af patterniseverything.com" loading="lazy" decoding="async"></div>
-        <div class="case-text">
-          <p class="case-tag">Vanilla JS · CSS · D3 · Canvas</p>
-          <h3 class="case-title">patterniseverything.com</h3>
-          <p class="case-desc" data-da="249 interaktive emner om ML og finansmarkeder — bygget fra bunden i vanilla JS uden et eneste framework. Cosmos-visning, quizspil, realtidsnotebooks og 5 sandkassemiljøer." data-en="249 interactive topics on ML and financial markets — built from scratch in vanilla JS with zero frameworks. Cosmos view, quiz game, live notebooks and 5 sandbox environments.">249 interaktive emner om ML og finansmarkeder — bygget fra bunden i vanilla JS uden et eneste framework. Cosmos-visning, quizspil, realtidsnotebooks og 5 sandkassemiljøer.</p>
-          <span class="case-cta" data-da="Se detaljer" data-en="View details">Se detaljer</span>
+      <div class="console">
+        <div class="con-bar">
+          <span class="con-dots"><i></i><i></i><i></i></span>
+          <span class="con-title" data-da="morten · digital udgave" data-en="morten · digital version">morten · digital udgave</span>
+          <span class="con-status"><span class="pip"></span><span data-da="til stede" data-en="present">til stede</span></span>
         </div>
-      </div>
-
-      <!-- Danmarks elnet · live -->
-      <div class="case flip" onclick="openModal('dkelnet')" role="button" tabindex="0" aria-haspopup="dialog">
-        <div class="case-media" style="background:#0c1417;">
-          <svg class="preview-svg" viewBox="0 0 340 200" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-            <!-- header bar -->
-            <rect x="8" y="8" width="324" height="20" rx="3" fill="#121e23"/>
-            <circle cx="19" cy="18" r="4" fill="#43be8f"><animate attributeName="opacity" values="1;0.3;1" dur="2.4s" repeatCount="indefinite"/></circle>
-            <text x="29" y="22" font-family="system-ui,sans-serif" font-size="7" fill="#7d949d" letter-spacing="1.5">DANMARKS ELNET</text>
-            <text x="326" y="22" font-family="system-ui,sans-serif" font-size="7" fill="#5a6f78" text-anchor="end" letter-spacing="1">LIVE</text>
-            <!-- production panel -->
-            <rect x="8" y="32" width="190" height="94" rx="3" fill="#121e23"/>
-            <text x="18" y="47" font-family="system-ui,sans-serif" font-size="6.5" fill="#5a6f78" letter-spacing="1.2">VEDVARENDE</text>
-            <text x="18" y="76" font-family="system-ui,sans-serif" font-size="31" font-weight="700" fill="#43be8f" letter-spacing="-1"><tspan id="cardRePct">90</tspan><tspan font-size="14" fill="#5a6f78" letter-spacing="0">%</tspan></text>
-            <rect x="18" y="83" width="172" height="11" rx="3" fill="#0a1013"/>
-            <rect id="cardMixWind" x="18" y="83" width="24"  height="11" rx="3" fill="#34b6c6" fill-opacity="0.9"/>
-            <rect id="cardMixSolar" x="42" y="83" width="136" height="11"       fill="#f2b441" fill-opacity="0.85"/>
-            <rect id="cardMixThermal" x="178" y="83" width="12" height="11" rx="3" fill="#9a6f54" fill-opacity="0.8"/>
-            <rect x="18" y="103" width="6" height="6" rx="1.5" fill="#34b6c6"/>
-            <text x="27" y="109" font-family="system-ui,sans-serif" font-size="6.5" fill="#7d949d">Vind</text>
-            <rect x="60" y="103" width="6" height="6" rx="1.5" fill="#f2b441"/>
-            <text x="69" y="109" font-family="system-ui,sans-serif" font-size="6.5" fill="#7d949d">Sol</text>
-            <rect x="97" y="103" width="6" height="6" rx="1.5" fill="#9a6f54"/>
-            <text x="106" y="109" font-family="system-ui,sans-serif" font-size="6.5" fill="#7d949d">Termisk</text>
-            <!-- CO2 panel -->
-            <rect x="202" y="32" width="130" height="94" rx="3" fill="#121e23"/>
-            <text x="212" y="47" font-family="system-ui,sans-serif" font-size="6.5" fill="#5a6f78" letter-spacing="1">CO₂ INTENSITET</text>
-            <text id="cardCo2" x="212" y="76" font-family="system-ui,sans-serif" font-size="31" font-weight="700" fill="#43be8f" letter-spacing="-1">21</text>
-            <text x="212" y="89" font-family="system-ui,sans-serif" font-size="8" fill="#5a6f78">g CO₂/kWh</text>
-            <rect x="212" y="98" width="64" height="16" rx="8" fill="rgba(67,190,143,0.12)" stroke="rgba(67,190,143,0.25)" stroke-width="0.8"/>
-            <text id="cardCo2Word" x="244" y="110" font-family="system-ui,sans-serif" font-size="7.5" fill="#43be8f" text-anchor="middle">Meget ren</text>
-            <!-- price panel -->
-            <rect x="8" y="130" width="324" height="62" rx="3" fill="#121e23"/>
-            <text x="18" y="144" font-family="system-ui,sans-serif" font-size="6.5" fill="#5a6f78" letter-spacing="1.2">SPOTPRIS</text>
-            <text x="18"  y="158" font-family="system-ui,sans-serif" font-size="8"  fill="#7d949d">DK1</text>
-            <text x="33"  y="158" font-family="system-ui,sans-serif" font-size="10" font-weight="600" fill="#34b6c6"><tspan id="cardDk1">3</tspan><tspan font-size="6.5" fill="#5a6f78"> øre/kWh</tspan></text>
-            <text x="116" y="158" font-family="system-ui,sans-serif" font-size="8"  fill="#7d949d">DK2</text>
-            <text x="131" y="158" font-family="system-ui,sans-serif" font-size="10" font-weight="600" fill="#c4a3e8"><tspan id="cardDk2">6</tspan><tspan font-size="6.5" fill="#5a6f78"> øre/kWh</tspan></text>
-            <!-- price bars: 12 two-hour slots, bottom y=187, DK1 teal / DK2 purple -->
-            <rect x="18"  y="177" width="9" height="10" rx="1" fill="#34b6c6" fill-opacity="0.7"/>
-            <rect x="28"  y="176" width="9" height="11" rx="1" fill="#c4a3e8" fill-opacity="0.6"/>
-            <rect x="43"  y="178" width="9" height="9"  rx="1" fill="#34b6c6" fill-opacity="0.7"/>
-            <rect x="53"  y="177" width="9" height="10" rx="1" fill="#c4a3e8" fill-opacity="0.6"/>
-            <rect x="68"  y="178" width="9" height="9"  rx="1" fill="#34b6c6" fill-opacity="0.7"/>
-            <rect x="78"  y="178" width="9" height="9"  rx="1" fill="#c4a3e8" fill-opacity="0.6"/>
-            <rect x="93"  y="177" width="9" height="10" rx="1" fill="#34b6c6" fill-opacity="0.7"/>
-            <rect x="103" y="176" width="9" height="11" rx="1" fill="#c4a3e8" fill-opacity="0.6"/>
-            <rect x="118" y="184" width="9" height="3"  rx="1" fill="#34b6c6" fill-opacity="0.7"/>
-            <rect x="128" y="183" width="9" height="4"  rx="1" fill="#c4a3e8" fill-opacity="0.6"/>
-            <rect x="143" y="185" width="9" height="2"  rx="1" fill="#34b6c6" fill-opacity="0.7"/>
-            <rect x="153" y="185" width="9" height="2"  rx="1" fill="#c4a3e8" fill-opacity="0.6"/>
-            <rect x="168" y="185" width="9" height="2"  rx="1" fill="#34b6c6" fill-opacity="1"/>
-            <rect x="178" y="185" width="9" height="2"  rx="1" fill="#c4a3e8" fill-opacity="0.9"/>
-            <rect x="193" y="185" width="9" height="2"  rx="1" fill="#34b6c6" fill-opacity="0.6"/>
-            <rect x="203" y="185" width="9" height="2"  rx="1" fill="#c4a3e8" fill-opacity="0.5"/>
-            <rect x="218" y="178" width="9" height="9"  rx="1" fill="#34b6c6" fill-opacity="0.6"/>
-            <rect x="228" y="177" width="9" height="10" rx="1" fill="#c4a3e8" fill-opacity="0.5"/>
-            <rect x="243" y="165" width="9" height="22" rx="1" fill="#34b6c6" fill-opacity="0.6"/>
-            <rect x="253" y="165" width="9" height="22" rx="1" fill="#c4a3e8" fill-opacity="0.5"/>
-            <rect x="268" y="167" width="9" height="20" rx="1" fill="#34b6c6" fill-opacity="0.6"/>
-            <rect x="278" y="166" width="9" height="21" rx="1" fill="#c4a3e8" fill-opacity="0.5"/>
-            <rect x="293" y="169" width="9" height="18" rx="1" fill="#34b6c6" fill-opacity="0.6"/>
-            <rect x="303" y="168" width="9" height="19" rx="1" fill="#c4a3e8" fill-opacity="0.5"/>
-          </svg>
+        <div class="con-grid">
+          <div class="stream" id="agStream" aria-live="polite"></div>
+          <div class="rail">
+            <div class="rail-h"><span data-da="Tool calls" data-en="Tool calls">Tool calls</span><span id="agRailCount">0</span></div>
+            <div id="agRail"></div>
+            <div class="rail-empty" id="agRailEmpty" data-da="Ingen kald endnu.<br>Stil et spørgsmål for at se<br>agenten arbejde →" data-en="No calls yet.<br>Ask a question to watch<br>the agent work →">Ingen kald endnu.<br>Stil et spørgsmål for at se<br>agenten arbejde →</div>
+          </div>
         </div>
-        <div class="case-text">
-          <p class="case-tag">HTML · Vanilla JS · Live API</p>
-          <h3 class="case-title" data-da="Danmarks elnet, live" data-en="Danish grid, live">Danmarks elnet, live</h3>
-          <p class="case-desc" data-da="Standalone dashboard der henter ægte live-data fra Energi Data Service hvert minut — vindandel, CO₂-intensitet og DK1/DK2-spotpriser. Accentfarven skifter med CO₂-intensiteten i realtid." data-en="Standalone dashboard fetching real live data from Energi Data Service every minute — renewable share, CO₂ intensity and DK1/DK2 spot prices. Accent colour shifts with CO₂ intensity in real time.">Standalone dashboard der henter ægte live-data fra Energi Data Service hvert minut — vindandel, CO₂-intensitet og DK1/DK2-spotpriser. Accentfarven skifter med CO₂-intensiteten i realtid.</p>
-          <span class="case-cta" data-da="Se detaljer" data-en="View details">Se detaljer</span>
-        </div>
-      </div>
-
-      <!-- In-Silico Dashboard -->
-      <div class="case" onclick="openModal('tr2')" role="button" tabindex="0" aria-haspopup="dialog">
-        <div class="case-media"><img src="assets/projects/genx-dashboard.jpg" alt="Skærmbillede af In-Silico Dashboard" loading="lazy" decoding="async"></div>
-        <div class="case-text">
-          <p class="case-tag">Python · Plotly · ML · Simulering</p>
-          <h3 class="case-title">In-Silico Dashboard</h3>
-          <p class="case-desc" data-da="Et virtuelt testbænk der kører hele driftsrummet igennem før det første fysiske testpunkt bookes — &quot;Testing Before Testing&quot;. Fysiksimulering, ML-surrogatmodel (p50/p95) og et sammenligningslag der finder uenighed." data-en="A virtual test bench that runs the entire operating space before the first physical test point is booked — &quot;Testing Before Testing&quot;. Physics simulation, ML surrogate model (p50/p95) and a comparison layer that maps disagreement.">Et virtuelt testbænk der kører hele driftsrummet igennem før det første fysiske testpunkt bookes — "Testing Before Testing". Fysiksimulering, ML-surrogatmodel (p50/p95) og et sammenligningslag der finder uenighed.</p>
-          <span class="case-cta" data-da="Se detaljer" data-en="View details">Se detaljer</span>
-        </div>
-      </div>
-
-      <!-- TVDP Agent -->
-      <div class="case flip" onclick="openModal('tvdp')" role="button" tabindex="0" aria-haspopup="dialog">
-        <div class="case-media"><img src="assets/projects/tvdp-agent.jpg" alt="Skærmbillede af TVDP Agent" loading="lazy" decoding="async"></div>
-        <div class="case-text">
-          <p class="case-tag">GitHub Copilot · Python · ADX</p>
-          <h3 class="case-title">TVDP Agent</h3>
-          <p class="case-desc" data-da="Multi-agent AI-system med tool-calling koblet til Azure Data Explorer og Dataiku — bygget som installérbar Python-pakke." data-en="Multi-agent AI system with tool-calling connected to Azure Data Explorer and Dataiku — built as an installable Python package.">Multi-agent AI-system med tool-calling koblet til Azure Data Explorer og Dataiku — bygget som installérbar Python-pakke.</p>
-          <span class="case-cta" data-da="Se detaljer" data-en="View details">Se detaljer</span>
-        </div>
-      </div>
-
-      <!-- AI Estimation Playground -->
-      <div class="case" onclick="openModal('gp')" role="button" tabindex="0" aria-haspopup="dialog">
-        <div class="case-media"><img src="assets/projects/gp-lab.jpg" alt="Skærmbillede af AI Estimation Playground" loading="lazy" decoding="async"></div>
-        <div class="case-text">
-          <p class="case-tag">HTML · Kalman · GP · RNN · LSTM</p>
-          <h3 class="case-title">AI Estimation Playground</h3>
-          <p class="case-desc" data-da="Interaktive visuelle labs der lærer Kalman-filtre og Gaussian Processes gennem simulation — standalone HTML uden dependencies." data-en="Interactive visual labs teaching Kalman filters and Gaussian Processes through simulation — standalone HTML with zero dependencies.">Interaktive visuelle labs der lærer Kalman-filtre og Gaussian Processes gennem simulation — standalone HTML uden dependencies.</p>
-          <span class="case-cta" data-da="Se detaljer" data-en="View details">Se detaljer</span>
-        </div>
-      </div>
-
-      <!-- Østjylland Ro-index -->
-      <div class="case flip" onclick="openModal('roindex')" role="button" tabindex="0" aria-haspopup="dialog">
-        <div class="case-media" style="background:#0c0e0c;">
-          <svg class="preview-svg" viewBox="0 0 340 200" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-            <rect x="8" y="8" width="324" height="20" rx="3" fill="#14180f"/>
-            <circle cx="19" cy="18" r="4" fill="#c2f53f"><animate attributeName="opacity" values="1;0.3;1" dur="2.4s" repeatCount="indefinite"/></circle>
-            <text x="29" y="22" font-family="system-ui,sans-serif" font-size="7" fill="#8a948a" letter-spacing="1.5">ØSTJYLLAND · RO-INDEX</text>
-            <text x="326" y="22" font-family="system-ui,sans-serif" font-size="7" fill="#5d665a" text-anchor="end" letter-spacing="1">I DAG</text>
-            <g font-family="monospace" font-size="11" font-weight="700" text-anchor="middle">
-              <rect x="120" y="40" width="44" height="32" rx="6" fill="#e0573c" fill-opacity="0.85"/><text x="142" y="60" fill="#0c0e0c">29</text>
-              <rect x="238" y="44" width="42" height="30" rx="6" fill="#b5c24a" fill-opacity="0.85"/><text x="259" y="63" fill="#0c0e0c">61</text>
-              <rect x="206" y="80" width="46" height="34" rx="6" fill="#c2f53f" fill-opacity="0.9"/><text x="229" y="101" fill="#0c0e0c">84</text>
-              <rect x="72" y="84" width="42" height="30" rx="6" fill="#96a64a" fill-opacity="0.8"/><text x="93" y="103" fill="#0c0e0c">44</text>
-              <rect x="124" y="84" width="58" height="46" rx="7" fill="#c2f53f"><animate attributeName="fill-opacity" values="0.95;0.68;0.95" dur="3s" repeatCount="indefinite"/></rect><text x="153" y="112" fill="#0c0e0c" font-size="15">84</text>
-              <rect x="122" y="140" width="40" height="28" rx="6" fill="#d68c46" fill-opacity="0.8"/><text x="142" y="158" fill="#0c0e0c">34</text>
-              <rect x="244" y="138" width="34" height="26" rx="6" fill="#a9c24a" fill-opacity="0.8"/><text x="261" y="155" fill="#0c0e0c">68</text>
-            </g>
-            <circle cx="44" cy="152" r="20" fill="none" stroke="#1f261a" stroke-width="5"/>
-            <circle cx="44" cy="152" r="20" fill="none" stroke="#c2f53f" stroke-width="5" stroke-linecap="round" stroke-dasharray="125.6" stroke-dashoffset="34" transform="rotate(-90 44 152)"/>
-            <text x="44" y="157" font-family="monospace" font-size="15" font-weight="700" fill="#c2f53f" text-anchor="middle">73</text>
-          </svg>
-        </div>
-        <div class="case-text">
-          <p class="case-tag">Leaflet · Vanilla JS · LLM-ekstraktion</p>
-          <h3 class="case-title" data-da="Østjylland Ro-index" data-en="Østjylland Calm Index">Østjylland Ro-index</h3>
-          <p class="case-desc" data-da="Koncept-dashboard der scraper Østjyllands Politis døgnrapporter, udtrækker hændelser med en LLM og viser en baseline-relativ ro-score pr. kommune på et kort. Pipelinen kører som daglig GitHub Action." data-en="Concept dashboard that scrapes the East Jutland police daily reports, extracts incidents with an LLM and shows a baseline-relative calm score per municipality on a map. The pipeline runs as a daily GitHub Action.">Koncept-dashboard der scraper Østjyllands Politis døgnrapporter, udtrækker hændelser med en LLM og viser en baseline-relativ ro-score pr. kommune på et kort. Pipelinen kører som daglig GitHub Action.</p>
-          <span class="case-cta" data-da="Se detaljer" data-en="View details">Se detaljer</span>
+        <div class="con-foot">
+          <div class="sg-chips" id="agChips"></div>
+          <div class="inrow">
+            <input id="agQ" type="text" autocomplete="off" data-da-ph="Skriv til mig…" data-en-ph="Message me…" placeholder="Skriv til mig…" aria-label="Skriv til Morten">
+            <button class="send" id="agSend" data-da="Send" data-en="Send">Send</button>
+          </div>
+          <p class="con-hint" data-da="En lille digital udgave af mig · kører i din browser · elnet-tallet er live" data-en="A little digital version of me · runs in your browser · grid figure is live">En lille digital udgave af mig · kører i din browser · elnet-tallet er live</p>
         </div>
       </div>
 
@@ -781,6 +689,13 @@
           : 'assets/cv-morten-lundum-noergaard-da.pdf');
         cvLink.setAttribute('aria-label', lang === 'en' ? 'Download CV as PDF' : 'Download CV som PDF');
       }
+      // Placeholder-tekst (data-*-ph) følger sproget
+      document.querySelectorAll('[data-da-ph][data-en-ph]').forEach(function(node) {
+        var ph = node.getAttribute('data-' + lang + '-ph');
+        if (ph !== null) node.setAttribute('placeholder', ph);
+      });
+      // Fortæl agent-konsollen at sproget skiftede
+      document.dispatchEvent(new CustomEvent('mln:lang', { detail: lang }));
       try { localStorage.setItem('mln-lang', lang); } catch (err) {}
     }
 
@@ -795,16 +710,6 @@
     try { saved = localStorage.getItem('mln-lang'); } catch (err) {}
     var initial = saved || ((navigator.language || 'da').slice(0, 2) === 'da' ? 'da' : 'en');
     if (initial === 'en') applyLang('en'); // dansk er allerede aktiv i markup'en
-
-    // ── CASES: tastatur (Enter/Space åbner modal) ──
-    document.querySelectorAll('.case[role="button"]').forEach(function(card) {
-      card.addEventListener('keydown', function(e) {
-        if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') {
-          e.preventDefault();
-          card.click();
-        }
-      });
-    });
 
     // ── SCROLL-FREMDRIFT ──
     var bar = document.getElementById('scrollProgress');
@@ -830,7 +735,7 @@
           }
         });
       }, { threshold: 0.12 });
-      document.querySelectorAll('.case, .sec-head, .sec-manifest, .about-media, .about-copy, .stack, .contact-kicker, .contact-mega, .contact-row').forEach(function (el) {
+      document.querySelectorAll('.sec-head, .sec-manifest, .console, .about-media, .about-copy, .stack, .contact-kicker, .contact-mega, .contact-row').forEach(function (el) {
         if (el.getBoundingClientRect().top > window.innerHeight * 0.9) {
           el.classList.add('rv');
           obs.observe(el);
@@ -1260,8 +1165,9 @@
   });
   </script>
 
-  <!-- Live tal på elnet-kortet — samme datakilde som /dk-elnet/ -->
+  <!-- Live elnet-data — samme kilde som /dk-elnet/ — fodrer agent-konsollen -->
   <script>
+  window.MLN_GRID = { re: 90, co2: 21, dk1: null, dk2: null, live: false };
   (function () {
     var RAW = 'https://raw.githubusercontent.com/M-LN/mlnorgaard-portfolio/main/data/';
 
@@ -1284,6 +1190,8 @@
         var thermal = (r.ProductionGe100MW || 0) + (r.ProductionLt100MW || 0);
         var total = wind + solar + thermal;
         if (total > 0) {
+          window.MLN_GRID.re = Math.round((wind + solar) / total * 100);
+          window.MLN_GRID.live = true;
           setText('cardRePct', Math.round((wind + solar) / total * 100));
           // mix-bar: 172px bred, starter ved x=18
           var wW = 172 * wind / total, wS = 172 * solar / total;
@@ -1299,6 +1207,7 @@
           }
         }
         if (r.CO2Emission != null) {
+          window.MLN_GRID.co2 = Math.round(r.CO2Emission);
           setText('cardCo2', Math.round(r.CO2Emission));
           setText('cardCo2Word', co2Word(r.CO2Emission));
         }
@@ -1308,13 +1217,340 @@
         res[1].records.forEach(function (p) {
           if (!latest[p.PriceArea] && new Date(p.TimeDK).getTime() <= now) latest[p.PriceArea] = p;
         });
-        if (latest.DK1) setText('cardDk1', Math.round(latest.DK1.DayAheadPriceDKK / 10));
-        if (latest.DK2) setText('cardDk2', Math.round(latest.DK2.DayAheadPriceDKK / 10));
+        if (latest.DK1) { window.MLN_GRID.dk1 = Math.round(latest.DK1.DayAheadPriceDKK / 10); setText('cardDk1', window.MLN_GRID.dk1); }
+        if (latest.DK2) { window.MLN_GRID.dk2 = Math.round(latest.DK2.DayAheadPriceDKK / 10); setText('cardDk2', window.MLN_GRID.dk2); }
       }).catch(function () { /* behold de statiske tal */ });
     }
 
     refreshCard();
     setInterval(refreshCard, 5 * 60 * 1000);
+  })();
+  </script>
+
+  <!-- AGENT-KONSOL — en lille førsteperson-udgave af Morten -->
+  <script>
+  (function () {
+    var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function lang() { var b = document.querySelector('.lang-btn.active'); return (b && b.getAttribute('data-lang')) || 'da'; }
+    function L(da, en) { return lang() === 'en' ? en : da; }
+
+    var META, INTENTS;
+    function buildIntents(){
+    META = {
+      pie:     { tag: 'Vanilla JS',  title: 'patterniseverything.com' },
+      dkelnet: { tag: 'Live API',    title: L('Danmarks elnet, live', 'Danish grid, live') },
+      tr2:     { tag: 'Python · ML', title: 'In-Silico Dashboard' },
+      tvdp:    { tag: 'AI-agent',    title: 'TVDP Agent' },
+      gp:      { tag: 'Kalman · GP', title: 'AI Estimation Playground' },
+      roindex: { tag: 'LLM',         title: L('Østjylland Ro-index', 'Østjylland Calm Index') }
+    };
+
+    // Førsteperson-samtale. Hvert emne kan have: uddybning (more) + kontekstuelle opfølgninger (fu).
+    INTENTS = [
+      { id:'greeting', word:true, keys:['hej','hejsa','halløj','halloj','dav','davs','goddag','hello','hi','hey','yo','hii'],
+        text:L('Hej, godt at møde dig 👋 Jeg er en lille digital udgave af Morten — du kan spørge mig om mit arbejde, min baggrund, eller lige hvad du er nysgerrig på. Hvor vil du starte?',
+               'Hey, good to meet you 👋 I\'m a little digital version of Morten — you can ask me about my work, my background, or whatever you\'re curious about. Where would you like to start?'),
+        fu:L(['Hvem er du?','Vis mig dit ML-arbejde','Er du ledig lige nu?'],['Who are you?','Show me your ML work','Are you available right now?']) },
+
+      { id:'howareyou', word:true, keys:['hvordan går','hvordan har du','hvordan står','how are you','how is it going','whats up','what\'s up','hvordan går det'],
+        text:L('Jeg har det fint — der er altid et projekt i gang 🙂 Men lad os tale om det du kom for. Hvad kan jeg hjælpe med?',
+               'I\'m good — there\'s always a project on the go 🙂 But let\'s talk about what you came for. What can I help with?'),
+        fu:L(['Hvad kan du?','Vis dine bedste projekter','Er du ledig?'],['What can you do?','Show your best projects','Are you available?']) },
+
+      { id:'thanks', word:true, keys:['tak','thanks','thank you','mange tak','tusind tak','perfekt','super','fedt','cool','nice'],
+        text:L('Selv tak! Sig til hvis der er mere du vil vide — jeg er her.',
+               'Anytime! Let me know if there\'s more you want to know — I\'m right here.'),
+        fu:L(['Er du ledig?','Vis alle projekter'],['Are you available?','Show all projects']) },
+
+      { id:'more', word:true, keys:['mere','more','uddyb','fortæl mere','tell me more','elaborate','videre','og?','og så?','go on'] },
+
+      { id:'whyframeworks', keys:['hvorfor ingen','hvorfor vanilla','why no framework','why vanilla','hvorfor bygger du selv','why build it yourself'],
+        tools:[['load_note','{ topic: "no-frameworks" }','ok']],
+        text:L('Fordi jeg forstår ting bedst når jeg har bygget dem fra bunden selv — det tvinger mig til at vide præcis hvad hver linje gør. Og så holder det siderne små og hurtige, uden 200 MB node_modules for at vise lidt tekst. Lidt af en sport, indrømmet.',
+               'Because I understand things best when I\'ve built them from scratch myself — it forces me to know exactly what every line does. It also keeps pages small and fast, without 200 MB of node_modules just to show some text. A bit of a sport, I admit.'),
+        fu:L(['Vis alt uden frameworks','Hvordan er denne konsol bygget?','Vis dit ML-arbejde'],['Show everything without frameworks','How is this console built?','Show your ML work']),
+        projects:['pie','dkelnet'] },
+
+      { id:'career', keys:['hvorfor','why','elektriker','electrician','endte','end up','ended up','skiftede','skift','into data','get into','got into','getting into','transition','career','switch','rejse','journey','baggrund','background','startede','how did you','how did an','from electrician'],
+        tools:[['load_profile','{ span: "2010–now" }','ok'],['search_projects','{ context: "vestas" }',L('2 træf','2 hits')]],
+        text:L('Ha, den får jeg tit. Jeg var elektriker hos Vestas i testhallen i mange år — tæt på måledata og fysiske systemer hele dagen. På et tidspunkt begyndte jeg at automatisere mine egne opgaver med Python, og så tog det fart: ETL, ML-modeller, dashboards, AI-agenter. Jeg fulgte aldrig en plan — jeg fulgte nysgerrigheden. I dag er jeg Lead Test Supervisor og bygger de systemer jeg engang selv manglede.',
+               'Ha, I get that one a lot. I was an electrician at Vestas on the test floor for years — close to measurement data and physical systems all day. At some point I started automating my own tasks with Python, and it snowballed: ETL, ML models, dashboards, AI agents. I never followed a plan — I followed the curiosity. Today I\'m Lead Test Supervisor, building the systems I once wished I had.'),
+        more:L('Det vildeste er hvor lidt afstand der egentlig er mellem el-tavlen og datapipelinen: begge dele handler om at forstå et system godt nok til at kunne stole på det. Elektriker-baggrunden gør mig faktisk til en bedre data-person — jeg ved hvordan målingerne bliver til i den fysiske verden, før de nogensinde bliver til en række i en tabel.',
+               'The wild part is how little distance there really is between the electrical panel and the data pipeline: both are about understanding a system well enough to trust it. The electrician background actually makes me a better data person — I know how measurements come to exist in the physical world before they ever become a row in a table.'),
+        fu:L(['Hvad byggede du hos Vestas?','Hvad kan du så nu?','Er du ledig?'],['What did you build at Vestas?','So what can you do now?','Are you available?']),
+        projects:['tr2','tvdp'] },
+
+      { id:'grid', grid:true, keys:['elnet','grid','energi','energy','co2','strøm','strom','vind ','spotpris','power','vedvarende','renewable','grid clean','is the grid'],
+        tools:[['fetch_grid_data','{ source: "Energi Data Service" }','live'],['format_readout','{}','ok']],
+        text:L('Godt du spørger — det kan jeg svare på lige nu: det danske elnet er <span class="num">__RE__% vedvarende</span> med en CO₂-intensitet på <span class="num">__CO2__ g/kWh</span>. Jeg henter tallet live hvert minut fra Energi Data Service, og accentfarven i selve dashboardet skifter faktisk med CO₂\'en. Kig:',
+               'Glad you asked — I can answer that right now: the Danish grid is <span class="num">__RE__% renewable</span> with a CO₂ intensity of <span class="num">__CO2__ g/kWh</span>. I pull it live every minute from Energi Data Service, and the accent colour in the dashboard itself actually shifts with the CO₂. Take a look:'),
+        more:L('Hele dashboardet er standalone HTML uden dependencies — det henter fra Energinets åbne API og tegner det hele selv. Det er sådan set en lille demonstration af hele min tilgang: rigtige data, ingen frameworks, og en visuel der forklarer sig selv.',
+               'The whole dashboard is standalone HTML with no dependencies — it pulls from Energinet\'s open API and draws everything itself. It\'s basically a small demonstration of my whole approach: real data, no frameworks, and a visual that explains itself.'),
+        fu:L(['Hvordan er det bygget?','Vis alt uden frameworks','Hvad med AI-agenter?'],['How is it built?','Show everything without frameworks','What about AI agents?']),
+        projects:['dkelnet'] },
+
+      { id:'ml', keys:['ml','machine','model','neural','kunstig','forudsig','predict','deep learning','estimation','estimering'],
+        tools:[['search_projects','{ tag: "ML" }',L('4 træf','4 hits')],['rank_by_relevance','{}',L('sorteret','sorted')]],
+        text:L('Machine learning er nok den røde tråd i det meste jeg laver. Bedste sted at se det er patterniseverything.com — 249 interaktive ML-emner jeg har bygget fra bunden. Men jeg bruger det også i produktion: en ML-surrogatmodel mod fysik i In-Silico Dashboard, og Kalman/GP/LSTM i mit estimerings-lab. Kig endelig selv:',
+               'Machine learning is probably the throughline in most of what I do. The best place to see it is patterniseverything.com — 249 interactive ML topics I built from scratch. But I also use it in production: an ML surrogate model against physics in In-Silico Dashboard, and Kalman/GP/LSTM in my estimation lab. Have a look:'),
+        more:L('Hvis du vil dybere: In-Silico Dashboard kombinerer en fysiksimulering med en ML-surrogatmodel der forudsiger fulde temperaturfordelinger (p50/p95) på millisekunder — plus et lag der kortlægger hvor de to er uenige, for uenighed er information. Det skærer testomfanget kraftigt ned, før nogen booker et fysisk testpunkt.',
+               'If you want to go deeper: In-Silico Dashboard combines a physics simulation with an ML surrogate that predicts full temperature distributions (p50/p95) in milliseconds — plus a layer that maps where the two disagree, because disagreement is information. It cuts the test load hard before anyone books a physical test point.'),
+        fu:L(['Hvordan endte en elektriker med ML?','Hvad med AI-agenter?','Er elnettet rent lige nu?'],['How did an electrician end up in ML?','What about AI agents?','Is the grid clean right now?']),
+        projects:['pie','tr2','gp','tvdp'] },
+
+      { id:'agent', keys:['agent','llm','copilot','rag','tool-call','toolcall','tool call','denne konsol','this console','hvordan virker','how does this work','how is this built','hvordan er denne'],
+        tools:[['search_projects','{ tag: "AI-agent" }',L('2 træf','2 hits')],['inspect','{ id: "tvdp" }','ok']],
+        text:L('Ja! Faktisk er den her konsol — den du snakker med lige nu — et lille eksempel i sig selv. I det store bygger jeg agentiske systemer med tool-calling: TVDP Agent er koblet direkte til Azure Data Explorer, og Østjylland Ro-index bruger en LLM til at læse politiets fritekst-rapporter og trække hændelser ud. Vil du se dem?',
+               'Yes! In fact this console — the one you\'re talking to right now — is a small example in itself. At scale I build agentic systems with tool-calling: TVDP Agent wires straight into Azure Data Explorer, and Østjylland Ro-index uses an LLM to read the police\'s free-text reports and pull out incidents. Want to see them?'),
+        more:L('Selve konsollen her er ren vanilla JS: den matcher det du skriver mod mine emner, animerer de "tool-calls" du ser til højre, og ét af dem henter faktisk mine rigtige live elnet-data. Lige nu er den scriptet, men jeg har bygget den så jeg kan koble en rigtig LLM på bagved uden at rive noget ned — det er den næste iteration.',
+               'The console itself is plain vanilla JS: it matches what you type against my topics, animates the "tool calls" you see on the right, and one of them actually fetches my real live grid data. Right now it\'s scripted, but I\'ve built it so I can wire a real LLM in behind it without tearing anything down — that\'s the next iteration.'),
+        fu:L(['Hvordan er denne konsol bygget?','Vis dit ML-arbejde','Er du ledig?'],['How is this console built?','Show your ML work','Are you available?']),
+        projects:['tvdp','roindex'] },
+
+      { id:'vestas', keys:['vestas','job','arbejde ','work','testhal','test supervisor','ansættelse','employ'],
+        tools:[['load_profile','{ employer: "Vestas" }','ok'],['search_projects','{ context: "vestas" }',L('2 træf','2 hits')]],
+        text:L('14 år hos Vestas — jeg startede i testhallen som elektriker og er i dag Lead Test Supervisor. Undervejs byggede jeg bl.a. In-Silico Dashboard og TVDP Agent, og fik en ML-pipeline i Dataiku i produktion. Det sjove er, at fysik og data aldrig var så langt fra hinanden som folk tror:',
+               '14 years at Vestas — I started on the test floor as an electrician and today I\'m Lead Test Supervisor. Along the way I built In-Silico Dashboard and TVDP Agent, among others, and got an ML pipeline into production in Dataiku. The fun part is that physics and data were never as far apart as people think:'),
+        fu:L(['Hvordan endte en elektriker med data?','Vis dit ML-arbejde','Er du ledig?'],['How did an electrician end up in data?','Show your ML work','Are you available?']),
+        projects:['tr2','tvdp'] },
+
+      { id:'frameworks', keys:['framework','vanilla','uden','stack','dependenc','without','biblioteker','library'],
+        tools:[['filter_projects','{ frameworks: 0 }',L('4 træf','4 hits')]],
+        text:L('Det er lidt en sport for mig: næsten alt er ren vanilla HTML/CSS/JS — nul frameworks, nul dependencies. Selv den her konsol og mine dashboards. Åbn DevTools og snyd mig gerne. De reneste eksempler:',
+               'It\'s a bit of a sport for me: almost everything is plain vanilla HTML/CSS/JS — zero frameworks, zero dependencies. Even this console and my dashboards. Open DevTools and try to catch me out. The cleanest examples:'),
+        more:L('Det handler ikke om at være purist for sportens skyld — det er fordi jeg vil forstå hele stakken, og fordi hastighed og enkelhed er en feature. Når der ikke er et framework i vejen, er der heller ikke noget der pludselig knækker efter en opdatering.',
+               'It\'s not about being a purist for its own sake — it\'s because I want to understand the whole stack, and because speed and simplicity are a feature. When there\'s no framework in the way, there\'s also nothing that suddenly breaks after an update.'),
+        fu:L(['Hvorfor ingen frameworks?','Vis det mest visuelle','Hvad med AI-agenter?'],['Why no frameworks?','Show the most visual work','What about AI agents?']),
+        projects:['pie','dkelnet','gp','roindex'] },
+
+      { id:'design', keys:['design','visuel','visual','dataviz','visualiser','visualis','d3','grafik','graphic','ux','ui','typografi','typography'],
+        tools:[['search_projects','{ tag: "dataviz" }',L('3 træf','3 hits')]],
+        text:L('For mig er design og data samme disciplin — det handler om at gøre det komplekse synligt. Jeg holder meget af typografi, farve og bevægelse, og bygger gerne dataviz i D3 og Canvas. Det mest visuelle jeg har lavet:',
+               'To me design and data are the same discipline — it\'s about making the complex visible. I love typography, colour and motion, and I like building data viz in D3 and Canvas. The most visual things I\'ve made:'),
+        fu:L(['Hvad er ML\'en bag det?','Er elnettet rent lige nu?','Er du ledig?'],['What\'s the ML behind it?','Is the grid clean right now?','Are you available?']),
+        projects:['pie','gp','dkelnet'] },
+
+      { id:'seeking', keys:['leder','leder efter','leder du efter','søger','soger','looking for','hvad vil du','drømmejob','dream job','what do you want','ønsker','motiver','søge'],
+        tools:[['load_profile','{ topic: "what I want" }','ok']],
+        text:L('Godt spørgsmål. Jeg trives der hvor kvalitet betyder noget, og hvor beslutninger træffes af dem der ved mest om emnet — ikke af titler. Helst et sted hvor data, ML og design mødes, og hvor jeg kan bygge ting folk faktisk bruger. Og så kan jeg godt lide at lære nyt ordentligt, ikke bare skrabe overfladen.',
+               'Good question. I do my best work where quality matters and decisions are made by whoever knows the subject best — not by titles. Ideally somewhere data, ML and design meet, and where I can build things people actually use. And I like learning new things properly, not just scratching the surface.'),
+        fu:L(['Er du ledig nu?','Hvad kan du?','Hvordan er din baggrund?'],['Are you available now?','What can you do?','What\'s your background?']),
+        projects:[] },
+
+      { id:'skills', keys:['kan du','skills','kompetencer','teknologi','tech','what can you','tools','værktøj','sprog du'],
+        tools:[['load_profile','{ topic: "skills" }','ok']],
+        text:L('En del efterhånden 🙂 Data & ML: Python, SQL/KQL, Azure, Dataiku, ML-pipelines, LLM-agenter og RAG. Frontend & visuelt: vanilla JS, D3, Canvas, UI og en del grafisk design. Plus system-siden fra mit elektriker-liv: fejlfinding, Linux, monitorering. Vil du se det i praksis?',
+               'Quite a bit by now 🙂 Data & ML: Python, SQL/KQL, Azure, Dataiku, ML pipelines, LLM agents and RAG. Frontend & visual: vanilla JS, D3, Canvas, UI and a fair amount of graphic design. Plus the systems side from my electrician life: troubleshooting, Linux, monitoring. Want to see it in practice?'),
+        fu:L(['Vis dit ML-arbejde','Vis det mest visuelle','Er du ledig?'],['Show your ML work','Show the most visual work','Are you available?']),
+        projects:[] },
+
+      { id:'proud', keys:['stolt','proud','bedste','best','favorit','favourite','favorite','mest stolt'],
+        tools:[['rank_projects','{ by: "pride" }','ok']],
+        text:L('Svært at vælge, men patterniseverything.com har en særlig plads — 249 emner, bygget helt fra bunden, med en galaksevisning og små spil. Det startede som "en lille idé" og løb løbsk, sådan som de fleste af mine projekter gør. TVDP Agent er jeg også stolt af, fordi den faktisk bliver brugt i hverdagen.',
+               'Hard to pick, but patterniseverything.com has a special place — 249 topics, built entirely from scratch, with a galaxy view and little games. It started as "a small idea" and ran away with me, like most of my projects do. I\'m also proud of TVDP Agent, because it actually gets used day to day.'),
+        fu:L(['Vis alle projekter','Hvad med AI-agenter?','Er du ledig?'],['Show all projects','What about AI agents?','Are you available?']),
+        projects:['pie','tvdp'] },
+
+      { id:'contact', keys:['kontakt','contact','hire','ansæt','ansaet','email','mail','cv','ledig','available','samarbejd','collaborat','fat i dig','reach'],
+        tools:[['open_contact','{}','ok']],
+        text:L('Rigtig gerne. Jeg er åben for muligheder inden for data engineering, ML og design. Nemmest er at skrive til <span class="num">m.lundum.andersen@gmail.com</span>, eller finde mig på LinkedIn og GitHub. Mit CV ligger også nederst på siden — på både dansk og engelsk.',
+               'I\'d love to. I\'m open to opportunities in data engineering, ML and design. Easiest is to email <span class="num">m.lundum.andersen@gmail.com</span>, or find me on LinkedIn and GitHub. My CV is at the bottom of the page too — in both Danish and English.'),
+        fu:L(['Hvad leder du efter?','Vis dine bedste projekter','Hvad byggede du hos Vestas?'],['What are you looking for?','Show your best projects','What did you build at Vestas?']),
+        projects:[] },
+
+      { id:'all', keys:['alle','all','alt','portfolio','vis mig','everything','liste','list','projekter','projects'],
+        tools:[['search_projects','{}',L('6 træf','6 hits')]],
+        text:L('Klart — her er alle seks. Klik dig ind i dem du er nysgerrig på:',
+               'Sure — here are all six. Click into the ones you\'re curious about:'),
+        fu:L(['Hvad er du mest stolt af?','Er du ledig?','Hvordan endte en elektriker med data?'],['What are you most proud of?','Are you available?','How did an electrician end up in data?']),
+        projects:['pie','dkelnet','tr2','tvdp','gp','roindex'] },
+
+      { id:'who', keys:['hvem er du','who are you','hvem','who','om dig','about you','dig selv','yourself','præsenter','introduce'],
+        tools:[['load_profile','{}','ok']],
+        text:L('Kort fortalt: jeg hedder Morten, bor i Aarhus. Til daglig er jeg Lead Test Supervisor hos Vestas, og jeg arbejder mig mere og mere ind i data, ML og design — det er den vej jeg er på. Jeg startede som elektriker og endte med at bygge ML-modeller og AI-agenter, mest fordi jeg ikke kan lade være med at ville forstå hvordan ting virker. Hvad vil du grave i?',
+               'Short version: I\'m Morten, based in Aarhus. Day to day I\'m Lead Test Supervisor at Vestas, and I\'m working my way deeper into data, ML and design — that\'s the direction I\'m headed. I started out as an electrician and ended up building ML models and AI agents, mostly because I can\'t help wanting to understand how things work. What would you like to dig into?'),
+        fu:L(['Hvordan endte en elektriker med data?','Vis dit ML-arbejde','Er du ledig lige nu?'],['How did an electrician end up in data?','Show your ML work','Are you available right now?']),
+        projects:[] }
+    ];
+    }
+    buildIntents();
+
+    var STARTERS = { da:['Hvem er du?','Er elnettet rent lige nu?','Hvad byggede du hos Vestas?','Vis alt uden frameworks','Hvad med AI-agenter?','Hvad leder du efter?'],
+                     en:['Who are you?','Is the grid clean right now?','What did you build at Vestas?','Show everything without frameworks','What about AI agents?','What are you looking for?'] };
+
+    var OPENERS = { da:['','Godt spørgsmål — ','Ja — ','Klart — ','Med glæde — '],
+                    en:['','Good question — ','Yeah — ','Sure — ','Happily — '] };
+
+    var stream=document.getElementById('agStream'), rail=document.getElementById('agRail'),
+        railEmpty=document.getElementById('agRailEmpty'), railCount=document.getElementById('agRailCount'),
+        chipsEl=document.getElementById('agChips'), input=document.getElementById('agQ'), send=document.getElementById('agSend');
+    if(!stream) return;
+    var busy=false, totalCalls=0, started=false, turn=0, lastIntentId=null;
+
+    function byId(id){ for(var i=0;i<INTENTS.length;i++) if(INTENTS[i].id===id) return INTENTS[i]; return null; }
+
+    function renderStarters(){
+      chipsEl.innerHTML='';
+      (STARTERS[lang()]||STARTERS.da).forEach(function(q){
+        var c=document.createElement('button'); c.type='button'; c.className='sg-chip'; c.textContent=q;
+        c.onclick=function(){ if(!busy){ input.value=q; run(q); } };
+        chipsEl.appendChild(c);
+      });
+    }
+
+    function scrollDown(){ stream.scrollTop=stream.scrollHeight; }
+    function wait(ms){ return new Promise(function(r){ setTimeout(r, reduced?0:ms); }); }
+
+    function words(q){ return q.toLowerCase().split(/[^a-zæøåäöü0-9]+/).filter(Boolean); }
+    function match(q){
+      var s=q.toLowerCase(), w=words(q);
+      // 1) korte glue-ord matches som hele ord (hej, tak, mere…)
+      for(var i=0;i<INTENTS.length;i++){ var it=INTENTS[i]; if(!it.word) continue;
+        for(var k=0;k<it.keys.length;k++){ var key=it.keys[k];
+          if(key.indexOf(' ')>-1){ if(s.indexOf(key)>-1) return it; }
+          else if(w.indexOf(key)>-1) return it; } }
+      // 2) emner matches som delstreng, i defineret rækkefølge
+      for(var j=0;j<INTENTS.length;j++){ var it2=INTENTS[j]; if(it2.word) continue;
+        for(var m=0;m<it2.keys.length;m++){ if(s.indexOf(it2.keys[m])>-1) return it2; } }
+      return null;
+    }
+
+    function addUser(text){
+      var m=document.createElement('div'); m.className='msg user';
+      m.innerHTML='<span class="who">'+L('Dig','You')+'</span><span class="bubble"></span>';
+      m.querySelector('.bubble').textContent=text; stream.appendChild(m); scrollDown();
+    }
+    function addTool(t){
+      railEmpty.style.display='none';
+      var el=document.createElement('div'); el.className='tool';
+      el.innerHTML='<span class="call"><span class="fn">'+t[0]+'</span><span class="arg">('+t[1]+')</span></span>'+
+                   '<span class="res"><span class="sp"></span>'+L('kører…','running…')+'</span>';
+      rail.appendChild(el); rail.scrollTop=rail.scrollHeight;
+      requestAnimationFrame(function(){ el.classList.add('in'); });
+      return el;
+    }
+    function resolveTool(el,result){ el.querySelector('.res').innerHTML='<span class="ok">✓</span> '+result; totalCalls++; railCount.textContent=totalCalls; }
+    function agentBubble(){
+      var m=document.createElement('div'); m.className='msg agent';
+      m.innerHTML='<span class="who">morten</span><span class="bubble"><span class="caret"></span></span>';
+      stream.appendChild(m); scrollDown(); return m.querySelector('.bubble');
+    }
+    async function typeInto(bubble,html){
+      if(reduced){ bubble.innerHTML=html; return; }
+      var i=0, out='';
+      while(i<html.length){
+        if(html[i]==='<'){ var j=html.indexOf('>',i); out+=html.slice(i,j+1); i=j+1; }
+        else { out+=html[i]; i++; }
+        bubble.innerHTML=out+'<span class="caret"></span>'; scrollDown();
+        if(i%2===0) await wait(9);
+      }
+      bubble.innerHTML=out;
+    }
+    function renderResults(bubble,keys){
+      if(!keys||!keys.length) return;
+      var box=document.createElement('div'); box.className='results';
+      keys.forEach(function(k){
+        var meta=META[k]||{tag:'',title:k};
+        var r=document.createElement('button'); r.type='button'; r.className='result'; r.setAttribute('aria-haspopup','dialog');
+        r.innerHTML='<span class="rtag">'+meta.tag+'</span><span class="rt">'+meta.title+'</span>';
+        r.onclick=function(){ if(typeof openModal==='function') openModal(k); };
+        box.appendChild(r);
+      });
+      bubble.appendChild(box); scrollDown();
+    }
+    function renderFollowups(bubble,arr){
+      if(!arr||!arr.length) return;
+      var wrap=document.createElement('div'); wrap.className='followups';
+      var lbl=document.createElement('span'); lbl.className='fu-label'; lbl.textContent=L('Du kan også spørge','You could also ask'); wrap.appendChild(lbl);
+      var row=document.createElement('div'); row.className='fu-row';
+      arr.forEach(function(q){
+        var c=document.createElement('button'); c.type='button'; c.className='fu-chip'; c.textContent=q;
+        c.onclick=function(){ if(!busy) run(q); };
+        row.appendChild(c);
+      });
+      wrap.appendChild(row); bubble.appendChild(wrap); scrollDown();
+    }
+
+    async function run(q){
+      if(busy) return; busy=true; send.disabled=true; started=true; input.value='';
+      addUser(q);
+      var it=match(q);
+      await wait(240);
+
+      // "fortæl mere" → uddyb sidste emne
+      if(it && it.id==='more'){
+        var bubbleM=agentBubble();
+        var li = lastIntentId && byId(lastIntentId);
+        if(li && li.more){
+          await wait(220);
+          await typeInto(bubbleM, li.more);
+          renderResults(bubbleM, li.projects);
+          renderFollowups(bubbleM, li.fu);
+        } else {
+          await wait(200);
+          await typeInto(bubbleM, L('Med glæde — hvad vil du gerne have mig til at uddybe? Prøv f.eks. ét af emnerne herunder.',
+                                    'Happily — what would you like me to expand on? Try one of the topics below.'));
+          renderFollowups(bubbleM, L(['Vis dit ML-arbejde','Hvad med AI-agenter?','Hvordan endte en elektriker med data?'],
+                                     ['Show your ML work','What about AI agents?','How did an electrician end up in data?']));
+        }
+        busy=false; send.disabled=false; input.focus(); return;
+      }
+
+      var bubble=agentBubble();
+      if(!it){
+        await wait(240);
+        await typeInto(bubble, L(
+          'Hmm, den er jeg ikke helt sikker på hvordan jeg skal svare på endnu — jeg er trods alt kun en lille scriptet udgave af Morten. Men prøv et af de her, så er jeg med:',
+          'Hmm, I\'m not quite sure how to answer that one yet — I\'m only a little scripted version of Morten, after all. But try one of these and I\'m right with you:'));
+        renderFollowups(bubble, (STARTERS[lang()]||STARTERS.da).slice(0,4));
+        busy=false; send.disabled=false; input.focus(); return;
+      }
+
+      // tool-calls (emner med værktøjer)
+      if(it.tools){
+        for(var i=0;i<it.tools.length;i++){
+          var t=it.tools[i]; await wait(220);
+          var el=addTool(t); await wait(540);
+          var res=t[2];
+          if(it.grid && t[0]==='fetch_grid_data'){ var g=window.MLN_GRID||{re:90,co2:21}; res='re='+g.re+'% · co2='+g.co2; }
+          resolveTool(el,res);
+        }
+        await wait(180);
+      }
+
+      var text=it.text;
+      if(it.grid){ var g2=window.MLN_GRID||{re:90,co2:21}; text=text.replace('__RE__',g2.re).replace('__CO2__',g2.co2); }
+      // lille varieret optakt fra 2. tur og frem (ikke på hilsner/tak)
+      if(turn>0 && ['greeting','howareyou','thanks','grid'].indexOf(it.id)===-1 && text.slice(0,28).indexOf(' — ')===-1){
+        var pool=OPENERS[lang()]||OPENERS.da; var op=pool[turn % pool.length];
+        if(op) text=op+text.charAt(0).toLowerCase()+text.slice(1);
+      }
+      await typeInto(bubble,text);
+      renderResults(bubble,it.projects);
+      renderFollowups(bubble,it.fu);
+
+      if(['greeting','howareyou','thanks','more'].indexOf(it.id)===-1) lastIntentId=it.id;
+      turn++;
+      busy=false; send.disabled=false; input.focus();
+    }
+
+    function intro(){
+      stream.innerHTML='';
+      var m=document.createElement('div'); m.className='msg agent';
+      m.innerHTML='<span class="who">morten</span><span class="bubble">'+
+        L('Hej 👋 Jeg er en lille digital udgave af Morten. Spørg løs om mit arbejde, min baggrund, eller hvad du sidder og tænker — jeg svarer så godt jeg kan.',
+          'Hi 👋 I\'m a little digital version of Morten. Ask me anything about my work, my background, or whatever\'s on your mind — I\'ll answer as best I can.')+
+        '</span>';
+      stream.appendChild(m);
+    }
+
+    send.onclick=function(){ var v=input.value.trim(); if(v&&!busy) run(v); };
+    input.onkeydown=function(e){ if(e.key==='Enter'){ var v=input.value.trim(); if(v&&!busy) run(v); } };
+
+    document.addEventListener('mln:lang', function(){ buildIntents(); renderStarters(); if(!started && !busy) intro(); });
+
+    renderStarters();
+    intro();
   })();
   </script>
 
