@@ -14,8 +14,8 @@
   <meta property="og:title" content="Morten Lundum-Nørgaard — Data · ML · Design" />
   <meta property="og:description" content="Morten Lundum-Nørgaard — fra elektriker på vej ind i data &amp; ML. Jeg bygger ML-modeller, AI-agenter og interaktive datavisualiseringer, hvor solid teknik og godt design mødes." />
   <meta property="og:url" content="https://mlnorgaard.com/" />
-  <meta property="og:image" content="https://mlnorgaard.com/assets/og-card.png?v=4" />
-  <meta property="og:image:secure_url" content="https://mlnorgaard.com/assets/og-card.png?v=4" />
+  <meta property="og:image" content="https://mlnorgaard.com/assets/og-card.png?v=5" />
+  <meta property="og:image:secure_url" content="https://mlnorgaard.com/assets/og-card.png?v=5" />
   <meta property="og:image:type" content="image/png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
@@ -24,7 +24,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Morten Lundum-Nørgaard — Data · ML · Design" />
   <meta name="twitter:description" content="Morten Lundum-Nørgaard — fra elektriker på vej ind i data &amp; ML. Jeg bygger ML-modeller, AI-agenter og interaktive datavisualiseringer, hvor solid teknik og godt design mødes." />
-  <meta name="twitter:image" content="https://mlnorgaard.com/assets/og-card.png?v=4" />
+  <meta name="twitter:image" content="https://mlnorgaard.com/assets/og-card.png?v=5" />
 
   <!-- Favicon: lime M på mørk baggrund, inline SVG (ingen ekstra request) -->
   <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20100%20100'%3E%3Crect%20width='100'%20height='100'%20rx='20'%20fill='%2305080D'/%3E%3Ctext%20x='50'%20y='70'%20font-family='monospace'%20font-size='60'%20font-weight='700'%20fill='%23C8FF00'%20text-anchor='middle'%3EM%3C/text%3E%3C/svg%3E" />
@@ -49,7 +49,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -491,11 +491,24 @@
       #hero { padding: 0 1.3rem 6vh; }
       .hero-hint { display: none; }
       .nav-links { gap: 1rem; }
-      .nav-links li.nav-textlink { display: none; }
       .nav-right { gap: .8rem; }
       .modal-detail-grid { grid-template-columns: 1fr; }
       .modal-body { padding: 1.25rem; }
       footer { flex-direction: column; gap: .5rem; text-align: center; }
+    }
+
+    @media (max-width: 560px) {
+      nav { padding: .85rem 1rem; }
+      .nav-right { gap: .7rem; }
+      .nav-links { gap: .8rem; }
+      .nav-links a { font-size: .74rem; letter-spacing: .02em; }
+      .nav-cta { padding: .45rem .8rem; }
+    }
+
+    /* Kun for skærmlæsere */
+    .sr-only {
+      position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -566,7 +579,7 @@
           <span class="con-status"><span class="pip"></span><span data-da="til stede" data-en="present">til stede</span></span>
         </div>
         <div class="con-grid">
-          <div class="stream" id="agStream" aria-live="polite"></div>
+          <div class="stream" id="agStream"></div>
           <div class="rail">
             <div class="rail-h"><span data-da="Tool calls" data-en="Tool calls">Tool calls</span><span id="agRailCount">0</span></div>
             <div id="agRail"></div>
@@ -582,6 +595,7 @@
           <p class="con-hint" data-da="En lille digital udgave af mig · kører i din browser · elnet-tallet er live" data-en="A little digital version of me · runs in your browser · grid figure is live">En lille digital udgave af mig · kører i din browser · elnet-tallet er live</p>
         </div>
       </div>
+      <div id="agLive" class="sr-only" aria-live="polite" aria-atomic="true"></div>
 
     </section>
 
@@ -643,7 +657,7 @@
   </footer>
 
   <!-- PROJECT MODAL -->
-  <div class="modal-backdrop" id="projectModal" onclick="closeModal(event)">
+  <div class="modal-backdrop" id="projectModal" onclick="closeModal(event)" aria-hidden="true">
     <div class="modal" id="modalContent" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
       <button class="modal-close" onclick="closeModal(null, true)" aria-label="Luk / Close" data-da-label="Luk" data-en-label="Close">✕</button>
       <div class="modal-preview" id="modalPreview"></div>
@@ -1123,6 +1137,7 @@
     lastFocused = document.activeElement;
     var modal = document.getElementById('projectModal');
     modal.classList.add('open');
+    modal.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
     // Flyt fokus ind i dialogen (efter den er synlig)
     requestAnimationFrame(function() {
@@ -1137,6 +1152,7 @@
     var modal = document.getElementById('projectModal');
     if (force || (e && e.target === modal)) {
       modal.classList.remove('open');
+      modal.setAttribute('aria-hidden', 'true');
       document.body.style.overflow = '';
       // Giv fokus tilbage til det kort der åbnede modalen
       if (lastFocused && typeof lastFocused.focus === 'function') lastFocused.focus();
@@ -1435,8 +1451,12 @@
       m.innerHTML='<span class="who">morten</span><span class="bubble"><span class="caret"></span></span>';
       stream.appendChild(m); scrollDown(); return m.querySelector('.bubble');
     }
+    function announce(html){
+      var live=document.getElementById('agLive');
+      if(live) live.textContent = html.replace(/<[^>]*>/g,'');
+    }
     async function typeInto(bubble,html){
-      if(reduced){ bubble.innerHTML=html; return; }
+      if(reduced){ bubble.innerHTML=html; announce(html); return; }
       var i=0, out='';
       while(i<html.length){
         if(html[i]==='<'){ var j=html.indexOf('>',i); out+=html.slice(i,j+1); i=j+1; }
@@ -1445,6 +1465,7 @@
         if(i%2===0) await wait(9);
       }
       bubble.innerHTML=out;
+      announce(html); // skærmlæsere får kun det færdige svar, ikke hvert token
     }
     function renderResults(bubble,keys){
       if(!keys||!keys.length) return;
